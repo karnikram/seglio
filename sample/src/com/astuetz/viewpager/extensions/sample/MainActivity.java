@@ -64,10 +64,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
-        // create our manager instance after the content view is set
-        mTintManager = new SystemBarTintManager(this);
-        // enable status bar tint
-        mTintManager.setStatusBarTintEnabled(true);
+
         adapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
@@ -92,58 +89,6 @@ public class MainActivity extends ActionBarActivity {
         title.setTypeface(titleFont);
     }
 
-
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_contact:
-//                QuickContactFragment.newInstance().show(getSupportFragmentManager(), "QuickContactFragment");
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-//    private void changeColor(int newColor) {
-//        tabs.setBackgroundColor(newColor);
-//        mTintManager.setTintColor(newColor);
-//        // change ActionBar color just if an ActionBar is available
-//        Drawable colorDrawable = new ColorDrawable(newColor);
-//        Drawable bottomDrawable = new ColorDrawable(getResources().getColor(android.R.color.transparent));
-//        LayerDrawable ld = new LayerDrawable(new Drawable[]{colorDrawable, bottomDrawable});
-//        if (oldBackground == null) {
-//            getSupportActionBar().setBackgroundDrawable(ld);
-//        } else {
-//            TransitionDrawable td = new TransitionDrawable(new Drawable[]{oldBackground, ld});
-//            getSupportActionBar().setBackgroundDrawable(td);
-//            td.startTransition(200);
-//        }
-//
-//        oldBackground = ld;
-//        currentColor = newColor;
-//    }
-//
-//    public void onColorClicked(View v) {
-//        int color = Color.parseColor(v.getTag().toString());
-//        changeColor(color);
-//    }
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt("currentColor", currentColor);
-//    }
-//
-//    @Override
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        currentColor = savedInstanceState.getInt("currentColor");
-//        changeColor(currentColor);
-//    }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
