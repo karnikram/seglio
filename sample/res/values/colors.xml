@@ -5,5 +5,5 @@
     <color name ="accentColor">#8BC34A</color>
     <color name ="primaryTextColor">#212121</color>
     <color name ="secondaryTextColor">#757575</color>
-    <color name="hintColor">#BDBDBD</color>
+    <color name="backColor">#EEEEEE</color>
 </resources>

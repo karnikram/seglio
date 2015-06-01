@@ -16,12 +16,8 @@
 
 package com.astuetz.viewpager.extensions.sample;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,39 +26,34 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MainActivity extends ActionBarActivity {
 
-    @InjectView(R.id.toolbar)
-    Toolbar toolbar;
-    @InjectView(R.id.tabs)
-    PagerSlidingTabStrip tabs;
-    @InjectView(R.id.pager)
-    ViewPager pager;
+
+    private Toolbar toolbar;
+    private PagerSlidingTabStrip tabs;
+    private ViewPager pager;
+    private MyPagerAdapter adapter;
 
     private TextView title;
     private Typeface titleFont;
-
-    private MyPagerAdapter adapter;
-
-    private SystemBarTintManager mTintManager;
+    private ImageView iconLogin;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        pager = (ViewPager)findViewById(R.id.pager);
+
         setSupportActionBar(toolbar);
 
         adapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -74,23 +65,24 @@ public class MainActivity extends ActionBarActivity {
         pager.setCurrentItem(1);
 
 
-        tabs.setOnTabReselectedListener(new PagerSlidingTabStrip.OnTabReselectedListener()
-        {
-            @Override
-            public void onTabReselected(int position)
-            {
-                Toast.makeText(MainActivity.this, "Tab reselected: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         titleFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/TitleFont.otf");
         title = (TextView)findViewById(R.id.title);
         title.setTypeface(titleFont);
+
+        iconLogin = (ImageView)findViewById(R.id.action_login);
+        iconLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
     }
 
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
+    public class MyPagerAdapter extends FragmentPagerAdapter
+    {
 
         private final String[] TITLES = {"RECENTS","SEARCH","POST"};
 
