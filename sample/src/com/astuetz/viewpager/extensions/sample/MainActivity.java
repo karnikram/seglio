@@ -31,6 +31,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -50,9 +53,16 @@ public class MainActivity extends ActionBarActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        Parse.initialize(this, "5EDgjGMNvj8Eb5CEjW9uPWB9wARKTSNIJwAN1v2K", "6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq");
+
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
         pager = (ViewPager)findViewById(R.id.pager);
+
 
         setSupportActionBar(toolbar);
 
@@ -78,6 +88,11 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
         });
+
+        //for testing purpose
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
     }
 
 
