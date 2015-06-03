@@ -12,4 +12,8 @@
 
     </style>
 
+    <style name ="FloatingLabel">
+        <item name="android:textColor">@color/accentColor</item>
+    </style>
+
 </resources>

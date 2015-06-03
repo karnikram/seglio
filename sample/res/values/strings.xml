@@ -11,4 +11,16 @@
     <string name="name">Name</string>
     <string name="register">Register</string>
 
+    <string-array name="departments">
+        <item>ECE</item>
+        <item>EEE</item>
+        <item>CSE</item>
+        <item>IT</item>
+    </string-array>
+
+    <string-array name="contact">
+        <item>Contact by only Email</item>
+        <item>Phone</item>
+    </string-array>
+
 </resources>

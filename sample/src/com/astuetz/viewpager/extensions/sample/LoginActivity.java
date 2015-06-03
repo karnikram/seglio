@@ -34,7 +34,7 @@ public class LoginActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         titleFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf");
-        title = (TextView) findViewById(R.id.title);
+        title = (TextView) findViewById(R.id.tool_title);
         title.setTypeface(titleFont);
 
         emailedit = (EditText) findViewById(R.id.email);

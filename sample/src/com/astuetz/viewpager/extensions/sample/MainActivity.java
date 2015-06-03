@@ -35,7 +35,8 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+{
 
 
     private Toolbar toolbar;
@@ -58,9 +59,9 @@ public class MainActivity extends ActionBarActivity {
 
         Parse.initialize(this, "5EDgjGMNvj8Eb5CEjW9uPWB9wARKTSNIJwAN1v2K", "6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq");
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
-        pager = (ViewPager)findViewById(R.id.pager);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        pager = (ViewPager) findViewById(R.id.pager);
 
 
         setSupportActionBar(toolbar);
@@ -75,12 +76,13 @@ public class MainActivity extends ActionBarActivity {
 
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        titleFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/TitleFont.otf");
-        title = (TextView)findViewById(R.id.title);
+        titleFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf");
+        title = (TextView) findViewById(R.id.tool_title);
         title.setTypeface(titleFont);
 
-        iconLogin = (ImageView)findViewById(R.id.action_login);
-        iconLogin.setOnClickListener(new View.OnClickListener() {
+        iconLogin = (ImageView) findViewById(R.id.action_login);
+        iconLogin.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -98,25 +100,44 @@ public class MainActivity extends ActionBarActivity {
     public class MyPagerAdapter extends FragmentPagerAdapter
     {
 
-        private final String[] TITLES = {"RECENTS","SEARCH","POST"};
+        private final String[] TITLES = {"RECENTS", "SEARCH", "POST"};
 
-        public MyPagerAdapter(FragmentManager fm) {
+        public MyPagerAdapter(FragmentManager fm)
+        {
             super(fm);
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
+        public CharSequence getPageTitle(int position)
+        {
             return TITLES[position];
         }
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return TITLES.length;
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
+        public Fragment getItem(int position)
+        {
+            Fragment temp = null;
+            switch(position)
+            {
+                case 0:
+                    temp = SuperAwesomeCardFragment.newInstance(position);
+                    break;
+
+                case 1:
+                    temp = SuperAwesomeCardFragment.newInstance(position);
+                    break;
+
+                case 2:
+                    temp = PostCardFragment.newInstance();
+                    break;
+            }
+            return temp;
         }
     }
 }
