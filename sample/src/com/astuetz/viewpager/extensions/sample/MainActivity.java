@@ -90,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
 
         //for testing purpose
         ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
+        testObject.put("Project", "Biblio");
         testObject.saveInBackground();
     }
 
