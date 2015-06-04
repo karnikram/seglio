@@ -14,9 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
 import com.wrapp.floatlabelededittext.FloatLabeledEditText;
 
 
@@ -24,9 +26,12 @@ public class PostCardFragment extends Fragment
 {
 
     TextView welcomeMessage;
-    EditText title,author,locality,description;
-    Spinner dept,contact;
+    EditText title, author, locality, description;
+    Spinner dept, contact;
     FloatLabeledEditText phone;
+    ImageView phoneIcon;
+
+    CircularProgressButton uploadButton;
 
     public static PostCardFragment newInstance()
     {
@@ -46,12 +51,15 @@ public class PostCardFragment extends Fragment
         View rootView = inflater.inflate(R.layout.post_card, container, false);
         welcomeMessage = (TextView) rootView.findViewById(R.id.welcome);
         title = (EditText) rootView.findViewById(R.id.title);
-        author = (EditText)rootView.findViewById(R.id.author);
+        author = (EditText) rootView.findViewById(R.id.author);
         dept = (Spinner) rootView.findViewById(R.id.dept_spinner);
         contact = (Spinner) rootView.findViewById(R.id.cont_spinner);
+        phoneIcon = (ImageView) rootView.findViewById(R.id.phone_icon);
         phone = (FloatLabeledEditText) rootView.findViewById(R.id.phone);
         phone.setVisibility(View.INVISIBLE);
         ViewCompat.setElevation(rootView, 50);
+
+        uploadButton = (CircularProgressButton) rootView.findViewById(R.id.circularButton1);
         return rootView;
     }
 
@@ -66,20 +74,22 @@ public class PostCardFragment extends Fragment
         dept.setAdapter(deptAdapter);
 
         ArrayAdapter<CharSequence> contAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
-                R.array.contact,R.layout.spinner_item);
+                R.array.contact, R.layout.spinner_item);
         contact.setAdapter(contAdapter);
 
-        contact.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        contact.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                if(position == 0)
+                if (position == 0)
                 {
                     phone.setVisibility(View.INVISIBLE);
                 }
-                if(position == 1)
+                if (position == 1)
                 {
                     phone.setVisibility(View.VISIBLE);
+                    phoneIcon.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -89,5 +99,30 @@ public class PostCardFragment extends Fragment
 
             }
         });
+
+        uploadButton.setIndeterminateProgressMode(true);
+        uploadButton.setBackgroundColor(getActivity().getResources().getColor(R.color.accentColor));
+        uploadButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (uploadButton.getProgress() == 0)
+                {
+                    uploadButton.setProgress(100);  //Upload complete state
+                }
+
+
+            else
+
+            {
+                uploadButton.setProgress(-1); //Error state
+            }
+        }
     }
+
+    );
+}
+
+
 }

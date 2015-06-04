@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             xmlns:float="http://schemas.android.com/apk/res-auto"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -35,38 +36,53 @@
                     android:textSize="12sp"
                     android:textStyle="italic"/>
 
-                <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    float:fletTextAppearance="@style/FloatingLabel">
-
-                    <EditText
-                        android:id="@+id/title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Title"
-                        android:inputType="textCapWords"
-                        android:maxLength="40"
-                        android:textSize="16sp"
-                        />
-                </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-
-                <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    float:fletTextAppearance="@style/FloatingLabel"
+                    android:orientation="horizontal"
                     >
 
-                    <LinearLayout
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/abc"
+                        android:layout_marginRight="8dp"/>
+
+                    <com.wrapp.floatlabelededittext.FloatLabeledEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="15dp"
+                        float:fletTextAppearance="@style/FloatingLabel">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/account_circle"/>
+                            android:hint="Title"
+                            android:inputType="textCapWords"
+                            android:maxLength="40"
+                            android:textSize="16sp"
+                            />
+                    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/account_circle"
+                        android:layout_marginRight="8dp"/>
+
+                    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        float:fletTextAppearance="@style/FloatingLabel"
+                        >
 
                         <EditText
                             android:id="@+id/author"
@@ -78,16 +94,29 @@
                             android:maxLength="30"
                             android:textSize="16sp"
                             />
-                    </LinearLayout>
-                </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+                    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+                </LinearLayout>
 
                 <Spinner
                     android:id="@+id/dept_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-
                     />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/web"
+                        android:layout_marginRight="8dp"/>
 
                 <com.wrapp.floatlabelededittext.FloatLabeledEditText
                     android:layout_width="match_parent"
@@ -108,6 +137,19 @@
                         />
                 </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/comment"
+                    android:layout_marginRight="8dp"/>
+
                 <com.wrapp.floatlabelededittext.FloatLabeledEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,6 +167,19 @@
                         android:textSize="16sp"
                         />
                 </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/currency"
+                        android:layout_marginRight="8dp"/>
 
                 <com.wrapp.floatlabelededittext.FloatLabeledEditText
                     android:layout_width="match_parent"
@@ -144,12 +199,27 @@
                         />
                 </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
+                </LinearLayout>
+
                 <Spinner
                     android:id="@+id/cont_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/tablet"
+                    android:id="@+id/phone_icon"
+                    android:visibility="gone"
+                    android:layout_marginRight="8dp"/>
 
                 <com.wrapp.floatlabelededittext.FloatLabeledEditText
                     android:id="@+id/phone"
@@ -162,19 +232,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:textSize="16dp"
                         android:hint="Mobile Number"
                         android:inputType="phone"
+                        android:maxLength="10"
                         />
 
                 </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
-                <Button
-                    android:layout_width="wrap_content"
+            </LinearLayout>
+
+                <com.dd.CircularProgressButton
+                    android:id="@+id/circularButton1"
+                    android:layout_width="98dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/primaryColor"
-                    android:text="Submit"
-                    android:textColor="@color/accentColor"/>
+                    android:textColor="@color/cpb_white"
+                    android:textSize="26sp"
+                    app:cpb_cornerRadius="48dp"
+                    app:cpb_iconComplete="@drawable/ic_action_accept"
+                    app:cpb_iconError="@drawable/ic_action_cancel"
+                    app:cpb_textIdle="Post!"
+                    />
 
             </LinearLayout>
 
