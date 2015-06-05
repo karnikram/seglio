@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -61,9 +63,14 @@ public class RegisterActivity extends ActionBarActivity
                setSupportProgressBarIndeterminateVisibility(true);
 
                 ParseUser newUser = new ParseUser();
-                newUser.setUsername(name);
+                newUser.setUsername(email);
                 newUser.setPassword(password);
                 newUser.setEmail(email);
+                newUser.put("Name",name);
+
+
+
+
 
                 if(email.isEmpty()||password.isEmpty()||confirmPassword.isEmpty()||name.isEmpty())
                 {

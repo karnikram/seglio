@@ -1,4 +1,3 @@
-
 package com.astuetz.viewpager.extensions.sample;
 
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
+import com.parse.ParseObject;
 import com.wrapp.floatlabelededittext.FloatLabeledEditText;
 
 
@@ -26,8 +26,8 @@ public class PostCardFragment extends Fragment
 {
 
     TextView welcomeMessage;
-    EditText title, author, locality, description;
-    Spinner dept, contact;
+    EditText titleEdit, authorEdit, localityEdit, descriptionEdit, priceEdit;
+    Spinner deptSpin, contactSpin;
     FloatLabeledEditText phone;
     ImageView phoneIcon;
 
@@ -50,10 +50,13 @@ public class PostCardFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.post_card, container, false);
         welcomeMessage = (TextView) rootView.findViewById(R.id.welcome);
-        title = (EditText) rootView.findViewById(R.id.title);
-        author = (EditText) rootView.findViewById(R.id.author);
-        dept = (Spinner) rootView.findViewById(R.id.dept_spinner);
-        contact = (Spinner) rootView.findViewById(R.id.cont_spinner);
+        titleEdit = (EditText) rootView.findViewById(R.id.title);
+        authorEdit = (EditText) rootView.findViewById(R.id.author);
+        descriptionEdit = (EditText) rootView.findViewById(R.id.description);
+        localityEdit = (EditText) rootView.findViewById(R.id.locality);
+        priceEdit = (EditText) rootView.findViewById(R.id.price);
+        deptSpin = (Spinner) rootView.findViewById(R.id.dept_spinner);
+        contactSpin = (Spinner) rootView.findViewById(R.id.cont_spinner);
         phoneIcon = (ImageView) rootView.findViewById(R.id.phone_icon);
         phone = (FloatLabeledEditText) rootView.findViewById(R.id.phone);
         phone.setVisibility(View.INVISIBLE);
@@ -71,13 +74,13 @@ public class PostCardFragment extends Fragment
 
         ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                 R.array.departments, R.layout.spinner_item);
-        dept.setAdapter(deptAdapter);
+        deptSpin.setAdapter(deptAdapter);
 
         ArrayAdapter<CharSequence> contAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                 R.array.contact, R.layout.spinner_item);
-        contact.setAdapter(contAdapter);
+        contactSpin.setAdapter(contAdapter);
 
-        contact.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        contactSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
@@ -103,26 +106,43 @@ public class PostCardFragment extends Fragment
         uploadButton.setIndeterminateProgressMode(true);
         uploadButton.setBackgroundColor(getActivity().getResources().getColor(R.color.accentColor));
         uploadButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (uploadButton.getProgress() == 0)
-                {
-                    uploadButton.setProgress(100);  //Upload complete state
-                }
+                                        {
+                                            @Override
+                                            public void onClick(View v)
+                                            {
+                                                String title = titleEdit.getText().toString();
+                                                String author = authorEdit.getText().toString();
+                                                String location = localityEdit.getText().toString();
+                                                String descp = descriptionEdit.getText().toString();
+                                                int price = Integer.parseInt(priceEdit.getText().toString());
+                                                String dept = deptSpin.getSelectedItem().toString();
 
 
-            else
+                                                if (uploadButton.getProgress() == 0)
+                                                {
+                                                    ParseObject book = new ParseObject("Posted");
+                                                    book.put("Title",title);
+                                                    book.put("Author",author);
+                                                    book.put("Place",location);
+                                                    book.put("Description",descp);
+                                                    book.put("Price",price);
+                                                    book.put("Department",dept);
+                                                    book.saveInBackground();
 
-            {
-                uploadButton.setProgress(-1); //Error state
-            }
-        }
+                                                    uploadButton.setProgress(100);  //Upload complete state
+                                                }
+
+
+                                                else
+
+                                                {
+                                                    uploadButton.setProgress(-1); //Error state
+                                                }
+                                            }
+                                        }
+
+        );
     }
-
-    );
-}
 
 
 }

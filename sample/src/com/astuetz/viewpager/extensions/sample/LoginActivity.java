@@ -85,16 +85,12 @@ public class LoginActivity extends ActionBarActivity {
                                         .setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
-                                {
-
-                                }
 
 
                             }
 
+
                         }
-
-
                     });
                 }
             }
