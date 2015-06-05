@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.wrapp.floatlabelededittext.FloatLabeledEditText;
 
 
@@ -70,7 +71,10 @@ public class PostCardFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        welcomeMessage.setText("Welcome," + " " + "!");
+
+        String loggedUser = ParseUser.getCurrentUser().getString("Name");
+
+           welcomeMessage.setText("Welcome " + loggedUser + "!" );
 
         ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                 R.array.departments, R.layout.spinner_item);
