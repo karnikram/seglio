@@ -72,9 +72,9 @@ public class PostCardFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        String loggedUser = ParseUser.getCurrentUser().getString("Name");
+//        String loggedUser = ParseUser.getCurrentUser().getString("Name");
 
-           welcomeMessage.setText("Welcome " + loggedUser + "!" );
+           welcomeMessage.setText("Welcome " + "" + "!" );
 
         ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                 R.array.departments, R.layout.spinner_item);

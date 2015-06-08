@@ -100,7 +100,7 @@ public class MainActivity extends ActionBarActivity
     public class MyPagerAdapter extends FragmentPagerAdapter
     {
 
-        private final String[] TITLES = {"RECENTS", "SEARCH", "POST"};
+        private final String[] TITLES = {"SEARCH", "RECENTS", "POST"};
 
         public MyPagerAdapter(FragmentManager fm)
         {
@@ -126,11 +126,11 @@ public class MainActivity extends ActionBarActivity
             switch(position)
             {
                 case 0:
-                    temp = SuperAwesomeCardFragment.newInstance(position);
+                    temp = SuperAwesomeCardFragment.newInstance();
                     break;
 
                 case 1:
-                    temp = SuperAwesomeCardFragment.newInstance(position);
+                    temp = RecentsCardFragment.newInstance();
                     break;
 
                 case 2:
