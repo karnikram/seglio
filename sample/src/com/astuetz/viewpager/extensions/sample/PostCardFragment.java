@@ -1,5 +1,7 @@
 package com.astuetz.viewpager.extensions.sample;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
@@ -16,6 +18,7 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 import com.parse.ParseObject;
@@ -120,6 +123,14 @@ public class PostCardFragment extends Fragment
                                                 String descp = descriptionEdit.getText().toString();
                                                 int price = Integer.parseInt(priceEdit.getText().toString());
                                                 String dept = deptSpin.getSelectedItem().toString();
+
+                                                if(title.isEmpty()||author.isEmpty()||location.isEmpty()||descp.isEmpty())
+                                                {
+                                                    Toast.makeText(getActivity(), "One or more fields are empty", Toast.LENGTH_LONG).show();
+                                                    return;
+                                                }
+
+
 
 
                                                 if (uploadButton.getProgress() == 0)

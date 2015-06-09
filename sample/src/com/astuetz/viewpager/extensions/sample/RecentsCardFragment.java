@@ -19,6 +19,7 @@ package com.astuetz.viewpager.extensions.sample;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,8 +30,18 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.ListView;
 
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class RecentsCardFragment extends Fragment
@@ -49,6 +60,12 @@ public class RecentsCardFragment extends Fragment
 
     ArrayList<HashMap<String,String>> items = new ArrayList<>();
 
+
+
+
+
+
+
     //sample hashmaps
     HashMap<String,String> test1 = new HashMap<>();
     HashMap<String,String> test2 = new HashMap<>();
@@ -63,6 +80,7 @@ public class RecentsCardFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -78,29 +96,53 @@ public class RecentsCardFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         recentsList = (ListView)getActivity().findViewById(R.id.recents_list);
 
-        //Sample data being fed into the arraylist
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
+        query.orderByDescending("createdAt");
 
-        test1.put("dept","Electronics and Communication Engineering");
-        test1.put("title","Control Systems Engineering");
-        test1.put("author","Nagoor Kani");
-        test1.put("price", "200");
-        test1.put("place","xcf");
-        test1.put("description","dfdf");
-        items.add(test1);
+          query.findInBackground(new FindCallback<ParseObject>() {
+              @Override
+              public void done(List<ParseObject> parseObjects, ParseException e) {
+
+                  if (e == null) {
+                      for (ParseObject book : parseObjects) {
+
+                          HashMap<String, String> test = new HashMap<>();
+
+                          String dept = book.getString("Department");
+                          String title = book.getString("Title");
+                          String author = book.getString("Author");
+                          Number price_num= book.getNumber("Price");
+                          String price = String.valueOf(price_num);
+                          String place = book.getString("Place");
+                          String desp = book.getString("Description");
+
+                          test.put("dept", dept);
+                          test.put("title", title);
+                          test.put("author", author);
+                          test.put("price",price);
+                          test.put("place", place);
+                          test.put("description", desp);
+
+                          items.add(test);
 
 
-        test2.put("dept","Electronics and Communication Engineering");
-        test2.put("title","Linear Integrated Circuits");
-        test2.put("author","Roy Chaudhari");
-        test2.put("price", "150");
-        test2.put("place","xcv");
-        test2.put("description","dfsdff");
-        items.add(test2);
 
 
-        RecentsAdapter adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
-        recentsList.setAdapter(adapter);
+                          }
+
+                  } else {
+                      Log.d("score", "Error: " + e.getMessage());
+
+                  }
 
 
-    }
-}
+                  RecentsAdapter adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
+                  recentsList.setAdapter(adapter);
+
+
+
+
+
+              }
+    });
+}}
