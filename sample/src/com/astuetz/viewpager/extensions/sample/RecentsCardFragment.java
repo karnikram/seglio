@@ -16,23 +16,26 @@
 
 package com.astuetz.viewpager.extensions.sample;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
-import android.widget.TextView;
 import android.widget.ListView;
+
 
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -49,39 +52,15 @@ public class RecentsCardFragment extends Fragment
 
     ListView recentsList;
 
-    /*
-
-    array list of hashmaps that's going to hold all the data
-    fetch the data from parse and load it onto this
-
-    Each hashmap represents one post.
-
-    */
-
     ArrayList<HashMap<String,String>> items = new ArrayList<>();
 
-
-
-
-
-
-
-    //sample hashmaps
-    HashMap<String,String> test1 = new HashMap<>();
-    HashMap<String,String> test2 = new HashMap<>();
-
+    private  ProgressDialog progress;
 
 
     public static RecentsCardFragment newInstance() {
         RecentsCardFragment f = new RecentsCardFragment();
-        return f;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+            return f;
+        }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,59 +69,92 @@ public class RecentsCardFragment extends Fragment
         return rootView;
     }
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+    }
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+
         recentsList = (ListView)getActivity().findViewById(R.id.recents_list);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please wait! Fetching Recently posted books...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.setCancelable(true);
+        progress.setCanceledOnTouchOutside(false);
+
+        progress.show();
+
+
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
         query.orderByDescending("createdAt");
 
-          query.findInBackground(new FindCallback<ParseObject>() {
-              @Override
-              public void done(List<ParseObject> parseObjects, ParseException e) {
-
-                  if (e == null) {
-                      for (ParseObject book : parseObjects) {
-
-                          HashMap<String, String> test = new HashMap<>();
-
-                          String dept = book.getString("Department");
-                          String title = book.getString("Title");
-                          String author = book.getString("Author");
-                          Number price_num= book.getNumber("Price");
-                          String price = String.valueOf(price_num);
-                          String place = book.getString("Place");
-                          String desp = book.getString("Description");
-
-                          test.put("dept", dept);
-                          test.put("title", title);
-                          test.put("author", author);
-                          test.put("price",price);
-                          test.put("place", place);
-                          test.put("description", desp);
-
-                          items.add(test);
+        query.findInBackground(new FindCallback<ParseObject>() {
 
 
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
 
 
-                          }
+                if (e == null) {
 
-                  } else {
-                      Log.d("score", "Error: " + e.getMessage());
+                    progress.show();
 
-                  }
+                    for (ParseObject book : parseObjects) {
+
+                        HashMap<String, String> test = new HashMap<>();
+
+                        String dept = book.getString("Department");
+                        String title = book.getString("Title");
+                        String author = book.getString("Author");
+                        Number price_num = book.getNumber("Price");
+                        String price = String.valueOf(price_num);
+                        String place = book.getString("Place");
+                        String desp = book.getString("Description");
+
+                        test.put("dept", dept);
+                        test.put("title", title);
+                        test.put("author", author);
+                        test.put("price", price);
+                        test.put("place", place);
+                        test.put("description", desp);
+
+                        items.add(test);
 
 
-                  RecentsAdapter adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
-                  recentsList.setAdapter(adapter);
+                    }
+
+
+                } else {
+                    progress.dismiss();
+                    Log.d("Books", "Error: " + e.getMessage());
+
+                }
+                progress.dismiss();
+
+                RecentsAdapter adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
+                recentsList.setAdapter(adapter);
+
+
+
+            }
+
+
+        });
 
 
 
 
+    }
 
-              }
-    });
-}}
+}
