@@ -22,6 +22,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -29,8 +30,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.ListView;
-
+import android.widget.Toast;
 
 
 import com.parse.FindCallback;
@@ -47,14 +50,16 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class RecentsCardFragment extends Fragment
-{
 
-    ListView recentsList;
+public class RecentsCardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
+{
+    ListView  recentsList;
+
+    private SwipeRefreshLayout refreshBooks;
 
     ArrayList<HashMap<String,String>> items = new ArrayList<>();
 
-    private  ProgressDialog progress;
+    // Handler handler;
 
 
     public static RecentsCardFragment newInstance() {
@@ -66,35 +71,42 @@ public class RecentsCardFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recents_card,container,false);
         ViewCompat.setElevation(rootView,50);
+        refreshBooks = (SwipeRefreshLayout) rootView.findViewById(R.id.container);
+        refreshBooks.setOnRefreshListener(this);
+        recentsList = (ListView)rootView.findViewById(R.id.recents_list);
+
+
+        recentsList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition =
+                        (recentsList == null || recentsList.getChildCount() == 0) ?
+                                0 : recentsList.getChildAt(0).getTop();
+                refreshBooks.setEnabled(firstVisibleItem == 0 &&
+                        topRowVerticalPosition >= 0);
+            }
+        });
+
+       /* refreshBooks.setColorSchemeColors(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_red_light);
+*/
+     //   getBooks();
+
+
+
         return rootView;
     }
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-
-
-    }
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
-        recentsList = (ListView)getActivity().findViewById(R.id.recents_list);
-
-        progress = new ProgressDialog(getActivity());
-        progress.setMessage("Please wait! Fetching Recently posted books...");
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progress.setIndeterminate(true);
-        progress.setCancelable(true);
-        progress.setCanceledOnTouchOutside(false);
-
-        progress.show();
-
+    private ArrayList<HashMap<String,String>> getBooks(){
 
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
         query.orderByDescending("createdAt");
@@ -106,10 +118,9 @@ public class RecentsCardFragment extends Fragment
             public void done(List<ParseObject> parseObjects, ParseException e) {
 
 
-                if (e == null) {
+                if (e == null){
 
-                    progress.show();
-
+                    Log.w("Parse","Inside getbooks()");
                     for (ParseObject book : parseObjects) {
 
                         HashMap<String, String> test = new HashMap<>();
@@ -130,31 +141,111 @@ public class RecentsCardFragment extends Fragment
                         test.put("description", desp);
 
                         items.add(test);
+                        RecentsAdapter  adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
+                        recentsList.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+
+
 
 
                     }
 
 
                 } else {
-                    progress.dismiss();
+
                     Log.d("Books", "Error: " + e.getMessage());
 
                 }
-                progress.dismiss();
-
-                RecentsAdapter adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
-                recentsList.setAdapter(adapter);
-
-
 
             }
 
-
         });
+
+
+       return items;
+    }
+
+
+    @Override
+    public void onRefresh(){
+
+        refreshBooks.setRefreshing(true);
+        updateBooks();
+        //handler.post(refreshing);
+
+
+
+}
+
+    private void updateBooks(){
+
+        Toast.makeText(getActivity(),"List updated..!", Toast.LENGTH_SHORT).show();
+
+        items.clear();
+        items.addAll(getBooks());
+
+
+
+      refreshBooks.setRefreshing(false);
+    }
+
+
+
+   /* private final Runnable refreshing = new Runnable(){
+        public void run(){
+            try {
+                if(refreshBooks.isRefreshing()){
+                    // RE-Run after 1 Second
+                    handler.postDelayed(this, 2000);
+                }else{
+                    // Stop the animation once we are done fetching data.
+                    refreshBooks.setRefreshing(false);
+                    updateBooks();
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+*/
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+
+        ProgressDialog progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please wait! Fetching Recently posted books...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.setCancelable(true);
+        progress.setCanceledOnTouchOutside(false);
+
+        progress.show();
+
+        Log.w("Check","Inside onCreated()");
+        getBooks();
+
+        progress.dismiss();
+
+        //  RecentsAdapter  adapter = new RecentsAdapter(getActivity().getApplicationContext(), items);
+        // recentsList.setAdapter(adapter);
 
 
 
 
     }
+
+
 
 }
