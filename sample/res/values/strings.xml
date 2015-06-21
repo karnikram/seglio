@@ -3,6 +3,10 @@
 
     <string name="app_name">Biblio</string>
 
+    <string name = "app_id">5EDgjGMNvj8Eb5CEjW9uPWB9wARKTSNIJwAN1v2K</string>
+    <string name = "client_key">6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq</string>
+    <string name = "facebook_id">1647137865515798</string>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -19,8 +23,10 @@
     </string-array>
 
     <string-array name="contact">
-        <item>Contact by only Email</item>
-        <item>Phone</item>
+        <item>Contact by Email</item>
+        <item>Contact by Phone and Email</item>
     </string-array>
+    <string name="title_activity_google_play_services">GooglePlayServicesActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

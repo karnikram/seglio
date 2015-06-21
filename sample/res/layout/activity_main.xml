@@ -13,15 +13,14 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@color/primaryColor"
+        android:textColor="@color/secondaryTextColor"
         app:pstsShouldExpand="true"
-        android:background="?attr/colorPrimary"
-        android:textColor="@color/primaryTextColor"
         app:pstsTabPaddingLeftRight="12dp"
         app:pstsIndicatorHeight="2dp"
         android:textSize="14sp"
         app:pstsTextColorSelected="@color/accentColor"
         app:pstsIndicatorColor="@color/accentColor"
-
         />
 
     <android.support.v4.view.ViewPager
