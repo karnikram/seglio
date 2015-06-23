@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:fitsSystemWindows="true"
+              android:background="@color/backColor">
+
+    <include layout="@layout/toolbar"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/recents_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="8dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You are logged in as"
+                android:layout_gravity="center"
+                android:textColor="@color/accentColor"
+                android:textStyle="italic"
+                android:textSize="10sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:layout_marginBottom="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="@color/accentColor"
+                android:layout_gravity="center"
+                android:text="MY POSTS"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/none"
+                android:text="NONE"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:layout_gravity="center"
+                android:textStyle="italic"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/dividerColor"
+                android:dividerHeight="1dp"
+                android:id="@+id/abooks"
+                android:layout_marginTop="8dp"
+                android:visibility="invisible"/>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/aprogress"
+                />
+
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/blogout"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            app:cb_color="@color/accentColor"
+            app:cb_pressedRingWidth="8dp"
+            />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
