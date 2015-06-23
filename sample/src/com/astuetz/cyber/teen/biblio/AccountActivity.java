@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -22,9 +23,13 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.karnix.cyberteen.biblio.R;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import at.markushi.ui.CircleButton;
 
@@ -42,7 +47,7 @@ public class AccountActivity extends Activity implements
 
     TextView none;
 
-    ArrayList<HashMap<String,String>> booksResults;
+    ArrayList<HashMap<String,String>> booksResults = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -53,7 +58,7 @@ public class AccountActivity extends Activity implements
         booksPosted = (ListView) findViewById(R.id.abooks);
         none = (TextView) findViewById(R.id.none);
 
-        new SearchAsyncTask().execute(Biblio.userName);
+        new SearchAsyncTask().execute(Biblio.userEmail);
 
         if(booksResults.size()==0)
         {
@@ -147,24 +152,72 @@ public class AccountActivity extends Activity implements
         }
     }
 
+
+
     public class SearchAsyncTask extends AsyncTask<String, Void, String>
     {
-        String query;
+        String userQuery;
         @Override
         protected String doInBackground(String... params)
         {
-            query = params[0];
+            userQuery = params[0];
+            booksResults.clear();
         /*
         * Get the parse objects based on the query entered.
         */
-            return query;
+
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TestBooks");
+
+
+                query.whereContains("useremail",userQuery);
+
+            try
+            {
+                Log.w("Parse", "Inside getbooks()");
+                List<ParseObject> queryResult = query.find();
+                for (ParseObject book : queryResult) {
+
+                    HashMap<String, String> test = new HashMap<>();
+
+                    String dept = book.getString("Department");
+                    String title = book.getString("Title");
+                    String author = book.getString("Author");
+                    Number price_num = book.getNumber("Price");
+                    String price = String.valueOf(price_num);
+                    String place = book.getString("Place");
+                    String desp = book.getString("Description");
+
+                    test.put("dept", dept);
+                    test.put("title", title);
+                    test.put("author", author);
+                    test.put("price", price);
+                    test.put("place", place);
+                    test.put("description", desp);
+
+                    booksResults.add(test);
+
+
+                }
+
+
+            } catch(ParseException e) {
+
+                Log.d("Books", "Error: " + e.getMessage());
+
+            }
+
+            return userQuery;
         }
+
+
 
         @Override
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
-//            searchResults.setAdapter(new BookAdapter(getActivity(), booksResults));
+           // BooksAdapter  adapter = new BooksAdapter(getApplicationContext(), booksResults);
+           // booksPosted.setAdapter(adapter);
+           booksPosted.setAdapter(new BooksAdapter(getApplication().getApplicationContext(), booksResults));
             progressBar.setVisibility(View.INVISIBLE);
         }
     }

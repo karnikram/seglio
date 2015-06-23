@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 import com.karnix.cyberteen.biblio.R;
-//import com.parse.ParseObject;
+import com.parse.ParseObject;
 
 
 public class PostCardFragment extends Fragment
@@ -152,21 +152,21 @@ public class PostCardFragment extends Fragment
             else
             {
                 uploadButton.setProgress(50);
-//                ParseObject bookObject = new ParseObject("Books");
-//                bookObject.put("username",Biblio.userName);
-//                bookObject.put("useremail",Biblio.userEmail);
-//                bookObject.put("title", title);
-//                bookObject.put("author", author);
-//                bookObject.put("description", description);
-//                bookObject.put("locality", locality);
-//                bookObject.put("price", price);
-//                bookObject.put("oprice", originalPrice);
-//                bookObject.put("dept", deptSpin.getSelectedItem().toString());
-//                bookObject.put("phone",phone);
-//                bookObject.saveInBackground();
+                ParseObject bookObject = new ParseObject("TestBooks");
+                bookObject.put("username",Biblio.userName);
+                bookObject.put("useremail",Biblio.userEmail);
+                bookObject.put("Title", title);
+                bookObject.put("Author", author);
+                bookObject.put("Description", description);
+                bookObject.put("Place", locality);
+                bookObject.put("Price", price);
+                bookObject.put("oprice", originalPrice);
+                bookObject.put("dept", deptSpin.getSelectedItem().toString());
+                bookObject.put("phone",phone);
+                bookObject.saveInBackground();
 
 
-                Toast.makeText(getActivity(), "Message sent.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Book Posted!.", Toast.LENGTH_LONG).show();
                 uploadButton.setProgress(100);
                 titleEdit.setText("");
                 authorEdit.setText("");

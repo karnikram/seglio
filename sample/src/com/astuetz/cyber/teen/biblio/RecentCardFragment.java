@@ -16,15 +16,16 @@ import android.widget.Toast;
 
 
 import com.karnix.cyberteen.biblio.R;
-//import com.parse.FindCallback;
-//import com.parse.ParseException;
-//import com.parse.ParseObject;
-//import com.parse.ParseQuery;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+ import com.parse.ParseQuery;
 
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
@@ -71,7 +72,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light);
 */
-     //   getBooks();
+       // getBooks();
 
 
 
@@ -80,66 +81,66 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
 
 
-//    private ArrayList<HashMap<String,String>> getBooks()
-//    {
+    private ArrayList<HashMap<String,String>> getBooks()
+    {
 
-//        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
-//        query.orderByDescending("createdAt");
-//
-//        query.findInBackground(new FindCallback<ParseObject>() {
-//
-//
-//            @Override
-//            public void done(List<ParseObject> parseObjects, ParseException e) {
-//
-//
-//                if (e == null){
-//
-//                    Log.w("Parse","Inside getbooks()");
-//                    for (ParseObject book : parseObjects) {
-//
-//                        HashMap<String, String> test = new HashMap<>();
-//
-//                        String dept = book.getString("Department");
-//                        String title = book.getString("Title");
-//                        String author = book.getString("Author");
-//                        Number price_num = book.getNumber("Price");
-//                        String price = String.valueOf(price_num);
-//                        String place = book.getString("Place");
-//                        String desp = book.getString("Description");
-//
-//                        test.put("dept", dept);
-//                        test.put("title", title);
-//                        test.put("author", author);
-//                        test.put("price", price);
-//                        test.put("place", place);
-//                        test.put("description", desp);
-//
-//                        books.add(test);
-//                        RecentsAdapter  adapter = new RecentsAdapter(getActivity().getApplicationContext(), books);
-//                        recentsList.setAdapter(adapter);
-//                        adapter.notifyDataSetChanged();
-//
-//
-//
-//
-//
-//                    }
-//
-//
-//                } else {
-//
-//                    Log.d("Books", "Error: " + e.getMessage());
-//
-//                }
-//
-//            }
-//
-//        });
-//
-//
-//       return books;
-//    }
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("TestBooks");
+        query.orderByDescending("createdAt");
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+
+
+                if (e == null){
+
+                    Log.w("Parse","Inside getbooks()");
+                    for (ParseObject book : parseObjects) {
+
+                        HashMap<String, String> test = new HashMap<>();
+
+                        String dept = book.getString("dept");
+                        String title = book.getString("Title");
+                        String author = book.getString("Author");
+                        Number price_num = book.getNumber("oprice");
+                        String price = String.valueOf(price_num);
+                        String place = book.getString("Place");
+                        String desp = book.getString("Description");
+
+                        test.put("dept", dept);
+                        test.put("title", title);
+                        test.put("author", author);
+                        test.put("price", price);
+                        test.put("place", place);
+                        test.put("description", desp);
+
+                        books.add(test);
+                        BooksAdapter  adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
+                        recentsList.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+
+
+
+
+                    }
+
+
+                } else {
+
+                    Log.d("Books", "Error: " + e.getMessage());
+
+                }
+
+            }
+
+        });
+
+
+       return books;
+    }
 
 
     @Override
@@ -158,7 +159,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         Toast.makeText(getActivity(),"List updated..!", Toast.LENGTH_SHORT).show();
 
         books.clear();
-//        books.addAll(getBooks());
+        books.addAll(getBooks());
 
 
 
@@ -209,22 +210,22 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         progress.show();
 
         Log.w("Check", "Inside onCreated()");
-//        getBooks();
+        getBooks();
 
         progress.dismiss();
-        HashMap<String,String> book = new HashMap<String,String>();
-        book.put("title", "Signals & Systems");
-        book.put("author", "Oppenheim, Willsky & Nawab");
-        book.put("dept", "ECE");
-        book.put("price", "200");
-        book.put("oprice", "400");
-        book.put("description", "Pretty much unused.");
-        book.put("locality","Mylapore");
-        book.put("phone","9940049947");
-        book.put("useremail",Biblio.userEmail);
-        book.put("username",Biblio.userName);
-
-        books.add(book);
+//        HashMap<String,String> book = new HashMap<String,String>();
+//        book.put("title", "Signals & Systems");
+//        book.put("author", "Oppenheim, Willsky & Nawab");
+//        book.put("dept", "ECE");
+//        book.put("price", "200");
+//        book.put("oprice", "400");
+//        book.put("description", "Pretty much unused.");
+//        book.put("locality","Mylapore");
+//        book.put("phone","9940049947");
+//        book.put("useremail",Biblio.userEmail);
+//        book.put("username",Biblio.userName);
+//
+//        books.add(book);
 
 
         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);

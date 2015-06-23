@@ -16,7 +16,7 @@ public class BooksAdapter extends BaseAdapter
 {
     LayoutInflater inflater;
     Context context;
-    ArrayList<HashMap<String,String>> items = null;
+    ArrayList<HashMap<String,String>> items = new ArrayList<>();
 
     public BooksAdapter(Context context, ArrayList<HashMap<String, String>> items)
     {
@@ -64,7 +64,7 @@ public class BooksAdapter extends BaseAdapter
         holder.title.setText(items.get(position).get("title"));
         holder.author.setText(items.get(position).get("author"));
         holder.dept.setText(items.get(position).get("dept"));
-        holder.price.setText(items.get(position).get("price"));
+        holder.price.setText(items.get(position).get("Price"));
 
         return v;
     }

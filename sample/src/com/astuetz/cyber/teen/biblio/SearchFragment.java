@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +18,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.karnix.cyberteen.biblio.R;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SearchFragment extends Fragment
 {
 
-    ArrayList<HashMap<String, String>> booksResults;
+    ArrayList<HashMap<String, String>> booksResults = new ArrayList<>();
 
     SearchView searchView;
     ListView searchResults;
     Spinner deptSearch;
     TextView or;
+    boolean dep;
 
     ProgressBar progressBar;
 
@@ -79,13 +85,16 @@ public class SearchFragment extends Fragment
                     progressBar.setVisibility(View.VISIBLE);
                     deptSearch.setVisibility(View.INVISIBLE);
                     or.setVisibility(View.INVISIBLE);
+                    dep = false;
                     new SearchAsyncTask().execute(newText);
                 }
 
                 else
                 {
-                    deptSearch.setVisibility(View.VISIBLE);
-                    or.setVisibility(View.VISIBLE);
+                   booksResults.clear();
+                    if(newText.length()==0)
+                    {deptSearch.setVisibility(View.VISIBLE);
+                    or.setVisibility(View.VISIBLE);}
                 }
                 return false;
             }
@@ -107,6 +116,7 @@ public class SearchFragment extends Fragment
                     progressBar.setVisibility(View.VISIBLE);
                     searchView.setVisibility(View.INVISIBLE);
                     or.setVisibility(View.INVISIBLE);
+                    dep = true;
                     new SearchAsyncTask().execute(getResources().getStringArray(R.array.departments)[position]);
                 }
 
@@ -131,33 +141,82 @@ public class SearchFragment extends Fragment
 
     public class SearchAsyncTask extends AsyncTask<String, Void, String>
     {
-        String query;
+        String userQuery;
 
         @Override
         protected String doInBackground(String... params)
         {
-            query = params[0];
+            userQuery = params[0];
+            booksResults.clear();
         /*
         * Get the parse objects based on the query entered.
         */
-            return query;
-        }
+
+             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TestBooks");
+
+            if (dep==false)query.whereContains("Title",userQuery);
+             else
+             query.whereContains("dept",userQuery);
+
+            try
+            {
+                    Log.w("Parse", "Inside getbooks()");
+                  List<ParseObject> queryResult = query.find();
+                    for (ParseObject book : queryResult) {
+
+                        HashMap<String, String> test = new HashMap<>();
+
+                        String dept = book.getString("Department");
+                        String title = book.getString("Title");
+                        String author = book.getString("Author");
+                        Number price_num = book.getNumber("Price");
+                        String price = String.valueOf(price_num);
+                        String place = book.getString("Place");
+                        String desp = book.getString("Description");
+
+                        test.put("dept", dept);
+                        test.put("title", title);
+                        test.put("author", author);
+                        test.put("price", price);
+                        test.put("place", place);
+                        test.put("description", desp);
+
+                        booksResults.add(test);
+
+
+                    }
+
+
+                } catch(ParseException e) {
+
+                    Log.d("Books", "Error: " + e.getMessage());
+
+                }
+
+            return userQuery;
+            }
+
+
+
+
+
+
 
         @Override
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
-//            searchResults.setAdapter(new BooksAdapter(getActivity(), booksResults));
-//            searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener()
-//                                                 {
-//                                                     @Override
-//                                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-//                                                     {
-//                                                         Intent book = new Intent(getActivity(), BookActivity.class);
-//                                                         book.putExtra("book", booksResults.get(position));
-//                                                         startActivity(book);
-//                                                     }
-//                                                 });
+            searchResults.setAdapter(new BooksAdapter(getActivity(), booksResults));
+            searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                                                 {
+                                                     @Override
+                                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                                                     {
+                                                         Intent book = new Intent(getActivity(), BookActivity.class);
+                                                         book.putExtra("book", booksResults.get(position));
+                                                         startActivity(book);
+                                                     }
+                                                 });
 
                     progressBar.setVisibility(View.INVISIBLE);
         }

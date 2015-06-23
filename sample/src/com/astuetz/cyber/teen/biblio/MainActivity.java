@@ -71,7 +71,7 @@ public class MainActivity extends ActionBarActivity
 
         Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
 
-        Parse.enableLocalDatastore(this);
+//        Parse.enableLocalDatastore(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -101,6 +101,11 @@ public class MainActivity extends ActionBarActivity
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));
             }
         });
+
+
+        ParseObject test = new ParseObject("TestObject");
+        test.put("Project","Biblio2");
+        test.saveInBackground();
 
     }
 
