@@ -17,10 +17,39 @@
 
     <string-array name="departments">
         <item>Select a department</item>
-        <item>ECE</item>
-        <item>EEE</item>
-        <item>CSE</item>
-        <item>IT</item>
+        <item>Aeronautical Engineering</item>
+        <item>Agriculture &amp; Irrigation Engineering</item>
+        <item>Automobile Engineering</item>
+        <item>Bio-Medical Engineering</item>
+        <item>Chemical Engineering</item>
+        <item>Civil Engineering</item>
+        <item>Computer Science Engineering</item>
+        <item>Electrical &amp; Electronics Engineering</item>
+        <item>Electronics &amp; Communication Engineering</item>
+        <item>Electronics &amp; Instrumentation Engineering</item>
+        <item>Geo Informatics</item>
+        <item>Industrial Engineering</item>
+        <item>Manufacturing Engineering</item>
+        <item>Marine Engineering</item>
+        <item>Material Science &amp; Engineering</item>
+        <item>Mechanical Engineering</item>
+        <item>Petroleum Refining &amp; Petrochemical Engineering</item>
+        <item>Production Engineering</item>
+        <item>Bio-Technology</item>
+        <item>Ceramic Technology</item>
+        <item>Food Technology</item>
+        <item>Industrial Bio-Technology</item>
+        <item>Information Technology</item>
+        <item>Pharmaceutical Technology</item>
+        <item>Printing Technology</item>
+        <item>Rubber &amp; Plastic Technology</item>
+        <item>Textile Technology</item>
+        <item>Applied Physics</item>
+        <item>Applied Chemistry</item>
+        <item>Applied Mathematics</item>
+        <item>Architecture</item>
+        <item>Computer Applications</item>
+        <item>Electronic Media</item>
     </string-array>
 
     <string-array name="contact">
