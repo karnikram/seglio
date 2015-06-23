@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/secondaryTextColor"
+                    android:textColor="@color/accentColor"
                     android:textSize="12sp"
                     android:textStyle="italic"/>
 

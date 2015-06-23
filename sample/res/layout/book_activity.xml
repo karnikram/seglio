@@ -1,0 +1,211 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/backColor"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/recents_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="8dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="TITLE"
+                    android:textColor="@color/accentColor"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/btitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="Linear Integrated Circuits"
+                    android:textSize="24sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="AUTHOR"
+                    android:textColor="@color/accentColor"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/bauthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="Roy Chaudhary"
+                    android:textSize="24sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="DEPT"
+                    android:textColor="@color/accentColor"
+                    android:textSize="10sp"/>
+
+                <TextView
+                    android:id="@+id/bdept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="Electronics and Commuication Engineeering "
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="DESCRIPTION"
+                    android:textColor="@color/accentColor"
+                    android:textSize="10sp"/>
+
+                <TextView
+                    android:id="@+id/bdescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:text="Good as new."
+                    android:textSize="14sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="ORIGINAL PRICE"
+                        android:textColor="@color/accentColor"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="SELLING PRICE"
+                        android:textColor="@color/accentColor"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/boprice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="599"
+                        android:textSize="24sp"/>
+
+                    <TextView
+                        android:id="@+id/bprice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="249"
+                        android:textSize="24sp"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="CONTACT"
+                    android:textColor="@color/accentColor"
+                    android:textSize="10sp"/>
+
+                <TextView
+                    android:id="@+id/busername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="3dp"
+                    android:text="Karnik"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/blocality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:text="Mylapore"
+                    android:textSize="14sp"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/bcall"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/call"
+                        app:cb_color="@color/accentColor"
+                        app:cb_pressedRingWidth="8dp"
+                        android:visibility="gone"
+                        />
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/bemail"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/email"
+                        app:cb_color="@color/accentColor"
+                        app:cb_pressedRingWidth="8dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

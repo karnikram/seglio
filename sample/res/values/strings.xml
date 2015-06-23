@@ -16,6 +16,7 @@
     <string name="register">Register</string>
 
     <string-array name="departments">
+        <item>Select a department</item>
         <item>ECE</item>
         <item>EEE</item>
         <item>CSE</item>
@@ -26,7 +27,5 @@
         <item>Contact by Email</item>
         <item>Contact by Phone and Email</item>
     </string-array>
-    <string name="title_activity_google_play_services">GooglePlayServicesActivity</string>
-    <string name="title_activity_maps">Map</string>
 
 </resources>
