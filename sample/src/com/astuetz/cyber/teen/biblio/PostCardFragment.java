@@ -137,7 +137,9 @@ public class PostCardFragment extends Fragment
         if (networkInfo != null && networkInfo.isConnected())
         {
             title = titleEdit.getText().toString();
+            String  lowTitle = title.toLowerCase();
             author = authorEdit.getText().toString();
+            String lowAuthor = author.toLowerCase();
             description = descriptionEdit.getText().toString();
             locality = localityEdit.getText().toString();
             price = priceEdit.getText().toString();
@@ -163,6 +165,8 @@ public class PostCardFragment extends Fragment
                 bookObject.put("oprice", originalPrice);
                 bookObject.put("dept", deptSpin.getSelectedItem().toString());
                 bookObject.put("phone",phone);
+                bookObject.put("title",lowTitle);
+                bookObject.put("author",lowAuthor);
                 bookObject.saveInBackground();
 
 

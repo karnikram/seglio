@@ -84,7 +84,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
     private ArrayList<HashMap<String,String>> getBooks()
     {
 
-        final ParseQuery<ParseObject> query = ParseQuery.getQuery("TestBooks");
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
         query.orderByDescending("createdAt");
 
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -110,6 +110,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         String phone = book.getString("phone");
                         String oprice = book.getString("oprice");
                         String op = String.valueOf(oprice);
+
 
 
 

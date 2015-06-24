@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
-                android:textSize="10sp"
+                android:textSize="17sp"
                 android:id="@+id/or"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/search"
@@ -47,9 +47,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dept_search"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:layout_below="@+id/or"/>
+                android:layout_below="@+id/orAuth"
+                android:layout_toRightOf="@+id/progress"
+                android:layout_toEndOf="@+id/progress" />
 
             <ListView
                 android:layout_width="match_parent"
@@ -57,8 +57,11 @@
                 android:id="@+id/resultslist"
                 android:divider="@color/dividerColor"
                 android:visibility="invisible"
-                android:layout_marginTop="50dp"
-                android:dividerHeight="1dp"/>
+                android:dividerHeight="1dp"
+                android:layout_toRightOf="@+id/progress"
+                android:layout_toEndOf="@+id/progress"
+                android:layout_below="@+id/orAuth"
+                android:layout_alignParentBottom="true" />
 
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -66,6 +69,25 @@
                 android:id="@+id/progress"
                 android:layout_centerInParent="true"
                 android:visibility="gone"/>
+
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/author"
+                android:iconifiedByDefault="false"
+                android:layout_below="@+id/or"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:textSize="17sp"
+                android:id="@+id/orAuth"
+                android:text="OR"
+                android:layout_below="@+id/author"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 

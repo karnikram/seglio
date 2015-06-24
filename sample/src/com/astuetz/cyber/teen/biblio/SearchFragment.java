@@ -31,11 +31,11 @@ public class SearchFragment extends Fragment
 
     ArrayList<HashMap<String, String>> booksResults = new ArrayList<>();
 
-    SearchView searchView;
+    SearchView searchView,authorSearch;
     ListView searchResults;
     Spinner deptSearch;
-    TextView or;
-    boolean dep;
+    TextView or,or_auth;
+    int flag;
 
     ProgressBar progressBar;
 
@@ -57,7 +57,9 @@ public class SearchFragment extends Fragment
         View rootView = inflater.inflate(R.layout.search_card, container, false);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
         searchView = (SearchView) rootView.findViewById(R.id.search);
-        searchView.setQueryHint("Search by keyword");
+        authorSearch = (SearchView) rootView.findViewById(R.id.author);
+        authorSearch.setQueryHint("Search by Author");
+        searchView.setQueryHint("Search by Title");
 
         deptSearch = (Spinner) rootView.findViewById(R.id.dept_search);
         ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
@@ -65,6 +67,7 @@ public class SearchFragment extends Fragment
         deptSearch.setAdapter(deptAdapter);
 
         or = (TextView) rootView.findViewById(R.id.or);
+        or_auth = (TextView) rootView.findViewById(R.id.orAuth);
 
         searchResults = (ListView) rootView.findViewById(R.id.resultslist);
 
@@ -83,9 +86,11 @@ public class SearchFragment extends Fragment
                 {
                     searchResults.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
+                    authorSearch.setVisibility(View.INVISIBLE);
                     deptSearch.setVisibility(View.INVISIBLE);
                     or.setVisibility(View.INVISIBLE);
-                    dep = false;
+                    or_auth.setVisibility(View.INVISIBLE);
+                    flag = 0;
                     new SearchAsyncTask().execute(newText);
                 }
 
@@ -93,8 +98,50 @@ public class SearchFragment extends Fragment
                 {
                    booksResults.clear();
                     if(newText.length()==0)
-                    {deptSearch.setVisibility(View.VISIBLE);
-                    or.setVisibility(View.VISIBLE);}
+                    {
+                        authorSearch.setVisibility(View.VISIBLE);
+                        deptSearch.setVisibility(View.VISIBLE);
+                    or.setVisibility(View.VISIBLE);
+                    or_auth.setVisibility(View.VISIBLE);
+                    }
+                }
+                return false;
+            }
+        });
+
+        authorSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                if (newText.length() > 3)
+                {
+                    searchResults.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.INVISIBLE);
+                    deptSearch.setVisibility(View.INVISIBLE);
+                    or.setVisibility(View.INVISIBLE);
+                    or_auth.setVisibility(View.INVISIBLE);
+                    flag = 1;
+                    new SearchAsyncTask().execute(newText);
+                }
+
+                else
+                {
+                    booksResults.clear();
+                    if(newText.length()==0)
+                    {
+                        searchView.setVisibility(View.VISIBLE);
+                        deptSearch.setVisibility(View.VISIBLE);
+                        or.setVisibility(View.VISIBLE);
+                        or_auth.setVisibility(View.VISIBLE);
+                    }
                 }
                 return false;
             }
@@ -115,8 +162,10 @@ public class SearchFragment extends Fragment
                     searchResults.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     searchView.setVisibility(View.INVISIBLE);
+                    authorSearch.setVisibility(View.INVISIBLE);
                     or.setVisibility(View.INVISIBLE);
-                    dep = true;
+                    or_auth.setVisibility(View.INVISIBLE);
+                    flag =2;
                     new SearchAsyncTask().execute(getResources().getStringArray(R.array.departments)[position]);
                 }
 
@@ -124,7 +173,9 @@ public class SearchFragment extends Fragment
                 {
                     or.setVisibility(View.VISIBLE);
                     searchView.setVisibility(View.VISIBLE);
-                    params.addRule(RelativeLayout.BELOW, R.id.or);
+                    authorSearch.setVisibility(View.VISIBLE);
+                    or_auth.setVisibility(View.VISIBLE);
+                    params.addRule(RelativeLayout.BELOW, R.id.orAuth);
                 }
 
             }
@@ -154,9 +205,17 @@ public class SearchFragment extends Fragment
 
              ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Posted");
 
-            if (dep==false)query.whereContains("Title",userQuery);
-             else
-             query.whereContains("dept",userQuery);
+            if (flag==0){
+                String lowTitle = userQuery.toLowerCase();
+                query.whereContains("title",lowTitle);
+            }
+             else if (flag==1){
+                String lowAuthor = userQuery.toLowerCase();
+                query.whereContains("author",lowAuthor);
+            }
+            else
+            query.whereContains("dept",userQuery);
+
 
             try
             {
@@ -174,6 +233,7 @@ public class SearchFragment extends Fragment
                         String desp = book.getString("Description");
                         String phone = book.getString("phone");
                         String oprice = book.getString("oprice");
+
 
 
                         test.put("dept", dept);

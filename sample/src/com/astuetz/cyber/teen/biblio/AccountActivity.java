@@ -167,7 +167,7 @@ public class AccountActivity extends Activity implements
         * Get the parse objects based on the query entered.
         */
 
-            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TestBooks");
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Posted");
 
 
                 query.whereContains("useremail",userQuery);
@@ -183,8 +183,7 @@ public class AccountActivity extends Activity implements
                     String dept = book.getString("Department");
                     String title = book.getString("Title");
                     String author = book.getString("Author");
-                    Number price_num = book.getNumber("Price");
-                    String price = String.valueOf(price_num);
+                    String price = book.getString("Price");
                     String place = book.getString("Place");
                     String desp = book.getString("Description");
 
