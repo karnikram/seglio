@@ -152,7 +152,7 @@ public class PostCardFragment extends Fragment
             else
             {
                 uploadButton.setProgress(50);
-                ParseObject bookObject = new ParseObject("TestBooks");
+                ParseObject bookObject = new ParseObject("Posted");
                 bookObject.put("username",Biblio.userName);
                 bookObject.put("useremail",Biblio.userEmail);
                 bookObject.put("Title", title);

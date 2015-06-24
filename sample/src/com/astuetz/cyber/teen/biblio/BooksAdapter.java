@@ -64,7 +64,7 @@ public class BooksAdapter extends BaseAdapter
         holder.title.setText(items.get(position).get("title"));
         holder.author.setText(items.get(position).get("author"));
         holder.dept.setText(items.get(position).get("dept"));
-        holder.price.setText(items.get(position).get("Price"));
+        holder.price.setText(items.get(position).get("price"));
 
         return v;
     }

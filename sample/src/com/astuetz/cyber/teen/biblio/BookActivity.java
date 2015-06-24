@@ -16,7 +16,7 @@ import at.markushi.ui.CircleButton;
 
 public class BookActivity extends Activity
 {
-    HashMap<String,String> book;
+    HashMap<String,String> book = new HashMap<String, String>();
     TextView title, author, dept, description, oprice, price, user, locality;
     CircleButton call, email;
 

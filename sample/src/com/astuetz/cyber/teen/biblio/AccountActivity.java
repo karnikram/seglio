@@ -62,7 +62,7 @@ public class AccountActivity extends Activity implements
 
         if(booksResults.size()==0)
         {
-            booksPosted.setVisibility(View.INVISIBLE);
+           // booksPosted.setVisibility(View.INVISIBLE);
             none.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
             none.setLayoutParams(params);
@@ -70,6 +70,7 @@ public class AccountActivity extends Activity implements
 
         else
         {
+            booksPosted.setVisibility(View.VISIBLE);
             booksPosted.setAdapter(new BooksAdapter(this,booksResults));
             none.setVisibility(View.INVISIBLE);
         }
@@ -217,6 +218,8 @@ public class AccountActivity extends Activity implements
             super.onPostExecute(s);
            // BooksAdapter  adapter = new BooksAdapter(getApplicationContext(), booksResults);
            // booksPosted.setAdapter(adapter);
+
+             booksPosted.setVisibility(View.VISIBLE);
            booksPosted.setAdapter(new BooksAdapter(getApplication().getApplicationContext(), booksResults));
             progressBar.setVisibility(View.INVISIBLE);
         }

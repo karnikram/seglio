@@ -152,7 +152,7 @@ public class SearchFragment extends Fragment
         * Get the parse objects based on the query entered.
         */
 
-             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("TestBooks");
+             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Posted");
 
             if (dep==false)query.whereContains("Title",userQuery);
              else
@@ -166,13 +166,15 @@ public class SearchFragment extends Fragment
 
                         HashMap<String, String> test = new HashMap<>();
 
-                        String dept = book.getString("Department");
+                        String dept = book.getString("dept");
                         String title = book.getString("Title");
                         String author = book.getString("Author");
-                        Number price_num = book.getNumber("Price");
-                        String price = String.valueOf(price_num);
+                        String price = book.getString("Price");
                         String place = book.getString("Place");
                         String desp = book.getString("Description");
+                        String phone = book.getString("phone");
+                        String oprice = book.getString("oprice");
+
 
                         test.put("dept", dept);
                         test.put("title", title);
@@ -180,6 +182,8 @@ public class SearchFragment extends Fragment
                         test.put("price", price);
                         test.put("place", place);
                         test.put("description", desp);
+                        test.put("phone",phone);
+                        test.put("oprice",oprice);
 
                         booksResults.add(test);
 
