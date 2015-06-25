@@ -168,7 +168,10 @@ public class PostCardFragment extends Fragment
                 bookObject.put("title",lowTitle);
                 bookObject.put("author",lowAuthor);
                 bookObject.saveInBackground();
+
                 Toast.makeText(getActivity(),"Posted!",Toast.LENGTH_LONG).show();
+
+
 
                 uploadButton.setProgress(100);
                 titleEdit.setText("");

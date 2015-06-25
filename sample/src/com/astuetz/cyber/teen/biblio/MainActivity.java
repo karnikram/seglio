@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.ads.InterstitialAd;
 import com.karnix.cyberteen.biblio.R;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -50,6 +51,8 @@ public class MainActivity extends ActionBarActivity
 
     private TextView title;
     private ImageView iconLogin;
+
+    InterstitialAd mIadd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

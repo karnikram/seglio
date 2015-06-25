@@ -187,6 +187,7 @@ public class AccountActivity extends Activity implements
                     String desp = book.getString("Description");
                     String phone = book.getString("phone");
                     String oprice = book.getString("oprice");
+                    String objId = book.getObjectId();
 
 
                     test.put("dept", dept);
@@ -197,6 +198,7 @@ public class AccountActivity extends Activity implements
                     test.put("description", desp);
                     test.put("phone", phone);
                     test.put("oprice", oprice);
+                    test.put("objectId",objId);
 
                     booksResults.add(test);
                 }
@@ -225,6 +227,7 @@ public class AccountActivity extends Activity implements
                     Intent edit = new Intent(AccountActivity.this,EditActivity.class);
                     edit.putExtra("book",booksResults.get(position));
                     startActivity(edit);
+
                 }
             });
             progressBar.setVisibility(View.GONE);

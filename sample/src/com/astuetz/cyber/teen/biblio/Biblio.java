@@ -18,6 +18,8 @@ import java.security.NoSuchAlgorithmException;
 public class Biblio extends Application
 {
     static String userEmail, userName;
+    static int flag = 2;
+    static int iad = 0;
 
     @Override
     public void onCreate()
