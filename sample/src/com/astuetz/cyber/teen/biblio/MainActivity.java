@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.ads.InterstitialAd;
@@ -53,6 +54,8 @@ public class MainActivity extends ActionBarActivity
     private ImageView iconLogin;
 
     InterstitialAd mIadd;
+
+    RippleView rippleLogin, rippleInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,12 +80,14 @@ public class MainActivity extends ActionBarActivity
         }
 
 
-
         Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
 
         AdView mAdview = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview.loadAd(adRequest);
+
+//        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+//        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -103,13 +108,21 @@ public class MainActivity extends ActionBarActivity
         title = (TextView) findViewById(R.id.tool_title);
         title.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
 
-        iconLogin = (ImageView) findViewById(R.id.action_login);
-        iconLogin.setOnClickListener(new View.OnClickListener()
+        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+                startActivity(new Intent(MainActivity.this, AccountActivity.class));
+            }
+        });
+
+        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
         {
             @Override
-            public void onClick(View v)
+            public void onComplete(RippleView rippleView)
             {
-                startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
         });
     }

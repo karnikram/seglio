@@ -11,178 +11,187 @@
     <include layout="@layout/toolbar"/>
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="8dp">
+
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:elevation="50dp"
-            card_view:cardBackgroundColor="@android:color/white"
-            card_view:cardCornerRadius="8dp">
+            android:fillViewport="true">
 
-
-            <ScrollView
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Karnik"
+                        android:gravity="center"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="24sp"
+                        android:layout_weight="1"
+                        android:textStyle="italic"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shankar"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="24sp"
+                        android:textStyle="italic"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/fb1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/fb"/>
+
+                    <ImageView
+                        android:id="@+id/fb2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/fb"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Developer"
+                        android:text="Prashanth TV"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="24sp"
                         android:textStyle="italic"
-                        />
-
-                    <View
-                        android:layout_width="105dp"
-                        android:layout_height="1dp"
-                        android:background="@color/primaryColor"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Karnik Ram"
-                            android:textColor="@color/primaryTextColor"
-                            android:textSize="24sp"
-                            android:textStyle="italic"
-                            />
-
-                        <ImageView
-                            android:id="@+id/fb1"
-                            android:layout_width="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/fb"/>
-
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Vectors"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="24sp"
-                        android:textStyle="italic"
-                        />
-
-
-                    <View
-                        android:layout_width="80dp"
-                        android:layout_height="1dp"
-                        android:background="@color/primaryColor"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Krishna"
-                            android:textColor="@color/primaryTextColor"
-                            android:textSize="24sp"
-                            android:textStyle="italic"/>
-
-                        <ImageView
-                            android:id="@+id/fb2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/fb"/>
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:text="@string/shout_outs"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="16sp"
-                        android:textStyle="italic"
-                        />
-
-
-                    <TextView
-                        android:id="@+id/about_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="32dp"
-                        android:text="@string/app_name"
-                        android:textColor="@color/primaryColor"
-                        android:textSize="32sp"
-                        android:textStyle="italic"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="VersionName"
-                        android:layout_gravity="center"
-                        android:textSize="12sp"/>
-
-                    <TextView
-                        android:id="@+id/smudge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textStyle="italic"
-                        android:text="-Smudge-"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="14sp"/>
+                        android:gravity="center"/>
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/ic_launcher"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:text="fb.com/ssnmachan"
                         android:id="@+id/fb3"
-                        android:textColor="@color/primaryColor"/>
-
-                    <TextView
-                        android:id="@+id/about_3"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"/>
-                        <!--android:text="@string/description"-->
-                        <!--android:textSize="16sp"-->
-                        <!--android:textStyle="italic"/>-->
-
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@drawable/fb"/>
 
                 </LinearLayout>
-            </ScrollView>
-        </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/shout_outs"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    />
+
+
+                <TextView
+                    android:id="@+id/about_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/accentColor"
+                    android:textSize="32sp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="VersionName"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/smudge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="-Bruno-"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textSize="14sp"
+                    android:textStyle="italic"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/fb4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/accentColor"
+                    android:text="fb.com/bibllio"
+                    />
+
+                <TextView
+                    android:id="@+id/about_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/description"
+                    android:textSize="16sp"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Safety points"
+                    android:id="@+id/sp"
+                    android:textColor="@color/accentColor"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terms &amp; Conditions"
+                    android:layout_gravity="center"
+                    android:id="@+id/tc"
+                    android:textColor="@color/accentColor"/>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
