@@ -281,7 +281,7 @@ public class SearchFragment extends Fragment
                     test.put("title", title);
                     test.put("author", author);
                     test.put("price", price);
-                    test.put("locality", place);
+                    test.put("place", place);
                     test.put("description", desp);
                     test.put("phone", phone);
                     test.put("oprice", oprice);

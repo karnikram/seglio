@@ -64,14 +64,8 @@ public class AccountActivity extends Activity implements
 
         new SearchAsyncTask().execute(Biblio.userEmail);
 
-        if (booksResults.size() == 0)
-        {
-            none.setVisibility(View.VISIBLE);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-            none.setLayoutParams(params);
-        }
 
-        else
+        if(booksResults.size()!=0)
         {
             booksPosted.setVisibility(View.VISIBLE);
             booksPosted.setAdapter(new BooksAdapter(this, booksResults));
@@ -109,7 +103,6 @@ public class AccountActivity extends Activity implements
                     new LoginActivity().signOut();
                 }
                 Intent logIn = new Intent(AccountActivity.this, LoginActivity.class);
-                ;
                 logIn.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(logIn);
             }
@@ -186,12 +179,15 @@ public class AccountActivity extends Activity implements
 
                     HashMap<String, String> test = new HashMap<>();
 
-                    String dept = book.getString("Department");
+                    String dept = book.getString("dept");
                     String title = book.getString("Title");
                     String author = book.getString("Author");
                     String price = book.getString("Price");
                     String place = book.getString("Place");
                     String desp = book.getString("Description");
+                    String phone = book.getString("phone");
+                    String oprice = book.getString("oprice");
+
 
                     test.put("dept", dept);
                     test.put("title", title);
@@ -199,6 +195,8 @@ public class AccountActivity extends Activity implements
                     test.put("price", price);
                     test.put("place", place);
                     test.put("description", desp);
+                    test.put("phone", phone);
+                    test.put("oprice", oprice);
 
                     booksResults.add(test);
                 }
@@ -224,10 +222,20 @@ public class AccountActivity extends Activity implements
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id)
                 {
-                    startActivity(new Intent(AccountActivity.this,EditActivity.class));
+                    Intent edit = new Intent(AccountActivity.this,EditActivity.class);
+                    edit.putExtra("book",booksResults.get(position));
+                    startActivity(edit);
                 }
             });
             progressBar.setVisibility(View.GONE);
+            if(booksResults.size()==0)
+            {
+                none.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                none.setVisibility(View.GONE);
+            }
         }
     }
 }
