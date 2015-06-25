@@ -53,8 +53,8 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Biblio.userName = getSharedPreferences("pref",0).getString("name",null);
-//        Biblio.userEmail = getSharedPreferences("pref",0).getString("email",null);
+        Biblio.userName = getSharedPreferences("pref",0).getString("name",null);
+        Biblio.userEmail = getSharedPreferences("pref",0).getString("email",null);
 
         if(Biblio.userName == null || Biblio.userEmail == null)
         {
@@ -64,14 +64,13 @@ public class MainActivity extends ActionBarActivity
 
         else
         {
-            Toast.makeText(this,"Welcome, " + Biblio.userName +"!",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Howdy, " + Biblio.userName +"!",Toast.LENGTH_LONG).show();
         }
 
 
 
         Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
 
-//        Parse.enableLocalDatastore(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -101,12 +100,6 @@ public class MainActivity extends ActionBarActivity
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));
             }
         });
-
-
-        ParseObject test = new ParseObject("TestObject");
-        test.put("Project","Biblio2");
-        test.saveInBackground();
-
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter

@@ -1,6 +1,5 @@
 package com.astuetz.cyber.teen.biblio;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Button;
@@ -45,24 +45,27 @@ public class AccountActivity extends Activity implements
     ListView booksPosted;
     ProgressBar progressBar;
 
-    TextView none;
+    TextView none, user;
 
-    ArrayList<HashMap<String,String>> booksResults = new ArrayList<>();
+    ArrayList<HashMap<String, String>> booksResults = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_activity);
 
-        progressBar = (ProgressBar)findViewById(R.id.aprogress);
+        progressBar = (ProgressBar) findViewById(R.id.aprogress);
         booksPosted = (ListView) findViewById(R.id.abooks);
         none = (TextView) findViewById(R.id.none);
+        user = (TextView) findViewById(R.id.auser);
+
+        user.setText(Biblio.userName);
 
         new SearchAsyncTask().execute(Biblio.userEmail);
 
-        if(booksResults.size()==0)
+        if (booksResults.size() == 0)
         {
-           // booksPosted.setVisibility(View.INVISIBLE);
             none.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
             none.setLayoutParams(params);
@@ -71,8 +74,8 @@ public class AccountActivity extends Activity implements
         else
         {
             booksPosted.setVisibility(View.VISIBLE);
-            booksPosted.setAdapter(new BooksAdapter(this,booksResults));
-            none.setVisibility(View.INVISIBLE);
+            booksPosted.setAdapter(new BooksAdapter(this, booksResults));
+            none.setVisibility(View.GONE);
         }
 
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -83,17 +86,18 @@ public class AccountActivity extends Activity implements
                 .build();
 
         signoutButton = (CircleButton) findViewById(R.id.blogout);
-        signoutButton.setOnClickListener(new View.OnClickListener() {
+        signoutButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
                 SharedPreferences.Editor editor = getSharedPreferences("pref", Context.MODE_PRIVATE).edit();
                 editor.clear();
                 editor.commit();
-                Boolean isGoogle = getSharedPreferences("pref",Context.MODE_PRIVATE).getBoolean("google", false);
-                if(isGoogle)
+                Boolean isGoogle = getSharedPreferences("pref", Context.MODE_PRIVATE).getBoolean("google", false);
+                if (isGoogle)
                 {
-                    if(googleApiClient.isConnected())
+                    if (googleApiClient.isConnected())
                     {
                         Plus.AccountApi.clearDefaultAccount(googleApiClient);
                         googleApiClient.disconnect();
@@ -104,7 +108,8 @@ public class AccountActivity extends Activity implements
                 {
                     new LoginActivity().signOut();
                 }
-                Intent logIn = new Intent(AccountActivity.this,LoginActivity.class);;
+                Intent logIn = new Intent(AccountActivity.this, LoginActivity.class);
+                ;
                 logIn.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(logIn);
             }
@@ -147,17 +152,17 @@ public class AccountActivity extends Activity implements
     protected void onStop()
     {
         super.onStop();
-        if(googleApiClient.isConnected())
+        if (googleApiClient.isConnected())
         {
             googleApiClient.disconnect();
         }
     }
 
 
-
     public class SearchAsyncTask extends AsyncTask<String, Void, String>
     {
         String userQuery;
+
         @Override
         protected String doInBackground(String... params)
         {
@@ -170,13 +175,14 @@ public class AccountActivity extends Activity implements
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Posted");
 
 
-                query.whereContains("useremail",userQuery);
+            query.whereContains("useremail", userQuery);
 
             try
             {
                 Log.w("Parse", "Inside getbooks()");
                 List<ParseObject> queryResult = query.find();
-                for (ParseObject book : queryResult) {
+                for (ParseObject book : queryResult)
+                {
 
                     HashMap<String, String> test = new HashMap<>();
 
@@ -195,12 +201,10 @@ public class AccountActivity extends Activity implements
                     test.put("description", desp);
 
                     booksResults.add(test);
-
-
                 }
-
-
-            } catch(ParseException e) {
+            }
+            catch (ParseException e)
+            {
 
                 Log.d("Books", "Error: " + e.getMessage());
 
@@ -210,17 +214,20 @@ public class AccountActivity extends Activity implements
         }
 
 
-
         @Override
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
-           // BooksAdapter  adapter = new BooksAdapter(getApplicationContext(), booksResults);
-           // booksPosted.setAdapter(adapter);
-
-             booksPosted.setVisibility(View.VISIBLE);
-           booksPosted.setAdapter(new BooksAdapter(getApplication().getApplicationContext(), booksResults));
-            progressBar.setVisibility(View.INVISIBLE);
+            booksPosted.setVisibility(View.VISIBLE);
+            booksPosted.setAdapter(new BooksAdapter(getApplication().getApplicationContext(), booksResults));
+            booksPosted.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    startActivity(new Intent(AccountActivity.this,EditActivity.class));
+                }
+            });
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

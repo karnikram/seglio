@@ -17,15 +17,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Biblio extends Application
 {
-    static boolean isLoggedIn;
     static String userEmail, userName;
     @Override
     public void onCreate()
     {
         super.onCreate();
         FacebookSdk.sdkInitialize(this);
-        userEmail = "karnikram@gmail.com";
-        userName = "Karnik Ram";
         printHashkey();
     }
 

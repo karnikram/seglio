@@ -11,7 +11,7 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="80dp"
+            android:layout_height="42dp"
             android:layout_marginLeft="8dp"
             android:background="@color/accentColor"/>
 

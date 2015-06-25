@@ -148,7 +148,7 @@ public class PostCardFragment extends Fragment
 
             if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
             {
-                Toast.makeText(getActivity(), "One or more fields are empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
                 uploadButton.setProgress(-1);
             }
             else
@@ -168,9 +168,8 @@ public class PostCardFragment extends Fragment
                 bookObject.put("title",lowTitle);
                 bookObject.put("author",lowAuthor);
                 bookObject.saveInBackground();
+                Toast.makeText(getActivity(),"Posted!",Toast.LENGTH_LONG).show();
 
-
-                Toast.makeText(getActivity(), "Book Posted!.", Toast.LENGTH_LONG).show();
                 uploadButton.setProgress(100);
                 titleEdit.setText("");
                 authorEdit.setText("");
@@ -178,6 +177,7 @@ public class PostCardFragment extends Fragment
                 descriptionEdit.setText("");
                 priceEdit.setText("");
                 originalPriceEdit.setText("");
+
                 if(phoneEdit.getVisibility() == View.VISIBLE)
                 {
                     phoneEdit.setText("");

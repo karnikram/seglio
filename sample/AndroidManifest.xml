@@ -46,6 +46,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.astuetz.cyber.teen.biblio.EditActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_id" />

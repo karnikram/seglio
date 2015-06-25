@@ -182,8 +182,8 @@
 
                     <at.markushi.ui.CircleButton
                         android:id="@+id/bcall"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         android:layout_weight="1"
                         android:src="@drawable/call"
                         app:cb_color="@color/accentColor"
@@ -193,8 +193,8 @@
 
                     <at.markushi.ui.CircleButton
                         android:id="@+id/bemail"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         android:layout_weight="1"
                         android:src="@drawable/email"
                         app:cb_color="@color/accentColor"

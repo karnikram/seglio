@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karnix.cyberteen.biblio.R;
 
@@ -56,7 +57,8 @@ public class BookActivity extends Activity
         locality.setText(book.get("locality"));
 
         call = (CircleButton) findViewById(R.id.bcall);
-        if(book.get("phone")!=null)
+
+        if(!book.get("phone").equals(""))
         {
             call.setVisibility(View.VISIBLE);
             call.setOnClickListener(new View.OnClickListener() {
