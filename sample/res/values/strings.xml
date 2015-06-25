@@ -19,7 +19,7 @@
 
     <string name= "shout_outs">Shout outs</string>
 
-    <string name = "Test">Testing git merge</string>
+    <string name = "Test">Testing git merges</string>
 
     <string-array name="departments">
         <item>Select a department</item>
