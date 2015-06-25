@@ -37,6 +37,9 @@ import com.karnix.cyberteen.biblio.R;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class MainActivity extends ActionBarActivity
 {
@@ -53,8 +56,11 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Biblio.userName = getSharedPreferences("pref",0).getString("name",null);
-        Biblio.userEmail = getSharedPreferences("pref",0).getString("email",null);
+//        Biblio.userName = getSharedPreferences("pref",0).getString("name",null);
+//        Biblio.userEmail = getSharedPreferences("pref",0).getString("email",null);
+
+        Biblio.userEmail = "karnikram@gmail.com";
+        Biblio.userName= "Karnik";
 
         if(Biblio.userName == null || Biblio.userEmail == null)
         {
@@ -71,6 +77,9 @@ public class MainActivity extends ActionBarActivity
 
         Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
 
+        AdView mAdview = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdview.loadAd(adRequest);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);

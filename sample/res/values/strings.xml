@@ -14,8 +14,10 @@
     <string name="confirm_password">Confirm password</string>
     <string name="name">Name</string>
     <string name="register">Register</string>
+    <string name = "banner_ad_unit_id">ca-app-pub-2857336060972512/9092854388</string>
+    <string name = "full_ad_unit_id">ca-app-pub-2857336060972512/1290385989</string>
 
-    <string name= "shout-outs">Shout outs</string>
+    <string name= "shout_outs">Shout outs</string>
 
     <string-array name="departments">
         <item>Select a department</item>

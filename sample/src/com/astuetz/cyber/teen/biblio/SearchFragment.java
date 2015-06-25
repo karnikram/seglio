@@ -304,6 +304,7 @@ public class SearchFragment extends Fragment
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
+
             searchResults.setAdapter(new BooksAdapter(getActivity(), booksResults));
             searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {
@@ -321,6 +322,8 @@ public class SearchFragment extends Fragment
             {
                 noBooks.setVisibility(View.VISIBLE);
             }
+            else
+                noBooks.setVisibility(View.GONE);
         }
     }
 }

@@ -20,6 +20,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.google.android.gms:play-services-plus:7.5.0'
     compile 'com.github.markushi:circlebutton:1.1'
+    compile 'com.google.android.gms:play-services-ads:7.5.0'
     compile files('libs/Parse-1.9.2.jar')
 }
 
