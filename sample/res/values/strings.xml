@@ -21,6 +21,8 @@
     <string name ="sp">Safety guidelines</string>
 
 
+    <string name = "Test3">Testing final merge test</string>
+
     <string-array name="departments">
         <item>Select a department</item>
         <item>Aeronautical Engineering</item>

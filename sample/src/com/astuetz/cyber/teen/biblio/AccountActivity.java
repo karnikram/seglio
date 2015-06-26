@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -61,6 +63,10 @@ public class AccountActivity extends Activity implements
         user = (TextView) findViewById(R.id.auser);
 
         user.setText(Biblio.userName);
+
+        AdView mAdview = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdview.loadAd(adRequest);
 
         new SearchAsyncTask().execute(Biblio.userEmail);
 

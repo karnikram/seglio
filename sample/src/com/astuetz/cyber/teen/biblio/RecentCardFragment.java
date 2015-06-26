@@ -13,6 +13,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.karnix.cyberteen.biblio.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -31,6 +33,8 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
     private SwipeRefreshLayout refreshBooks;
 
+    private InterstitialAd interstitial;
+
     ArrayList<HashMap<String, String>> books = new ArrayList<>();
 
 
@@ -47,6 +51,12 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         refreshBooks = (SwipeRefreshLayout) rootView.findViewById(R.id.container);
         refreshBooks.setOnRefreshListener(this);
         recentsList = (ListView) rootView.findViewById(R.id.recents_list);
+
+        interstitial = new InterstitialAd((getActivity()));
+        interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
+        requestNewInterstitial();
+
+        updateBooks();
 
         recentsList.setOnScrollListener(new AbsListView.OnScrollListener()
         {
@@ -186,11 +196,34 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Intent book = new Intent(getActivity(), BookActivity.class);
-                book.putExtra("book", books.get(position));
-                startActivity(book);
-            }
-        });
 
+                Biblio.iad++;
+                Log.w("RecentsCount",String.valueOf(Biblio.iad));
+
+                if(Biblio.iad%3==0)
+                {
+                    if(interstitial.isLoaded());
+                    interstitial.show();
+                }
+
+                else {
+                    Intent book = new Intent(getActivity(), BookActivity.class);
+                    book.putExtra("book", books.get(position));
+                    startActivity(book);
+                }
+
+        }
+
+    });
+
+
+ }
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
+                .build();
+
+        interstitial.loadAd(adRequest);
     }
+
 }

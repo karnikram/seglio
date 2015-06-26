@@ -68,9 +68,9 @@ public class MainActivity extends ActionBarActivity
         Biblio.userName = getSharedPreferences("pref", 0).getString("name", null);
         Biblio.userEmail = getSharedPreferences("pref", 0).getString("email", null);
 
-        if (Biblio.userName == null || Biblio.userEmail == null)
+        if(Biblio.userName == null || Biblio.userEmail == null)
         {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            startActivity(new Intent(MainActivity.this,LoginActivity.class));
             finish();
         }
 
@@ -81,14 +81,14 @@ public class MainActivity extends ActionBarActivity
         }
 
 
-        Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
+        Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
 
         AdView mAdview = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview.loadAd(adRequest);
 
-        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
-        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+       rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+       rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -125,6 +125,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onComplete(RippleView rippleView)
             {
+
                 startActivity(new Intent(MainActivity.this, AboutActivity.class));
 
             }
