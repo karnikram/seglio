@@ -62,24 +62,24 @@ public class BooksAdapter extends BaseAdapter
             holder = (MyHolder) v.getTag();
         }
 
-        holder.title.setText(items.get(position).get("title"));
-        holder.author.setText(items.get(position).get("author"));
-        holder.dept.setText(items.get(position).get("dept"));
-        if(items.get(position).get("status").equals("sold"))
-        {
-            holder.price.setVisibility(View.GONE);
-            holder.currency.setVisibility(View.GONE);
-            holder.sold.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            holder.price.setVisibility(View.VISIBLE);
-            holder.currency.setVisibility(View.VISIBLE);
-            holder.sold.setVisibility(View.GONE);
-            holder.price.setText(items.get(position).get("price"));
-            holder.currency.setImageResource(R.drawable.currency);
-        }
+       if(items.size()>0) { //prevents crashing when list is scrolled while swipe to refresh is active
+           holder.title.setText(items.get(position).get("title"));
+           holder.author.setText(items.get(position).get("author"));
+           holder.dept.setText(items.get(position).get("dept"));
 
+           if (items.get(position).get("status").equals("sold")) {
+               holder.price.setVisibility(View.GONE);
+               holder.currency.setVisibility(View.GONE);
+               holder.sold.setVisibility(View.VISIBLE);
+           } else {
+               holder.price.setVisibility(View.VISIBLE);
+               holder.currency.setVisibility(View.VISIBLE);
+               holder.sold.setVisibility(View.GONE);
+               holder.price.setText(items.get(position).get("price"));
+               holder.currency.setImageResource(R.drawable.currency);
+           }
+
+       }
         return v;
     }
 

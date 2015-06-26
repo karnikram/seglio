@@ -24,6 +24,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.karnix.cyberteen.biblio.R;
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +63,9 @@ public class LoginActivity extends Activity implements
                 showTC();
             }
         });
+
+        Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
+
 
         gloginButton = (Button) findViewById(R.id.google_login);
         gloginButton.setOnClickListener(new View.OnClickListener()
@@ -106,6 +111,10 @@ public class LoginActivity extends Activity implements
                                     editor.putString("email", jsonObject.getString("email"));
                                     editor.commit();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    ParseObject user = new ParseObject("Users");
+                                    user.put("Username",Biblio.userName);
+                                    user.put("Email",Biblio.userEmail);
+                                    user.saveInBackground();
                                     finish();
                                 }
                                 catch (JSONException e)
@@ -172,6 +181,10 @@ public class LoginActivity extends Activity implements
         editor.putBoolean("google", true);
         editor.commit();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        ParseObject user = new ParseObject("Users");
+        user.put("Username",Biblio.userName);
+        user.put("Email",Biblio.userEmail);
+        user.saveInBackground();
         finish();
     }
 

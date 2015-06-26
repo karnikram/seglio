@@ -56,27 +56,24 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
         requestNewInterstitial();
 
-        updateBooks();
 
-        recentsList.setOnScrollListener(new AbsListView.OnScrollListener()
-        {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState)
-            {
 
-            }
+                recentsList.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount)
-            {
-                int topRowVerticalPosition =
-                        (recentsList == null || recentsList.getChildCount() == 0) ?
-                                0 : recentsList.getChildAt(0).getTop();
-                refreshBooks.setEnabled(firstVisibleItem == 0 &&
-                        topRowVerticalPosition >= 0);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onScroll(AbsListView view, int firstVisibleItem,
+                                         int visibleItemCount, int totalItemCount) {
+                        int topRowVerticalPosition =
+                                (recentsList == null || recentsList.getChildCount() == 0) ?
+                                        0 : recentsList.getChildAt(0).getTop();
+                        refreshBooks.setEnabled(firstVisibleItem == 0 &&
+                                topRowVerticalPosition >= 0);
+                    }
+                });
 
         return rootView;
     }
@@ -220,10 +217,19 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
  }
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
+               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
                 .build();
 
         interstitial.loadAd(adRequest);
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        refreshBooks.setRefreshing(true);
+//        onRefresh();
+//
+//    }
 
 }

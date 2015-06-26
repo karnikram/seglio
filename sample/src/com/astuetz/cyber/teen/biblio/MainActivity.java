@@ -56,7 +56,6 @@ public class MainActivity extends ActionBarActivity
     private TextView title;
     private ImageView iconLogin;
 
-    InterstitialAd mIadd;
 
     RippleView rippleLogin, rippleInfo;
 

@@ -3,6 +3,7 @@ package com.astuetz.cyber.teen.biblio;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -307,7 +308,7 @@ public class EditActivity extends Activity
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
+               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
                 .build();
 
         interstitial.loadAd(adRequest);
