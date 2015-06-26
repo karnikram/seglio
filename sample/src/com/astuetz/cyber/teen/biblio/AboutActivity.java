@@ -16,10 +16,10 @@ import com.karnix.cyberteen.biblio.R;
 
 public class AboutActivity extends Activity
 {
-    TextView title,tc,sp;
+    TextView title,tc,sp, appname;
     ImageView fb1,fb2,fb3;
 
-    RippleView rippleLogin, rippleInfo;
+    RippleView rippleLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +36,8 @@ public class AboutActivity extends Activity
 
         tc = (TextView) findViewById(R.id.tc);
         sp = (TextView) findViewById(R.id.sp);
+        appname = (TextView) findViewById(R.id.about_2);
+        appname.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
 
         fb1.setOnClickListener(new View.OnClickListener()
         {
@@ -84,7 +86,6 @@ public class AboutActivity extends Activity
         });
 
         rippleLogin = (RippleView) findViewById(R.id.rippleUser);
-        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
         rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
         {
@@ -95,15 +96,6 @@ public class AboutActivity extends Activity
             }
         });
 
-        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
-        {
-            @Override
-            public void onComplete(RippleView rippleView)
-            {
-
-                startActivity(new Intent(AboutActivity.this, AboutActivity.class));
-            }
-        });
 
         tc.setOnClickListener(new View.OnClickListener()
         {

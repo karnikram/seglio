@@ -21,6 +21,8 @@ import com.dd.CircularProgressButton;
 import com.karnix.cyberteen.biblio.R;
 import com.parse.ParseObject;
 
+import at.markushi.ui.CircleButton;
+
 
 public class PostCardFragment extends Fragment
 {
@@ -28,7 +30,7 @@ public class PostCardFragment extends Fragment
     EditText titleEdit, authorEdit, localityEdit, descriptionEdit, priceEdit, originalPriceEdit,phoneEdit;
     Spinner deptSpin, contactSpin;
     ImageView tablet;
-    CircularProgressButton uploadButton;
+    CircleButton uploadButton;
 
     String title, author, locality, description, price, originalPrice, phone;
     TextView message;
@@ -61,10 +63,9 @@ public class PostCardFragment extends Fragment
         deptSpin = (Spinner) rootView.findViewById(R.id.dept_spinner);
         contactSpin = (Spinner) rootView.findViewById(R.id.cont_spinner);
         tablet = (ImageView)rootView.findViewById(R.id.tablet);
-        uploadButton = (CircularProgressButton) rootView.findViewById(R.id.circularButton1);
+        uploadButton = (CircleButton) rootView.findViewById(R.id.bpost);
 
-        phoneEdit.setVisibility(View.INVISIBLE);
-        tablet.setVisibility(View.INVISIBLE);
+
         return rootView;
     }
 
@@ -91,8 +92,8 @@ public class PostCardFragment extends Fragment
 
                 if(position == 0)
                 {
-                    phoneEdit.setVisibility(View.INVISIBLE);
-                    tablet.setVisibility(View.INVISIBLE);
+                    phoneEdit.setVisibility(View.GONE);
+                    tablet.setVisibility(View.GONE);
                     isPhone = false;
                 }
                 if(position == 1)
@@ -110,21 +111,12 @@ public class PostCardFragment extends Fragment
             }
         });
 
-        uploadButton.setIndeterminateProgressMode(true);
         uploadButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (uploadButton.getProgress() == 0)
-                {
                     checkConnectionExecute();
-                }
-                else
-                    if (uploadButton.getProgress() == 100 || uploadButton.getProgress() == -1)
-                    {
-                        uploadButton.setProgress(0);
-                    }
             }
         });
     }
@@ -149,11 +141,9 @@ public class PostCardFragment extends Fragment
             if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
             {
                 Toast.makeText(getActivity(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
-                uploadButton.setProgress(-1);
             }
             else
             {
-                uploadButton.setProgress(50);
                 ParseObject bookObject = new ParseObject("Posted");
                 bookObject.put("username",Biblio.userName);
                 bookObject.put("useremail",Biblio.userEmail);
@@ -172,9 +162,6 @@ public class PostCardFragment extends Fragment
 
                 Toast.makeText(getActivity(),"Posted!",Toast.LENGTH_LONG).show();
 
-
-
-                uploadButton.setProgress(100);
                 titleEdit.setText("");
                 authorEdit.setText("");
                 localityEdit.setText("");
@@ -185,7 +172,6 @@ public class PostCardFragment extends Fragment
                 if(phoneEdit.getVisibility() == View.VISIBLE)
                 {
                     phoneEdit.setText("");
-                    phoneEdit.setVisibility(View.INVISIBLE);
                 }
             }
         }
@@ -193,7 +179,6 @@ public class PostCardFragment extends Fragment
         else
         {
             Toast.makeText(getActivity(), "Connect to the internet!", Toast.LENGTH_LONG).show();
-            uploadButton.setProgress(-1);
         }
     }
 }

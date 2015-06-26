@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.andexert.library.RippleView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
@@ -47,7 +49,8 @@ public class AccountActivity extends Activity implements
     ListView booksPosted;
     ProgressBar progressBar;
 
-    TextView none, user;
+    TextView none, user, title;
+    RippleView rippleInfo;
 
     ArrayList<HashMap<String, String>> booksResults = new ArrayList<>();
 
@@ -56,6 +59,9 @@ public class AccountActivity extends Activity implements
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_activity);
+
+        title = (TextView) findViewById(R.id.tool_title);
+        title.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
 
         progressBar = (ProgressBar) findViewById(R.id.aprogress);
         booksPosted = (ListView) findViewById(R.id.abooks);
@@ -113,6 +119,19 @@ public class AccountActivity extends Activity implements
                 startActivity(logIn);
             }
         });
+
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+
+        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+
+                startActivity(new Intent(AccountActivity.this, AboutActivity.class));
+            }
+        });
+
 
     }
 
