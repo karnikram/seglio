@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
+import com.karnix.cyberteen.biblio.R;
+import com.parse.Parse;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +27,7 @@ public class Biblio extends Application
     public void onCreate()
     {
         super.onCreate();
+        Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
         FacebookSdk.sdkInitialize(this);
         printHashkey();
     }

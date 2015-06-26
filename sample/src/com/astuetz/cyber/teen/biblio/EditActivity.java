@@ -2,6 +2,7 @@ package com.astuetz.cyber.teen.biblio;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,9 +43,11 @@ public class EditActivity extends Activity
 
     CircleButton edit, sold;
 
-    RippleView rippleInfo;
+    RippleView rippleLogin, rippleInfo;
 
     String title, author, locality, description, price, originalPrice, phone, objId;
+
+    TextView ttitle;
 
     private InterstitialAd interstitial;
 
@@ -53,6 +56,10 @@ public class EditActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_activity);
+
+        ttitle = (TextView) findViewById(R.id.tool_title);
+        ttitle.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
+
 
         book = (HashMap<String, String>) getIntent().getSerializableExtra("book");
 
@@ -120,8 +127,8 @@ public class EditActivity extends Activity
             {
                 if (position == 0)
                 {
-                    phoneEdit.setVisibility(View.INVISIBLE);
-                    tablet.setVisibility(View.INVISIBLE);
+                    phoneEdit.setVisibility(View.GONE);
+                    tablet.setVisibility(View.GONE);
                     isPhone = false;
                 }
                 if (position == 1)
@@ -274,7 +281,7 @@ public class EditActivity extends Activity
                                     book.put("phone", phone);
                                     book.put("title", lowTitle);
                                     book.put("author", lowAuthor);
-                                    book.put("status","sell");
+                                    book.put("status", "sell");
                                     book.saveInBackground();
 
                                     Toast.makeText(getApplicationContext(), "Changes pushed!", Toast.LENGTH_LONG).show();
@@ -293,8 +300,19 @@ public class EditActivity extends Activity
             }
         });
 
+
+        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
         rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
+
+        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+                startActivity(new Intent(EditActivity.this, AccountActivity.class));
+            }
+        });
 
         rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
         {
@@ -314,6 +332,7 @@ public class EditActivity extends Activity
 
         interstitial.loadAd(adRequest);
     }
+
 }
 
 

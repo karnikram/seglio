@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Biblio</string>
+    <string name="app_name">Seglio</string>
 
     <string name = "app_id">5EDgjGMNvj8Eb5CEjW9uPWB9wARKTSNIJwAN1v2K</string>
     <string name = "client_key">6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq</string>

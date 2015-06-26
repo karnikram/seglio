@@ -79,15 +79,12 @@ public class MainActivity extends ActionBarActivity
 
         }
 
-
-        Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
-
         AdView mAdview = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview.loadAd(adRequest);
 
-       rippleLogin = (RippleView) findViewById(R.id.rippleUser);
-       rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);

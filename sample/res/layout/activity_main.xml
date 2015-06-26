@@ -38,11 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
-        ads:adUnitId = "@string/banner_ad_unit_id"
+        ads:adUnitId ="@string/banner_ad_unit_id"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.06">
+        android:layout_weight="0.01">
 
     </com.google.android.gms.ads.AdView>
-
 
 </LinearLayout>

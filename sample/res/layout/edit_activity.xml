@@ -9,7 +9,7 @@
               android:background="@color/backColor"
               android:fitsSystemWindows="true"
               android:orientation="vertical"
-    android:weightSum="1">
+    >
 
     <include layout="@layout/toolbar"/>
 
@@ -21,7 +21,7 @@
         android:padding="8dp"
         card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="8dp"
-        android:layout_weight="0.29">
+        android:layout_weight="1">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -255,6 +255,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tablet"
                         android:src="@drawable/mobile"
+                        android:visibility="gone"
                         android:layout_marginRight="8dp"/>
 
                     <com.wrapp.floatlabelededittext.FloatLabeledEditText
@@ -267,6 +268,7 @@
                             android:id="@+id/contact_no"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:hint="Contact number"
                             android:inputType="number"
                             android:maxLength="11"
@@ -302,8 +304,6 @@
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
         </ScrollView>
@@ -314,12 +314,11 @@
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         ads:adSize="BANNER"
         ads:adUnitId = "@string/banner_ad_unit_id"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1.03">
+        />
 
-    </com.google.android.gms.ads.AdView>
 
 </LinearLayout>
