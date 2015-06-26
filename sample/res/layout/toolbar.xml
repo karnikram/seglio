@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-                                   xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   android:background="@color/primaryColor"
-                                   android:minHeight="56dp">
+<android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primaryColor"
+    android:minHeight="56dp">
 
     <TextView
         android:id="@+id/tool_title"
@@ -16,21 +17,45 @@
         android:textColor="@color/accentColor"
         android:textSize="38dp"/>
 
-    <ImageView
-        android:id="@+id/action_login"
+    <com.andexert.library.RippleView
+        android:id="@+id/rippleUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:src="@drawable/account"/>
+        android:layout_gravity="left"
+        android:layout_margin="5dp"
+        app:rv_color="@color/accentColor"
+        app:rv_type="rectangle"
+        >
 
-    <ImageView
-        android:id="@+id/action_help"
+        <ImageView
+            android:id="@+id/action_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:src="@drawable/account"/>
+
+    </com.andexert.library.RippleView>
+
+    <com.andexert.library.RippleView
+        android:id="@+id/rippleInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/info"/>
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp"
+        app:rv_color="@color/accentColor"
+        app:rv_type="rectangle"
+        >
 
 
+        <ImageView
+            android:id="@+id/action_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/info"/>
+
+
+    </com.andexert.library.RippleView>
 
 </android.support.v7.widget.Toolbar>

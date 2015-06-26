@@ -103,6 +103,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         String op = String.valueOf(oprice);
                         String userName = book.getString("username");
                         String userEmail = book.getString("useremail");
+                        String status = book.getString("status");
 
 
                         bookItem.put("dept", dept);
@@ -115,6 +116,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         bookItem.put("description", desp);
                         bookItem.put("phone", phone);
                         bookItem.put("oprice", op);
+                        bookItem.put("status",status);
 
                         books.add(bookItem);
                         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);

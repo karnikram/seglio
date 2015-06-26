@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.karnix.cyberteen.biblio.R;
@@ -64,7 +65,20 @@ public class BooksAdapter extends BaseAdapter
         holder.title.setText(items.get(position).get("title"));
         holder.author.setText(items.get(position).get("author"));
         holder.dept.setText(items.get(position).get("dept"));
-        holder.price.setText(items.get(position).get("price"));
+        if(items.get(position).get("status").equals("sold"))
+        {
+            holder.price.setVisibility(View.GONE);
+            holder.currency.setVisibility(View.GONE);
+            holder.sold.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.price.setVisibility(View.VISIBLE);
+            holder.currency.setVisibility(View.VISIBLE);
+            holder.sold.setVisibility(View.GONE);
+            holder.price.setText(items.get(position).get("price"));
+            holder.currency.setImageResource(R.drawable.currency);
+        }
 
         return v;
     }
@@ -72,6 +86,7 @@ public class BooksAdapter extends BaseAdapter
     class MyHolder
     {
         TextView dept,title,author,price;
+        ImageView currency, sold;
 
         public MyHolder(View view)
         {
@@ -79,6 +94,8 @@ public class BooksAdapter extends BaseAdapter
             dept = (TextView)view.findViewById(R.id.dept_name);
             author = (TextView) view.findViewById(R.id.author_name);
             price = (TextView)view.findViewById(R.id.price_list);
+            currency = (ImageView) view.findViewById(R.id.currencyicon);
+            sold = (ImageView) view.findViewById(R.id.sold);
         }
     }
 }

@@ -16,7 +16,9 @@
 
 package com.astuetz.cyber.teen.biblio;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.andexert.library.RippleView;
 import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.appevents.AppEventsLogger;
@@ -62,32 +65,30 @@ public class MainActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Biblio.userName = getSharedPreferences("pref",0).getString("name",null);
-//        Biblio.userEmail = getSharedPreferences("pref",0).getString("email",null);
+        Biblio.userName = getSharedPreferences("pref", 0).getString("name", null);
+        Biblio.userEmail = getSharedPreferences("pref", 0).getString("email", null);
 
-        Biblio.userEmail = "karnikram@gmail.com";
-        Biblio.userName= "Karnik";
-
-        if(Biblio.userName == null || Biblio.userEmail == null)
+        if (Biblio.userName == null || Biblio.userEmail == null)
         {
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
 
         else
         {
-            Toast.makeText(this,"Howdy, " + Biblio.userName +"!",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Hello, " + Biblio.userName + "!", Toast.LENGTH_LONG).show();
+
         }
 
 
-        Parse.initialize(this,getResources().getString(R.string.app_id),getResources().getString(R.string.client_key));
+        Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
 
         AdView mAdview = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdview.loadAd(adRequest);
 
-//        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
-//        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -108,11 +109,14 @@ public class MainActivity extends ActionBarActivity
         title = (TextView) findViewById(R.id.tool_title);
         title.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
 
-        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
             @Override
             public void onComplete(RippleView rippleView)
             {
                 startActivity(new Intent(MainActivity.this, AccountActivity.class));
+
+
             }
         });
 
@@ -121,8 +125,8 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onComplete(RippleView rippleView)
             {
-
                 startActivity(new Intent(MainActivity.this, AboutActivity.class));
+
             }
         });
     }
@@ -181,7 +185,8 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onPause()
     {
-        super.onPause();
+        super.onStop();
         AppEventsLogger.deactivateApp(this);
     }
+
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -41,7 +42,7 @@ public class LoginActivity extends Activity implements
 
     LoginButton fbloginButton;
     CallbackManager callbackManager;
-    TextView title;
+    TextView title, tc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,25 +53,33 @@ public class LoginActivity extends Activity implements
         title = (TextView) findViewById(R.id.login_title);
         title.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
 
+        tc = (TextView) findViewById(R.id.tc);
+        tc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                showTC();
+            }
+        });
+
         gloginButton = (Button) findViewById(R.id.google_login);
         gloginButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
-                /*User cllicked the sign in button , begin the process
+            /*User cllicked the sign in button , begin the process
                     and automatically try to resolve any errors*/
+                    shouldResolve = true;
+                    googleApiClient = new GoogleApiClient.Builder(LoginActivity.this)
+                            .addConnectionCallbacks(LoginActivity.this)
+                            .addOnConnectionFailedListener(LoginActivity.this)
+                            .addApi(Plus.API, Plus.PlusOptions.builder().build())
+                            .addScope(Plus.SCOPE_PLUS_PROFILE)
+                            .build();
 
-                shouldResolve = true;
-                googleApiClient = new GoogleApiClient.Builder(LoginActivity.this)
-                        .addConnectionCallbacks(LoginActivity.this)
-                        .addOnConnectionFailedListener(LoginActivity.this)
-                        .addApi(Plus.API, Plus.PlusOptions.builder().build())
-                        .addScope(Plus.SCOPE_PLUS_PROFILE)
-                        .build();
+                    googleApiClient.connect();
 
-                googleApiClient.connect();
             }
         });
 
@@ -125,6 +134,14 @@ public class LoginActivity extends Activity implements
         });
     }
 
+    void showTC()
+    {
+        new MaterialDialog.Builder(this)
+                .title("Terms & Conditions")
+                .content(R.string.tc)
+                .positiveText("Dismiss")
+                .show();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -156,7 +173,6 @@ public class LoginActivity extends Activity implements
         editor.commit();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
-
     }
 
     @Override

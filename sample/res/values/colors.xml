@@ -8,4 +8,6 @@
     <color name="backColor">#EEEEEE</color>
     <color name = "dividerColor">#E0E0E0</color>
     <color name="hintText">#BDBDBD</color>
+
+    <color name="soldColor">#FF5722</color>
 </resources>

@@ -188,6 +188,7 @@ public class AccountActivity extends Activity implements
                     String phone = book.getString("phone");
                     String oprice = book.getString("oprice");
                     String objId = book.getObjectId();
+                    String status = book.getString("status");
 
 
                     test.put("dept", dept);
@@ -199,6 +200,7 @@ public class AccountActivity extends Activity implements
                     test.put("phone", phone);
                     test.put("oprice", oprice);
                     test.put("objectId",objId);
+                    test.put("status",status);
 
                     booksResults.add(test);
                 }
@@ -226,11 +228,13 @@ public class AccountActivity extends Activity implements
                 {
                     Intent edit = new Intent(AccountActivity.this,EditActivity.class);
                     edit.putExtra("book",booksResults.get(position));
-                    startActivity(edit);
+                    startActivityForResult(edit, 1);
 
                 }
             });
+
             progressBar.setVisibility(View.GONE);
+
             if(booksResults.size()==0)
             {
                 none.setVisibility(View.VISIBLE);
@@ -239,6 +243,17 @@ public class AccountActivity extends Activity implements
             {
                 none.setVisibility(View.GONE);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK)
+        {
+            startActivity(getIntent());
+            finish();
         }
     }
 }

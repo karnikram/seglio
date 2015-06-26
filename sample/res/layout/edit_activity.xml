@@ -281,6 +281,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_weight="1"
+                        android:src="@drawable/edit"
                         app:cb_color="@color/accentColor"
                         app:cb_pressedRingWidth="8dp"
                         />
@@ -290,7 +291,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_weight="1"
-                        app:cb_color="#FF5722"
+                        app:cb_color="@color/soldColor"
                         android:src="@drawable/sold"
                         app:cb_pressedRingWidth="8dp"
                         />

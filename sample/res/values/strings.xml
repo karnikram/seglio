@@ -17,6 +17,9 @@
     <string name = "banner_ad_unit_id">ca-app-pub-2857336060972512/9092854388</string>
     <string name = "full_ad_unit_id">ca-app-pub-2857336060972512/1290385989</string>
 
+    <string name = "tc">Terms and Conditions</string>
+    <string name ="sp">Safety guidelines</string>
+
 
     <string-array name="departments">
         <item>Select a department</item>

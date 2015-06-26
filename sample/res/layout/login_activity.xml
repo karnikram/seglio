@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:fb="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+
+<LinearLayout
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/primaryColor"
@@ -41,6 +47,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
+        android:clickable="false"
         android:background="@drawable/gbutton"/>
 
     />
@@ -51,8 +58,27 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:background="@drawable/fbutton"
+        android:clickable="false"
         fb:login_text=""
         fb:logout_text=""/>
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textStyle="italic"
+            android:text="By signing in, you agree to our"
+            android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:id="@+id/tc"
+        android:textColor="@color/accentColor"
+        android:text="Terms &amp; Conditions"/>
 </LinearLayout>
 
+</ScrollView>

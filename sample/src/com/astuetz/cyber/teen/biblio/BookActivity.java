@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.karnix.cyberteen.biblio.R;
 
 import java.util.HashMap;
@@ -20,6 +21,8 @@ public class BookActivity extends Activity
     HashMap<String,String> book = new HashMap<String, String>();
     TextView title, author, dept, description, oprice, price, user, locality;
     CircleButton call, email;
+
+    RippleView rippleLogin, rippleInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,6 +87,29 @@ public class BookActivity extends Activity
                 startActivity(Intent.createChooser(email, "Send your email using.."));
             }
         });
+
+        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+
+        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+                startActivity(new Intent(BookActivity.this, AccountActivity.class));
+            }
+        });
+
+        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+
+                startActivity(new Intent(BookActivity.this, AboutActivity.class));
+            }
+        });
+
 
     }
 }

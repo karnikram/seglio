@@ -275,6 +275,7 @@ public class SearchFragment extends Fragment
                     String oprice = book.getString("oprice");
                     String userName = book.getString("username");
                     String userEmail = book.getString("useremail");
+                    String status = book.getString("status");
 
 
                     test.put("dept", dept);
@@ -287,6 +288,7 @@ public class SearchFragment extends Fragment
                     test.put("oprice", oprice);
                     test.put("username",userName);
                     test.put("useremail",userEmail);
+                    test.put("status",status);
 
                     booksResults.add(test);
                 }

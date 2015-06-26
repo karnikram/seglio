@@ -68,6 +68,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.astuetz.cyber.teen.biblio.AboutActivity">
+            <intent-filter>
+                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_id" />
@@ -88,9 +94,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.tutorials.pushnotifications" to match your app's package name.
-                -->
                 <category android:name="com.karnix.cyberteen.biblio" />
             </intent-filter>
         </receiver>

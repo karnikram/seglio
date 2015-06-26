@@ -1,6 +1,7 @@
 package com.astuetz.cyber.teen.biblio;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.dd.CircularProgressButton;
 import com.karnix.cyberteen.biblio.R;
 import com.parse.FindCallback;
@@ -23,7 +25,8 @@ import java.util.List;
 
 import at.markushi.ui.CircleButton;
 
-public class EditActivity extends Activity {
+public class EditActivity extends Activity
+{
 
     HashMap<String, String> book = new HashMap<String, String>();
 
@@ -35,10 +38,13 @@ public class EditActivity extends Activity {
 
     CircleButton edit, sold;
 
+    RippleView rippleInfo;
+
     String title, author, locality, description, price, originalPrice, phone, objId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_activity);
 
@@ -77,22 +83,35 @@ public class EditActivity extends Activity {
         localityEdit.setText(book.get("place"));
         objId = book.get("objectId");
 
-        if (!(book.get("phone").equals(""))) {
+        if (!(book.get("phone").equals("")))
+        {
             contactSpin.setSelection(1);
             phoneEdit.setText(book.get("phone"));
-        } else {
+        }
+        else
+        {
             contactSpin.setSelection(0);
         }
 
-        contactSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        if (book.get("status").equals("sold"))
+        {
+            sold.setImageResource(R.drawable.sell);
+            sold.setColor(getResources().getColor(R.color.accentColor));
+        }
+
+        contactSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                if (position == 0)
+                {
                     phoneEdit.setVisibility(View.INVISIBLE);
                     tablet.setVisibility(View.INVISIBLE);
                     isPhone = false;
                 }
-                if (position == 1) {
+                if (position == 1)
+                {
                     phoneEdit.setVisibility(View.VISIBLE);
                     tablet.setVisibility(View.VISIBLE);
                     isPhone = true;
@@ -100,81 +119,97 @@ public class EditActivity extends Activity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent)
+            {
 
             }
         });
 
-        sold.setOnClickListener(new View.OnClickListener() {
+        sold.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                if (Biblio.flag % 2 == 0) {
+            public void onClick(View v)
+            {
+                if (book.get("status").equals("sell"))
+                {
                     final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
                     query.whereEqualTo("objectId", objId);
-                    query.findInBackground(new FindCallback<ParseObject>() {
+                    query.findInBackground(new FindCallback<ParseObject>()
+                    {
 
 
                         @Override
-                        public void done(List<ParseObject> parseObjects, ParseException e) {
+                        public void done(List<ParseObject> parseObjects, ParseException e)
+                        {
 
-                            if (e == null) {
-                                for (ParseObject book : parseObjects) {
-                                    book.put("status", "Sold");
+                            if (e == null)
+                            {
+                                for (ParseObject book : parseObjects)
+                                {
+                                    book.put("status", "sold");
                                     book.saveInBackground();
                                     Toast.makeText(getApplicationContext(), "Marked as sold!", Toast.LENGTH_LONG).show();
-                                    Biblio.flag++;
+                                    sold.setImageResource(R.drawable.sell);
+                                    sold.setColor(getResources().getColor(R.color.accentColor));
+                                    setResult(RESULT_OK, null);
                                     finish();
 
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
-
                             }
                         }
                     });
 
                 }
 
-
-//                    sold.setImageResource(R.drawable.sell);
-                 else {
+                else
+                {
 
                     final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
                     query.whereEqualTo("objectId", objId);
-                    query.findInBackground(new FindCallback<ParseObject>() {
+                    query.findInBackground(new FindCallback<ParseObject>()
+                    {
 
 
                         @Override
-                        public void done(List<ParseObject> parseObjects, ParseException e) {
+                        public void done(List<ParseObject> parseObjects, ParseException e)
+                        {
 
-                            if (e == null) {
-                                for (ParseObject book : parseObjects) {
-                                    book.put("status", "Sell");
+                            if (e == null)
+                            {
+                                for (ParseObject book : parseObjects)
+                                {
+                                    book.put("status", "sell");
                                     book.saveInBackground();
                                     Toast.makeText(getApplicationContext(), "Marked to sell!", Toast.LENGTH_SHORT).show();
-                                    Biblio.flag++;
+                                    sold.setImageResource(R.drawable.sold);
+                                    sold.setColor(getResources().getColor(R.color.soldColor));
+                                    setResult(RESULT_OK, null);
                                     finish();
 
-//                                 sold.setImageResource(R.drawable.sold);
-
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
 
                             }
                         }
                     });
-                    
-
 
 
                 }
             }
         });
 
-        edit.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 title = titleEdit.getText().toString();
                 final String lowTitle = title.toLowerCase();
@@ -186,20 +221,27 @@ public class EditActivity extends Activity {
                 originalPrice = originalPriceEdit.getText().toString();
                 phone = phoneEdit.getText().toString();
 
-                if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty())) {
+                if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
+                {
                     Toast.makeText(getApplicationContext(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
 
-                } else {
+                }
+                else
+                {
                     final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
                     query.whereEqualTo("objectId", objId);
-                    query.findInBackground(new FindCallback<ParseObject>() {
+                    query.findInBackground(new FindCallback<ParseObject>()
+                    {
 
 
                         @Override
-                        public void done(List<ParseObject> parseObjects, ParseException e) {
+                        public void done(List<ParseObject> parseObjects, ParseException e)
+                        {
 
-                            if (e == null) {
-                                for (ParseObject book : parseObjects) {
+                            if (e == null)
+                            {
+                                for (ParseObject book : parseObjects)
+                                {
                                     book.put("username", Biblio.userName);
                                     book.put("useremail", Biblio.userEmail);
                                     book.put("Title", title);
@@ -212,6 +254,7 @@ public class EditActivity extends Activity {
                                     book.put("phone", phone);
                                     book.put("title", lowTitle);
                                     book.put("author", lowAuthor);
+                                    book.put("status","sell");
                                     book.saveInBackground();
 
                                     Toast.makeText(getApplicationContext(), "Changes pushed!", Toast.LENGTH_LONG).show();
@@ -219,12 +262,27 @@ public class EditActivity extends Activity {
 
 
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
                 }
+            }
+        });
+
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+
+
+        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+
+                startActivity(new Intent(EditActivity.this, AboutActivity.class));
             }
         });
     }

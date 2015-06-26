@@ -10,12 +10,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.andexert.library.RippleView;
 import com.karnix.cyberteen.biblio.R;
 
 public class AboutActivity extends Activity
 {
     TextView title,tc,sp;
     ImageView fb1,fb2,fb3;
+
+    RippleView rippleLogin, rippleInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,7 +83,63 @@ public class AboutActivity extends Activity
             }
         });
 
+        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+
+        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+                startActivity(new Intent(AboutActivity.this, AccountActivity.class));
+            }
+        });
+
+        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+
+                startActivity(new Intent(AboutActivity.this, AboutActivity.class));
+            }
+        });
+
+        tc.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showTC();
+            }
+        });
+
+        sp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                showSP();
+            }
+        });
 
 
+
+    }
+    void showTC()
+    {
+        new MaterialDialog.Builder(this)
+                .title("Terms & Conditions")
+                .content(R.string.tc)
+                .positiveText("Dismiss")
+                .show();
+    }
+
+    void showSP()
+    {
+        new MaterialDialog.Builder(this)
+                .title("Safety Guidelines")
+                .content(R.string.sp)
+                .positiveText("Dismiss")
+                .show();
     }
 }
