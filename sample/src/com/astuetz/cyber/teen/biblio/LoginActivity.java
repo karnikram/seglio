@@ -7,6 +7,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,13 +25,18 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.plus.Plus;
 import com.karnix.cyberteen.biblio.R;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class LoginActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -45,6 +51,9 @@ public class LoginActivity extends Activity implements
     LoginButton fbloginButton;
     CallbackManager callbackManager;
     TextView title, tc;
+
+    int logged;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -111,10 +120,7 @@ public class LoginActivity extends Activity implements
                                     editor.putString("email", jsonObject.getString("email"));
                                     editor.commit();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    ParseObject user = new ParseObject("Users");
-                                    user.put("Username",Biblio.userName);
-                                    user.put("Email",Biblio.userEmail);
-                                    user.saveInBackground();
+                                    parseUser();
                                     finish();
                                 }
                                 catch (JSONException e)
@@ -143,85 +149,107 @@ public class LoginActivity extends Activity implements
         });
     }
 
-    void showTC()
-    {
-        new MaterialDialog.Builder(this)
-                .title("Terms & Conditions")
-                .content(R.string.tc)
-                .positiveText("Dismiss")
-                .show();
+    private void parseUser() {
+
+        Log.w("parseUser","Inside parseUser");
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
+        query.whereEqualTo("Email",Biblio.userEmail);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    Log.w("parseUser","Record Exists");
+                    logged = 1;
+                } else {
+                    if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                        Log.w("parseUser","New Record");
+                        logged = 0;
+                    } else {
+                        Log.w("parseUser", e.getMessage());
+                    }
+
+                }
+            }
+        });
+
+        if (logged==0) {
+          Log.w("parseUser","New User");
+            ParseObject user = new ParseObject("Users");
+            user.put("Username", Biblio.userName);
+            user.put("Email", Biblio.userEmail);
+            user.saveInBackground();
+
+        }
+        else Log.w("parseUser","Old user");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN)
-        {
-            if (resultCode != RESULT_OK)
-            {
-                shouldResolve = false;
+
+
+
+             void showTC() {
+                new MaterialDialog.Builder(this)
+                        .title("Terms & Conditions")
+                        .content(R.string.tc)
+                        .positiveText("Dismiss")
+                        .show();
             }
 
-            isResolving = false;
-            googleApiClient.connect();
-        }
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+            @Override
+            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+                super.onActivityResult(requestCode, resultCode, data);
+                if (requestCode == RC_SIGN_IN) {
+                    if (resultCode != RESULT_OK) {
+                        shouldResolve = false;
+                    }
 
-    @Override
-    public void onConnected(Bundle bundle)
-    {
-
-        shouldResolve = false;
-        //signed in
-        SharedPreferences.Editor editor = getSharedPreferences("pref", Context.MODE_PRIVATE).edit();
-        editor.putString("name", Plus.PeopleApi.getCurrentPerson(googleApiClient).getDisplayName());
-        editor.putString("email", Plus.AccountApi.getAccountName(googleApiClient));
-        editor.putBoolean("google", true);
-        editor.commit();
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        ParseObject user = new ParseObject("Users");
-        user.put("Username",Biblio.userName);
-        user.put("Email",Biblio.userEmail);
-        user.saveInBackground();
-        finish();
-    }
-
-    @Override
-    public void onConnectionSuspended(int i)
-    {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult)
-    {
-        if (!isResolving && shouldResolve)
-        {
-            if (connectionResult.hasResolution())
-            {
-                try
-                {
-                    connectionResult.startResolutionForResult(this, RC_SIGN_IN);
-                    isResolving = true;
-                }
-                catch (IntentSender.SendIntentException e)
-                {
-                    e.printStackTrace();
                     isResolving = false;
                     googleApiClient.connect();
                 }
+                callbackManager.onActivityResult(requestCode, resultCode, data);
             }
+
+            @Override
+            public void onConnected(Bundle bundle) {
+
+                shouldResolve = false;
+                //signed in
+                SharedPreferences.Editor editor = getSharedPreferences("pref", Context.MODE_PRIVATE).edit();
+                editor.putString("name", Plus.PeopleApi.getCurrentPerson(googleApiClient).getDisplayName());
+                editor.putString("email", Plus.AccountApi.getAccountName(googleApiClient));
+                editor.putBoolean("google", true);
+                editor.commit();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                parseUser();
+                finish();
+            }
+
+            @Override
+            public void onConnectionSuspended(int i) {
+
+            }
+
+            @Override
+            public void onConnectionFailed(ConnectionResult connectionResult) {
+                if (!isResolving && shouldResolve) {
+                    if (connectionResult.hasResolution()) {
+                        try {
+                            connectionResult.startResolutionForResult(this, RC_SIGN_IN);
+                            isResolving = true;
+                        } catch (IntentSender.SendIntentException e) {
+                            e.printStackTrace();
+                            isResolving = false;
+                            googleApiClient.connect();
+                        }
+                    }
+                }
+            }
+
+
+            public void signOut() {
+                LoginManager.getInstance().logOut();
+            }
+
+
         }
-    }
-
-
-    public void signOut()
-    {
-        LoginManager.getInstance().logOut();
-    }
-
-
-}
 
