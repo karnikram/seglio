@@ -51,6 +51,8 @@ public class EditActivity extends Activity
 
     private InterstitialAd interstitial;
 
+    boolean contactSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -106,12 +108,12 @@ public class EditActivity extends Activity
 
         if (!(book.get("phone").equals("")))
         {
-            contactSpin.setSelection(1);
+            contactSpin.setSelection(2);
             phoneEdit.setText(book.get("phone"));
         }
         else
         {
-            contactSpin.setSelection(0);
+            contactSpin.setSelection(1);
         }
 
         if (book.get("status").equals("sold"))
@@ -131,6 +133,9 @@ public class EditActivity extends Activity
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
                     isPhone = false;
+                    phoneEdit.setText("");
+                    book.put("phone","");
+                    contactSelected = false;
                 }
 
                 if (position == 1)
@@ -138,12 +143,16 @@ public class EditActivity extends Activity
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
                     isPhone = false;
+                    book.put("phone","");
+                    phoneEdit.setText("");
+                    contactSelected = true;
                 }
                 if (position == 2)
                 {
                     phoneEdit.setVisibility(View.VISIBLE);
                     tablet.setVisibility(View.VISIBLE);
                     isPhone = true;
+                    contactSelected = true;
                 }
             }
 
@@ -159,84 +168,85 @@ public class EditActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                if (book.get("status").equals("sell"))
-                {
-                    final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
-                    query.whereEqualTo("objectId", objId);
-                    query.findInBackground(new FindCallback<ParseObject>()
+                    if (book.get("status").equals("sell"))
                     {
-
-
-                        @Override
-                        public void done(List<ParseObject> parseObjects, ParseException e)
+                        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
+                        query.whereEqualTo("objectId", objId);
+                        query.findInBackground(new FindCallback<ParseObject>()
                         {
 
-                            if (e == null)
-                            {
-                                for (ParseObject book : parseObjects)
-                                {
-                                    book.put("status", "sold");
-                                    book.saveInBackground();
-                                    Toast.makeText(getApplicationContext(), "Marked as sold!", Toast.LENGTH_LONG).show();
-                                    sold.setImageResource(R.drawable.sell);
-                                    sold.setColor(getResources().getColor(R.color.accentColor));
-                                    setResult(RESULT_OK, null);
-                                    if(interstitial.isLoaded())
-                                        interstitial.show();
-                                    finish();
 
+                            @Override
+                            public void done(List<ParseObject> parseObjects, ParseException e)
+                            {
+
+                                if (e == null)
+                                {
+                                    for (ParseObject book : parseObjects)
+                                    {
+                                        book.put("status", "sold");
+                                        book.saveInBackground();
+                                        Toast.makeText(getApplicationContext(), "Marked as sold!", Toast.LENGTH_LONG).show();
+                                        sold.setImageResource(R.drawable.sell);
+                                        sold.setColor(getResources().getColor(R.color.accentColor));
+                                        setResult(RESULT_OK, null);
+                                        if (interstitial.isLoaded())
+                                            interstitial.show();
+                                        finish();
+
+
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+
+                    }
+
+                    else
+                    {
+
+                        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
+                        query.whereEqualTo("objectId", objId);
+                        query.findInBackground(new FindCallback<ParseObject>()
+                        {
+
+
+                            @Override
+                            public void done(List<ParseObject> parseObjects, ParseException e)
+                            {
+
+                                if (e == null)
+                                {
+                                    for (ParseObject book : parseObjects)
+                                    {
+                                        book.put("status", "sell");
+                                        book.saveInBackground();
+                                        Toast.makeText(getApplicationContext(), "Marked to sell!", Toast.LENGTH_SHORT).show();
+                                        sold.setImageResource(R.drawable.sold);
+                                        sold.setColor(getResources().getColor(R.color.soldColor));
+                                        setResult(RESULT_OK, null);
+                                        if (interstitial.isLoaded())
+                                            interstitial.show();
+                                        finish();
+
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
 
                                 }
                             }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                        });
 
+
+                    }
                 }
 
-                else
-                {
-
-                    final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
-                    query.whereEqualTo("objectId", objId);
-                    query.findInBackground(new FindCallback<ParseObject>()
-                    {
-
-
-                        @Override
-                        public void done(List<ParseObject> parseObjects, ParseException e)
-                        {
-
-                            if (e == null)
-                            {
-                                for (ParseObject book : parseObjects)
-                                {
-                                    book.put("status", "sell");
-                                    book.saveInBackground();
-                                    Toast.makeText(getApplicationContext(), "Marked to sell!", Toast.LENGTH_SHORT).show();
-                                    sold.setImageResource(R.drawable.sold);
-                                    sold.setColor(getResources().getColor(R.color.soldColor));
-                                    setResult(RESULT_OK, null);
-                                    if(interstitial.isLoaded())
-                                        interstitial.show();
-                                    finish();
-
-                                }
-                            }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-                    });
-
-
-                }
-            }
         });
 
 
@@ -256,7 +266,7 @@ public class EditActivity extends Activity
                 originalPrice = originalPriceEdit.getText().toString();
                 phone = phoneEdit.getText().toString();
 
-                if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) ||contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
+                if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) ||contactSpin.getSelectedItem().toString().equals("Choose contact mode") || !contactSelected)
                 {
                     Toast.makeText(getApplicationContext(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
 

@@ -35,7 +35,7 @@ public class PostCardFragment extends Fragment
 
     String title, author, locality, description, price, originalPrice, phone;
     TextView message;
-    boolean isPhone;
+    boolean isPhone, contactedSelected = false;
 
     public static PostCardFragment newInstance()
     {
@@ -95,6 +95,7 @@ public class PostCardFragment extends Fragment
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
                     isPhone = false;
+                    contactedSelected = false;
                 }
 
                 if(position == 1)
@@ -102,12 +103,14 @@ public class PostCardFragment extends Fragment
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
                     isPhone = false;
+                    contactedSelected = true;
                 }
                 if(position == 2)
                 {
                     phoneEdit.setVisibility(View.VISIBLE);
                     tablet.setVisibility(View.VISIBLE);
                     isPhone = true;
+                    contactedSelected = true;
                 }
             }
 
@@ -145,7 +148,7 @@ public class PostCardFragment extends Fragment
             originalPrice = originalPriceEdit.getText().toString();
             phone = phoneEdit.getText().toString();
 
-            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) || contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
+            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) || contactSpin.getSelectedItem().toString().equals("Choose contact mode") || !contactedSelected)
             {
                 Toast.makeText(getActivity(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
             }

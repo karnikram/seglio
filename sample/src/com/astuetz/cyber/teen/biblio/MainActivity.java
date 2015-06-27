@@ -38,8 +38,6 @@ public class MainActivity extends ActionBarActivity
     private MyPagerAdapter adapter;
 
     private TextView title;
-    private ImageView iconLogin;
-
 
     RippleView rippleLogin, rippleInfo;
 
