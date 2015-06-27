@@ -13,6 +13,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.karnix.cyberteen.biblio.R;
@@ -33,7 +34,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
     private SwipeRefreshLayout refreshBooks;
 
-    private InterstitialAd interstitial;
+    public InterstitialAd interstitial;
 
     ArrayList<HashMap<String, String>> books = new ArrayList<>();
 
@@ -85,18 +86,14 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
         query.orderByDescending("createdAt");
 
-        query.findInBackground(new FindCallback<ParseObject>()
-        {
+        query.findInBackground(new FindCallback<ParseObject>() {
 
 
             @Override
-            public void done(List<ParseObject> parseObjects, ParseException e)
-            {
+            public void done(List<ParseObject> parseObjects, ParseException e) {
 
-                if (e == null)
-                {
-                    for (ParseObject book : parseObjects)
-                    {
+                if (e == null) {
+                    for (ParseObject book : parseObjects) {
                         HashMap<String, String> bookItem = new HashMap<>();
 
                         String dept = book.getString("dept");
@@ -117,13 +114,13 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         bookItem.put("title", title);
                         bookItem.put("author", author);
                         bookItem.put("price", price);
-                        bookItem.put("username",userName);
-                        bookItem.put("useremail",userEmail);
+                        bookItem.put("username", userName);
+                        bookItem.put("useremail", userEmail);
                         bookItem.put("locality", place);
                         bookItem.put("description", desp);
                         bookItem.put("phone", phone);
                         bookItem.put("oprice", op);
-                        bookItem.put("status",status);
+                        bookItem.put("status", status);
 
                         books.add(bookItem);
                         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
@@ -131,9 +128,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         adapter.notifyDataSetChanged();
                     }
 
-                }
-                else
-                {
+                } else {
                     Log.d("Books", "Error: " + e.getMessage());
                 }
 
@@ -143,6 +138,9 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
         return books;
     }
+
+
+
 
 
     @Override
@@ -186,6 +184,13 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
         progress.dismiss();
 
+        interstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+            }
+        });
+
         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
         recentsList.setAdapter(adapter);
         recentsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -215,6 +220,9 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
 
  }
+
+
+
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
@@ -222,6 +230,8 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
         interstitial.loadAd(adRequest);
     }
+
+
 
 //    @Override
 //    public void onResume() {
