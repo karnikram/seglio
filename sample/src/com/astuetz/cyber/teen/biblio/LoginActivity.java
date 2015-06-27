@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -121,14 +122,14 @@ public class LoginActivity extends Activity implements
                                     editor.putString("name", jsonObject.getString("name"));
                                     editor.putString("email", jsonObject.getString("email"));
 
-                                    if(!getSharedPreferences("logs",0).getString("email","").equals(jsonObject.getString("email")))
+                                    if (!getSharedPreferences("logs", 0).getString("email", "").equals(jsonObject.getString("email")))
                                     {
-                                        getSharedPreferences("logs",0).edit().putString("email",jsonObject.getString("email")).commit();
+                                        getSharedPreferences("logs", 0).edit().putString("email", jsonObject.getString("email")).commit();
                                         editor.putBoolean("save", true);
                                     }
                                     else
                                     {
-                                        editor.putBoolean("save",false);
+                                        editor.putBoolean("save", false);
                                     }
 
                                     editor.commit();
@@ -150,17 +151,16 @@ public class LoginActivity extends Activity implements
             @Override
             public void onCancel()
             {
-
+                Toast.makeText(getApplicationContext(), "Connect to the Internet!", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException e)
             {
-
+                Toast.makeText(getApplicationContext(), "Connect to the Internet!", Toast.LENGTH_LONG).show();
             }
         });
     }
-
 
 
     void showTC()
@@ -200,14 +200,14 @@ public class LoginActivity extends Activity implements
         editor.putString("name", Plus.PeopleApi.getCurrentPerson(googleApiClient).getDisplayName());
         editor.putString("email", Plus.AccountApi.getAccountName(googleApiClient));
         editor.putBoolean("google", true);
-        if(!getSharedPreferences("logs",0).getString("email","").equals(Plus.AccountApi.getAccountName(googleApiClient)))
+        if (!getSharedPreferences("logs", 0).getString("email", "").equals(Plus.AccountApi.getAccountName(googleApiClient)))
         {
-            getSharedPreferences("logs",0).edit().putString("email",(Plus.AccountApi.getAccountName(googleApiClient))).commit();
+            getSharedPreferences("logs", 0).edit().putString("email", (Plus.AccountApi.getAccountName(googleApiClient))).commit();
             editor.putBoolean("save", true);
         }
         else
         {
-            editor.putBoolean("save",false);
+            editor.putBoolean("save", false);
         }
         editor.commit();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -238,6 +238,11 @@ public class LoginActivity extends Activity implements
                     isResolving = false;
                     googleApiClient.connect();
                 }
+            }
+
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Connect to the Internet!", Toast.LENGTH_LONG).show();
             }
         }
     }

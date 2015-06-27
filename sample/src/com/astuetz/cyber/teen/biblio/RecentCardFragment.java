@@ -92,7 +92,6 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
     }
 
     private void checkConnectionExecute()
-
     {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

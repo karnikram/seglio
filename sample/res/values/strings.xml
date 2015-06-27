@@ -265,6 +265,7 @@ use this information to provide notices to you which may be of use or interest t
         <item>Architecture</item>
         <item>Computer Applications</item>
         <item>Electronic Media</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="contact">
