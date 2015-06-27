@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -65,7 +66,8 @@ public class LoginActivity extends Activity implements
         title.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
 
         tc = (TextView) findViewById(R.id.tc);
-        tc.setOnClickListener(new View.OnClickListener() {
+        tc.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -84,15 +86,15 @@ public class LoginActivity extends Activity implements
             {
             /*User cllicked the sign in button , begin the process
                     and automatically try to resolve any errors*/
-                    shouldResolve = true;
-                    googleApiClient = new GoogleApiClient.Builder(LoginActivity.this)
-                            .addConnectionCallbacks(LoginActivity.this)
-                            .addOnConnectionFailedListener(LoginActivity.this)
-                            .addApi(Plus.API, Plus.PlusOptions.builder().build())
-                            .addScope(Plus.SCOPE_PLUS_PROFILE)
-                            .build();
+                shouldResolve = true;
+                googleApiClient = new GoogleApiClient.Builder(LoginActivity.this)
+                        .addConnectionCallbacks(LoginActivity.this)
+                        .addOnConnectionFailedListener(LoginActivity.this)
+                        .addApi(Plus.API, Plus.PlusOptions.builder().build())
+                        .addScope(Plus.SCOPE_PLUS_PROFILE)
+                        .build();
 
-                    googleApiClient.connect();
+                googleApiClient.connect();
 
             }
         });
@@ -118,9 +120,19 @@ public class LoginActivity extends Activity implements
                                     SharedPreferences.Editor editor = getSharedPreferences("pref", Context.MODE_PRIVATE).edit();
                                     editor.putString("name", jsonObject.getString("name"));
                                     editor.putString("email", jsonObject.getString("email"));
+
+                                    if(!getSharedPreferences("logs",0).getString("email","").equals(jsonObject.getString("email")))
+                                    {
+                                        getSharedPreferences("logs",0).edit().putString("email",jsonObject.getString("email")).commit();
+                                        editor.putBoolean("save", true);
+                                    }
+                                    else
+                                    {
+                                        editor.putBoolean("save",false);
+                                    }
+
                                     editor.commit();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    parseUser();
                                     finish();
                                 }
                                 catch (JSONException e)
@@ -149,107 +161,93 @@ public class LoginActivity extends Activity implements
         });
     }
 
-    private void parseUser() {
 
-        Log.w("parseUser","Inside parseUser");
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-        query.whereEqualTo("Email",Biblio.userEmail);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                if (e == null) {
-                    Log.w("parseUser","Record Exists");
-                    logged = 1;
-                } else {
-                    if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
-                        Log.w("parseUser","New Record");
-                        logged = 0;
-                    } else {
-                        Log.w("parseUser", e.getMessage());
-                    }
-
-                }
-            }
-        });
-
-        if (logged==0) {
-          Log.w("parseUser","New User");
-            ParseObject user = new ParseObject("Users");
-            user.put("Username", Biblio.userName);
-            user.put("Email", Biblio.userEmail);
-            user.saveInBackground();
-
-        }
-        else Log.w("parseUser","Old user");
+    void showTC()
+    {
+        new MaterialDialog.Builder(this)
+                .title("Terms & Conditions")
+                .content(R.string.tc)
+                .positiveText("Dismiss")
+                .contentGravity(GravityEnum.CENTER)
+                .show();
     }
 
-
-
-
-             void showTC() {
-                new MaterialDialog.Builder(this)
-                        .title("Terms & Conditions")
-                        .content(R.string.tc)
-                        .positiveText("Dismiss")
-                        .show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN)
+        {
+            if (resultCode != RESULT_OK)
+            {
+                shouldResolve = false;
             }
 
-            @Override
-            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-                super.onActivityResult(requestCode, resultCode, data);
-                if (requestCode == RC_SIGN_IN) {
-                    if (resultCode != RESULT_OK) {
-                        shouldResolve = false;
-                    }
+            isResolving = false;
+            googleApiClient.connect();
+        }
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
+    @Override
+    public void onConnected(Bundle bundle)
+    {
+
+        shouldResolve = false;
+        //signed in
+        SharedPreferences.Editor editor = getSharedPreferences("pref", Context.MODE_PRIVATE).edit();
+        editor.putString("name", Plus.PeopleApi.getCurrentPerson(googleApiClient).getDisplayName());
+        editor.putString("email", Plus.AccountApi.getAccountName(googleApiClient));
+        editor.putBoolean("google", true);
+        if(!getSharedPreferences("logs",0).getString("email","").equals(Plus.AccountApi.getAccountName(googleApiClient)))
+        {
+            getSharedPreferences("logs",0).edit().putString("email",(Plus.AccountApi.getAccountName(googleApiClient))).commit();
+            editor.putBoolean("save", true);
+        }
+        else
+        {
+            editor.putBoolean("save",false);
+        }
+        editor.commit();
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i)
+    {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
+        if (!isResolving && shouldResolve)
+        {
+            if (connectionResult.hasResolution())
+            {
+                try
+                {
+                    connectionResult.startResolutionForResult(this, RC_SIGN_IN);
+                    isResolving = true;
+                }
+                catch (IntentSender.SendIntentException e)
+                {
+                    e.printStackTrace();
                     isResolving = false;
                     googleApiClient.connect();
                 }
-                callbackManager.onActivityResult(requestCode, resultCode, data);
             }
-
-            @Override
-            public void onConnected(Bundle bundle) {
-
-                shouldResolve = false;
-                //signed in
-                SharedPreferences.Editor editor = getSharedPreferences("pref", Context.MODE_PRIVATE).edit();
-                editor.putString("name", Plus.PeopleApi.getCurrentPerson(googleApiClient).getDisplayName());
-                editor.putString("email", Plus.AccountApi.getAccountName(googleApiClient));
-                editor.putBoolean("google", true);
-                editor.commit();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                parseUser();
-                finish();
-            }
-
-            @Override
-            public void onConnectionSuspended(int i) {
-
-            }
-
-            @Override
-            public void onConnectionFailed(ConnectionResult connectionResult) {
-                if (!isResolving && shouldResolve) {
-                    if (connectionResult.hasResolution()) {
-                        try {
-                            connectionResult.startResolutionForResult(this, RC_SIGN_IN);
-                            isResolving = true;
-                        } catch (IntentSender.SendIntentException e) {
-                            e.printStackTrace();
-                            isResolving = false;
-                            googleApiClient.connect();
-                        }
-                    }
-                }
-            }
-
-
-            public void signOut() {
-                LoginManager.getInstance().logOut();
-            }
-
-
         }
+    }
+
+
+    public void signOut()
+    {
+        LoginManager.getInstance().logOut();
+    }
+
+
+}
 

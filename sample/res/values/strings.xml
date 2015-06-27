@@ -3,9 +3,9 @@
 
     <string name="app_name">Seglio</string>
 
-    <string name = "app_id">5EDgjGMNvj8Eb5CEjW9uPWB9wARKTSNIJwAN1v2K</string>
-    <string name = "client_key">6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq</string>
-    <string name = "facebook_id">1647137865515798</string>
+    <string name="app_id">5EDgjGMNvj8Eb5CEjW9uPWB9wARKTSNIJwAN1v2K</string>
+    <string name="client_key">6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq</string>
+    <string name="facebook_id">1647137865515798</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -14,14 +14,221 @@
     <string name="confirm_password">Confirm password</string>
     <string name="name">Name</string>
     <string name="register">Register</string>
-    <string name = "banner_ad_unit_id">ca-app-pub-2857336060972512/9092854388</string>
-    <string name = "full_ad_unit_id">ca-app-pub-2857336060972512/1290385989</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2857336060972512/9092854388</string>
+    <string name="full_ad_unit_id">ca-app-pub-2857336060972512/1290385989</string>
 
-    <string name = "tc">Terms and Conditions</string>
-    <string name ="sp">Safety guidelines</string>
+    <string name="tc">
+
+*END USER LICENSE AGREEMENT*
+\n\n
+1. LICENSE
+
+By installing and/or using using Seglio (\"Application \"), you agree that this End User
+
+User License Agreement (EULA) is a legally binding and valid contract and agree to be
+
+bound by it. You agree to abide by the intellectual property laws and all of the terms
+
+and conditions of this Agreement.
+
+Your use of Seglio indicates your acceptance of this license agreement and warranty.
+
+Subject to the terms of this Agreement, Seglio grants to you a limited, non-exclusive,
+
+non-transferable license, without right to sub-license, to use Seglio in accordance with
+
+this Agreement and any other written agreement with Seglio. Seglio does not transfer
+
+the title of Seglio to you; the license granted to you is not a sale. This agreement is a
+
+binding legal agreement between Seglio and the purchasers or users of Seglio.
+
+If you do not agree to be bound by this agreement, remove Seglio from your device.
+
+\n\n
+
+2. DISTRIBUTION
+
+Seglio and the license herein granted shall not be copied, shared, distributed, re-sold,
+
+offered for re-sale, transferred or sub-licensed in whole or in part except that you may
+
+make one copy for archive purposes only. 
+
+\n\n3. USER AGREEMENT
+\n
+3.1 Personal Use Only
+
+Seglio and all related services (the \"Services\") are available only for your personal, non-
+
+commercial use. You may not use the Services to increase traffic to your application for
+
+commercial reasons or sell a service or product unless you enter into an agreement
+
+with Seglio describing the terms of your commercial use. You may not \"meta search\"
+
+any information relating to the Services, including, without limitation, any posted book
+
+review (the \"Reviews\"). You may not reproduce, distribute, store, broadcast, sell or
+
+sublicense information or content included on the application without obtaining prior
+
+written consent of an authorized representative of App Name. Seglio reserves all rights
+
+not granted herein, including all copyrights.
+
+Please contact Seglio if you are interested in entering into an agreement with Seglio
+
+regarding your potential commercial use of the Services or use the \"Apply to sell books
+
+on Seglio\" link found on the home page for more information.
+\n\n
+3.2 Use Restrictions
+
+You shall use Seglio in compliance with all applicable laws and not for any unlawful
+
+purpose. \n\n
+
+3.3 Copyright Restriction
+
+This Application  contains copyrighted material, trade secrets and other proprietary
+
+material. You shall not, and shall not attempt to, modify, reverse engineer, disassemble
+
+or decompile Seglio. Nor can you create any derivative works or other works that are
+
+based upon or derived from Seglio in whole or in part.
+
+Seglio\'s name, logo and graphics file that represents Seglio shall not be used in any way
+
+to promote products developed with Seglio. Seglio retains sole and exclusive ownership
+
+of all right, title and interest in and to Seglio and all Intellectual Property rights relating
+
+thereto.
+
+Copyright law and international copyright treaty provisions protect all parts of Seglio,
+
+products and services. No program, code, part, image, audio sample, or text may be
+
+copied or used in any way by the user except as intended within the bounds of the
+
+single user program. All rights not expressly granted hereunder are reserved for Seglio.
+
+\n\n 3.4 Limitation of Responsibility
+
+You will indemnify, hold harmless, and defend Seglio , its employees, agents and
+
+distributors against any and all claims, proceedings, demand and costs resulting from or
+
+in any way connected with your use of Seglio.
+
+In no event (including, without limitation, in the event of negligence) will Seglio , its
+
+employees, agents or distributors be liable for any consequential, incidental, indirect,
+
+special or punitive damages whatsoever (including, without limitation, damages for loss
+
+of profits, loss of use, business interruption, loss of information or data, or pecuniary
+
+loss), in connection with or arising out of or related to this Agreement, Seglio or the use
+
+or inability to use Seglio or the furnishing, performance or use of any other matters
+
+hereunder whether based upon contract, tort or any other theory including negligence.
+
+\n\n3.5 Warranties
+
+Except as expressly stated in writing, Seglio makes no representation or warranties in
+
+respect of this Application  and expressly excludes all other warranties, expressed or
+
+implied, oral or written, including, without limitation, any implied warranties of
+
+merchantable quality or fitness for a particular purpose.
+        \n\n
+
+3.6 Governing Law
+
+This Agreement shall be governed by the law of the Indian Government applicable
+
+therein. You hereby irrevocably attorn and submit to the non-exclusive jurisdiction of
+
+the courts of India therefrom. If any provision shall be considered unlawful, void or
+
+otherwise unenforceable, then that provision shall be deemed severable from this
+
+License and not affect the validity and enforceability of any other provisions.
+
+\n\n3.7 Termination
+
+Any failure to comply with the terms and conditions of this Agreement will result in
+
+automatic and immediate termination of this license. Upon termination of this license
+
+granted herein for any reason, you agree to immediately cease use of Seglio and
+
+destroy all copies of Seglio supplied under this Agreement. 
+
+\n\n3.8 Modification
+
+Seglio may modify or terminate the Services for any reason, and without notice,
+
+without any liability to you, any other user or any third party. Seglio reserves the right
+
+to modify the Terms from time to time without notice. By accessing this application or
+
+using the Services after any changes to the Terms have been posted thereon, you will
+
+be deemed to have consented to all such changes. Please review the Terms from time
+
+to time so that you will be aware of any changes.
+
+\n\n3.9 Indemnification
+
+You agree to defend, indemnify, and hold harmless Seglio, and each of their
+
+officers, directors, employees, agents, representatives, information providers and
+
+licensors, from any claims, costs, losses, damages, judgments and expenses, including
+
+but not limited to reasonable attorney\'s fees, relating to or arising out of any breach of
+
+this agreement or any use of the Services by you, or by another person using the
+
+Services through you or using your device.
+
+\n\n4. DISCLAIMER OF WARRANTY
+
+This application and the accompanying files are available for download \"as is\" and
+
+without warranties as to performance or merchantability or any other warranties
+
+whether expressed or implied. This disclaimer concerns all files generated and edited
+
+by Seglio as well.
+
+\n\n5. CONSENT OF USE OF DATA
+
+You agree that Seglio may collect and use information gathered in any manner as part
+
+of the product support services provided to you, if any, related to Seglio.Seglio may also
+
+use this information to provide notices to you which may be of use or interest to you</string>
+    <string name="sp">
+
+\n\nChoose a safe locality with considerable crowd presence for the meet.
+
+\n\nAlways complete the transaction in the first meet.
+
+\n\nThe buyer must make sure that the book received matches the details as put up on the app by the seller.
+
+\n\nDo not share your financial information except the one involving the payment.
+
+\n\nSeglio isn’t, in any way, responsible for any actions of the buyer or seller.</string>
 
 
-    <string name = "Test3">Testing final merge test</string>
+    <string name="Test3">Testing final merge test</string>
 
     <string-array name="departments">
         <item>Select a department</item>
@@ -61,11 +268,12 @@
     </string-array>
 
     <string-array name="contact">
-        <item>Contact by Email</item>
-        <item>Contact by Phone and Email</item>
+        <item>Choose contact mode</item>
+        <item>Email</item>
+        <item>Phone and Email</item>
     </string-array>
 
-    <string name= "shout_outs">Shout outs to Krishna for the vectors, Karthiknathan for the app icon and Mira for the app descriptions.</string>
+    <string name="shout_outs">Shout outs to Krishna for the vectors, Karthiknathan for the app icon and Mira for the app descriptions.</string>
 
     <string name="description">Find your now-idle college textbooks a better place than the back of you dusty closet.
     With Biblio, generosity and self-interest go hand in hand. \n\n A quick tap at POST and you can fill out the details of the books

@@ -1,7 +1,10 @@
 package com.astuetz.cyber.teen.biblio;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,7 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -30,13 +37,14 @@ import java.util.List;
 public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
 {
     ListView recentsList;
+    Button retry;
+    ProgressBar progressBar;
 
     private SwipeRefreshLayout refreshBooks;
 
     private InterstitialAd interstitial;
 
     ArrayList<HashMap<String, String>> books = new ArrayList<>();
-
 
     public static RecentCardFragment newInstance()
     {
@@ -52,28 +60,33 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         refreshBooks.setOnRefreshListener(this);
         recentsList = (ListView) rootView.findViewById(R.id.recents_list);
 
+        retry = (Button) rootView.findViewById(R.id.retry);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+
         interstitial = new InterstitialAd((getActivity()));
         interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
         requestNewInterstitial();
 
 
+        recentsList.setOnScrollListener(new AbsListView.OnScrollListener()
+        {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState)
+            {
 
-                recentsList.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
 
-                    }
-
-                    @Override
-                    public void onScroll(AbsListView view, int firstVisibleItem,
-                                         int visibleItemCount, int totalItemCount) {
-                        int topRowVerticalPosition =
-                                (recentsList == null || recentsList.getChildCount() == 0) ?
-                                        0 : recentsList.getChildAt(0).getTop();
-                        refreshBooks.setEnabled(firstVisibleItem == 0 &&
-                                topRowVerticalPosition >= 0);
-                    }
-                });
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount)
+            {
+                int topRowVerticalPosition =
+                        (recentsList == null || recentsList.getChildCount() == 0) ?
+                                0 : recentsList.getChildAt(0).getTop();
+                refreshBooks.setEnabled(firstVisibleItem == 0 &&
+                        topRowVerticalPosition >= 0);
+            }
+        });
 
         return rootView;
     }
@@ -117,18 +130,19 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         bookItem.put("title", title);
                         bookItem.put("author", author);
                         bookItem.put("price", price);
-                        bookItem.put("username",userName);
-                        bookItem.put("useremail",userEmail);
+                        bookItem.put("username", userName);
+                        bookItem.put("useremail", userEmail);
                         bookItem.put("locality", place);
                         bookItem.put("description", desp);
                         bookItem.put("phone", phone);
                         bookItem.put("oprice", op);
-                        bookItem.put("status",status);
+                        bookItem.put("status", status);
 
                         books.add(bookItem);
                         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
                         recentsList.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.GONE);
                     }
 
                 }
@@ -166,6 +180,33 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         super.onCreate(savedInstanceState);
     }
 
+    private void checkConnectionExecute()
+
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+        {
+            progressBar.setVisibility(View.VISIBLE);
+            getBooks();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Connect to the Internet!", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    retry.setVisibility(View.GONE);
+                    checkConnectionExecute();
+                }
+            });
+        }
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -173,18 +214,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
         super.onActivityCreated(savedInstanceState);
 
-        ProgressDialog progress = new ProgressDialog(getActivity());
-        progress.setMessage("Fetching for recently posted books..");
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progress.setIndeterminate(true);
-        progress.setCancelable(true);
-        progress.setCanceledOnTouchOutside(false);
-
-        progress.show();
-
-        getBooks();
-
-        progress.dismiss();
+        checkConnectionExecute();
 
         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
         recentsList.setAdapter(adapter);
@@ -195,41 +225,35 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
             {
 
                 Biblio.iad++;
-                Log.w("RecentsCount",String.valueOf(Biblio.iad));
+                Log.w("RecentsCount", String.valueOf(Biblio.iad));
 
-                if(Biblio.iad%3==0)
+                if (Biblio.iad % 3 == 0)
                 {
-                    if(interstitial.isLoaded());
+                    if (interstitial.isLoaded()) ;
                     interstitial.show();
                 }
 
-                else {
+                else
+                {
                     Intent book = new Intent(getActivity(), BookActivity.class);
                     book.putExtra("book", books.get(position));
                     startActivity(book);
                 }
 
-        }
+            }
 
-    });
+        });
 
 
- }
-    private void requestNewInterstitial() {
+    }
+
+    private void requestNewInterstitial()
+    {
         AdRequest adRequest = new AdRequest.Builder()
-               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
+                // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
                 .build();
 
         interstitial.loadAd(adRequest);
     }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        refreshBooks.setRefreshing(true);
-//        onRefresh();
-//
-//    }
 
 }

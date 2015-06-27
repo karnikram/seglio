@@ -166,6 +166,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="3dp"
                     android:text="Karnik"
+                    android:gravity="center"
                     android:textSize="18sp"/>
 
                 <TextView
@@ -201,6 +202,19 @@
                         android:src="@drawable/email"
                         app:cb_color="@color/accentColor"
                         app:cb_pressedRingWidth="8dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:id="@+id/sold"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="SOLD"
+                        android:visibility="gone"
+                        android:textSize="24sp"
+                        android:textStyle="italic"
+                        android:textColor="@color/soldColor"
                         />
 
                 </LinearLayout>

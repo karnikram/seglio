@@ -91,13 +91,13 @@ public class PostCardFragment extends Fragment
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
 
-                if(position == 0)
+                if(position == 1)
                 {
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
                     isPhone = false;
                 }
-                if(position == 1)
+                if(position == 2)
                 {
                     phoneEdit.setVisibility(View.VISIBLE);
                     tablet.setVisibility(View.VISIBLE);
@@ -139,7 +139,7 @@ public class PostCardFragment extends Fragment
             originalPrice = originalPriceEdit.getText().toString();
             phone = phoneEdit.getText().toString();
 
-            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
+            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) || contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
             {
                 Toast.makeText(getActivity(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
             }

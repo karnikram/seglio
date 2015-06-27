@@ -18,8 +18,9 @@ import at.markushi.ui.CircleButton;
 public class BookActivity extends Activity
 {
     HashMap<String,String> book = new HashMap<String, String>();
-    TextView title, author, dept, description, oprice, price, user, locality;
+    TextView title, author, dept, description, oprice, price, user, locality, sold;
     CircleButton call, email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +57,8 @@ public class BookActivity extends Activity
         locality = (TextView) findViewById(R.id.blocality);
         locality.setText(book.get("locality"));
 
+        sold = (TextView) findViewById(R.id.sold);
+
         call = (CircleButton) findViewById(R.id.bcall);
 
         if(!book.get("phone").equals(""))
@@ -78,12 +81,19 @@ public class BookActivity extends Activity
                 Intent email = new Intent(Intent.ACTION_SENDTO);
                 email.setData(Uri.parse("mailto:"));
                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{book.get("useremail").trim()});
-                email.putExtra(Intent.EXTRA_SUBJECT, "Your Biblio Post");
-                email.putExtra(Intent.EXTRA_TEXT, "Hey, I came across your post on Biblio about the " + book.get("title") + " book that you are selling. " +
+                email.putExtra(Intent.EXTRA_SUBJECT, "Your Seglio Post");
+                email.putExtra(Intent.EXTRA_TEXT, "Hey, I came across your post on Seglio about the " + book.get("title") + " book that you are selling. " +
                         "I'm interested in it and want to talk to you about it.");
                 startActivity(Intent.createChooser(email, "Send your email using.."));
             }
         });
+
+        if(book.get("status").equals("sold"))
+        {
+            email.setVisibility(View.GONE);
+            call.setVisibility(View.GONE);
+            sold.setVisibility(View.VISIBLE);
+        }
 
     }
 }

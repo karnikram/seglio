@@ -10,13 +10,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.andexert.library.RippleView;
 import com.karnix.cyberteen.biblio.R;
 
 public class AboutActivity extends Activity
 {
-    TextView title,tc,sp, appname;
+    TextView title,tc,sp, appname, fb4;
     ImageView fb1,fb2,fb3;
 
     RippleView rippleLogin;
@@ -33,6 +34,8 @@ public class AboutActivity extends Activity
         fb1 = (ImageView) findViewById(R.id.fb1);
         fb2 = (ImageView)findViewById(R.id.fb2);
         fb3 = (ImageView) findViewById(R.id.fb3);
+
+        fb4 = (TextView) findViewById(R.id.fb4);
 
         tc = (TextView) findViewById(R.id.tc);
         sp = (TextView) findViewById(R.id.sp);
@@ -55,7 +58,8 @@ public class AboutActivity extends Activity
             }
         });
 
-        fb2.setOnClickListener(new View.OnClickListener() {
+        fb2.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -63,9 +67,9 @@ public class AboutActivity extends Activity
                 {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/1260756861")));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://m.facebook.com/Shankar.Sridhar.95")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://m.facebook.com/Shankar.Sridhar.95")));
                 }
             }
         });
@@ -76,11 +80,26 @@ public class AboutActivity extends Activity
             {
                 try
                 {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/1643122802")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/1643122802")));
                 }
                 catch(Exception e)
                 {
                     startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://m.facebook.com/tvphere")));
+                }
+            }
+        });
+
+        fb4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                try
+                {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/390781484458442")));
+                }
+                catch(Exception e)
+                {
+                    startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("http://m.facebook.com/seglio15")));
                 }
             }
         });
@@ -123,6 +142,7 @@ public class AboutActivity extends Activity
                 .title("Terms & Conditions")
                 .content(R.string.tc)
                 .positiveText("Dismiss")
+                .contentGravity(GravityEnum.CENTER)
                 .show();
     }
 
@@ -131,6 +151,7 @@ public class AboutActivity extends Activity
         new MaterialDialog.Builder(this)
                 .title("Safety Guidelines")
                 .content(R.string.sp)
+                .contentGravity(GravityEnum.CENTER)
                 .positiveText("Dismiss")
                 .show();
     }

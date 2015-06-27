@@ -274,6 +274,7 @@
                 <at.markushi.ui.CircleButton
                     android:id="@+id/bpost"
                     android:layout_width="64dp"
+                    android:src="@drawable/post"
                     android:layout_height="64dp"
                     app:cb_color="@color/accentColor"
                     app:cb_pressedRingWidth="8dp"
