@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.karnix.cyberteen.biblio.R;
@@ -212,6 +213,13 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         super.onActivityCreated(savedInstanceState);
         checkConnectionExecute();
 
+       // closes the previous ad and reloads it again for next view
+        interstitial.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+            }
+        });
         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
         recentsList.setAdapter(adapter);
         recentsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
