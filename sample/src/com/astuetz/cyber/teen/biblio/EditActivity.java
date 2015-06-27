@@ -125,6 +125,14 @@ public class EditActivity extends Activity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
+
+                if(position == 0)
+                {
+                    phoneEdit.setVisibility(View.GONE);
+                    tablet.setVisibility(View.GONE);
+                    isPhone = false;
+                }
+
                 if (position == 1)
                 {
                     phoneEdit.setVisibility(View.GONE);
