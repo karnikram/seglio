@@ -266,12 +266,28 @@ public class EditActivity extends Activity
                 originalPrice = originalPriceEdit.getText().toString();
                 phone = phoneEdit.getText().toString();
 
-                if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) ||contactSpin.getSelectedItem().toString().equals("Choose contact mode") || !contactSelected)
+                if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
                 {
-                    Toast.makeText(getApplicationContext(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "One or more fields are empty!", Toast.LENGTH_SHORT).show();
                 }
+
                 else
+                    if (deptSpin.getSelectedItem().toString().equals("Select a department"))
+                        Toast.makeText(getApplicationContext(), "Please choose a department!", Toast.LENGTH_SHORT).show();
+
+                    else
+                        if (contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
+                        {
+                            Toast.makeText(getApplicationContext(), "Please choose a mode of contact!", Toast.LENGTH_LONG).show();
+                        }
+
+                        else
+                            if ((Integer.parseInt(price.trim()) > Integer.parseInt(originalPrice.trim())))
+                            {
+                                Toast.makeText(getApplicationContext(), "The selling price can't be more than the original price.", Toast.LENGTH_SHORT).show();
+                            }
+
+                            else
                 {
                     final ParseQuery<ParseObject> query = ParseQuery.getQuery("Posted");
                     query.whereEqualTo("objectId", objId);

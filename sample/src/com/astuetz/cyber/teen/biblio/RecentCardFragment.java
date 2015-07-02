@@ -98,15 +98,12 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         if (networkInfo != null && networkInfo.isConnected())
         {
             progressBar.setVisibility(View.VISIBLE);
-            updateBooks();
+            getBooks();
         }
         else
         {
-            Log.w("ConnectionExecute","No internet connection");
             Toast.makeText(getActivity(), "Connect to the Internet!", Toast.LENGTH_LONG).show();
             progressBar.setVisibility(View.GONE);
-            refreshBooks.setRefreshing(false);
-            books.clear();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener()
             {
@@ -191,14 +188,13 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
     public void onRefresh()
     {
         refreshBooks.setRefreshing(true);
-        checkConnectionExecute();
+        updateBooks();
     }
 
     private void updateBooks()
     {
         books.clear();
         books.addAll(getBooks());
-
         refreshBooks.setRefreshing(false);
     }
 

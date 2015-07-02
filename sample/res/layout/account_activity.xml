@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:padding="8dp"
-        android:layout_weight="1"
         card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="8dp">
 

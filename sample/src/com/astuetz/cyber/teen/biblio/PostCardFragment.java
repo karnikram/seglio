@@ -28,12 +28,13 @@ import at.markushi.ui.CircleButton;
 public class PostCardFragment extends Fragment
 {
 
-    EditText titleEdit, authorEdit, localityEdit, descriptionEdit, priceEdit, originalPriceEdit,phoneEdit;
+    EditText titleEdit, authorEdit, localityEdit, descriptionEdit, priceEdit, originalPriceEdit, phoneEdit;
     Spinner deptSpin, contactSpin;
     ImageView tablet;
     CircleButton uploadButton;
 
     String title, author, locality, description, price, originalPrice, phone;
+    int pricee, original;
     TextView message;
     boolean isPhone, contactedSelected = false;
 
@@ -60,10 +61,10 @@ public class PostCardFragment extends Fragment
         localityEdit = (EditText) rootView.findViewById(R.id.locality);
         priceEdit = (EditText) rootView.findViewById(R.id.price);
         originalPriceEdit = (EditText) rootView.findViewById(R.id.original_price);
-        phoneEdit = (EditText)rootView.findViewById(R.id.contact_no);
+        phoneEdit = (EditText) rootView.findViewById(R.id.contact_no);
         deptSpin = (Spinner) rootView.findViewById(R.id.dept_spinner);
         contactSpin = (Spinner) rootView.findViewById(R.id.cont_spinner);
-        tablet = (ImageView)rootView.findViewById(R.id.tablet);
+        tablet = (ImageView) rootView.findViewById(R.id.tablet);
         uploadButton = (CircleButton) rootView.findViewById(R.id.bpost);
 
 
@@ -90,7 +91,7 @@ public class PostCardFragment extends Fragment
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                if(position == 0)
+                if (position == 0)
                 {
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
@@ -98,14 +99,14 @@ public class PostCardFragment extends Fragment
                     contactedSelected = false;
                 }
 
-                if(position == 1)
+                if (position == 1)
                 {
                     phoneEdit.setVisibility(View.GONE);
                     tablet.setVisibility(View.GONE);
                     isPhone = false;
                     contactedSelected = true;
                 }
-                if(position == 2)
+                if (position == 2)
                 {
                     phoneEdit.setVisibility(View.VISIBLE);
                     tablet.setVisibility(View.VISIBLE);
@@ -126,7 +127,7 @@ public class PostCardFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                    checkConnectionExecute();
+                checkConnectionExecute();
             }
         });
     }
@@ -139,7 +140,7 @@ public class PostCardFragment extends Fragment
         if (networkInfo != null && networkInfo.isConnected())
         {
             title = titleEdit.getText().toString();
-            String  lowTitle = title.toLowerCase();
+            String lowTitle = title.toLowerCase();
             author = authorEdit.getText().toString();
             String lowAuthor = author.toLowerCase();
             description = descriptionEdit.getText().toString();
@@ -148,48 +149,58 @@ public class PostCardFragment extends Fragment
             originalPrice = originalPriceEdit.getText().toString();
             phone = phoneEdit.getText().toString();
 
-            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) || contactSpin.getSelectedItem().toString().equals("Choose contact mode") || deptSpin.getSelectedItem().toString().equals("Select a department"))
+            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
             {
-                if(deptSpin.getSelectedItem().toString().equals("Select a department"))
-                Toast.makeText(getActivity(), "Please choose a department", Toast.LENGTH_SHORT).show();
-
-                else if (contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
-                    Toast.makeText(getActivity(), "Please select a contact option", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getActivity(), "One or more fields are empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "One or more fields are empty!", Toast.LENGTH_SHORT).show();
             }
+
             else
-            {
-                ParseObject bookObject = new ParseObject("Posted");
-                bookObject.put("username",Biblio.userName);
-                bookObject.put("useremail",Biblio.userEmail);
-                bookObject.put("Title", title);
-                bookObject.put("Author", author);
-                bookObject.put("Description", description);
-                bookObject.put("Place", locality);
-                bookObject.put("Price", price);
-                bookObject.put("oprice", originalPrice);
-                bookObject.put("dept", deptSpin.getSelectedItem().toString());
-                bookObject.put("phone",phone);
-                bookObject.put("title",lowTitle);
-                bookObject.put("author",lowAuthor);
-                bookObject.put("status","sell");
-                bookObject.saveInBackground();
+                if (deptSpin.getSelectedItem().toString().equals("Select a department"))
+                    Toast.makeText(getActivity(), "Please choose a department!", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(getActivity(),"Posted!",Toast.LENGTH_LONG).show();
+                else
+                    if (contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
+                    {
+                        Toast.makeText(getActivity(), "Please choose a mode of contact!", Toast.LENGTH_LONG).show();
+                    }
 
-                titleEdit.setText("");
-                authorEdit.setText("");
-                localityEdit.setText("");
-                descriptionEdit.setText("");
-                priceEdit.setText("");
-                originalPriceEdit.setText("");
+                    else
+                        if ((Integer.parseInt(price.trim()) > Integer.parseInt(originalPrice.trim())))
+                        {
+                            Toast.makeText(getActivity(), "The selling price can't be more than the original price.", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            ParseObject bookObject = new ParseObject("Posted");
+                            bookObject.put("username", Biblio.userName);
+                            bookObject.put("useremail", Biblio.userEmail);
+                            bookObject.put("Title", title);
+                            bookObject.put("Author", author);
+                            bookObject.put("Description", description);
+                            bookObject.put("Place", locality);
+                            bookObject.put("Price", price);
+                            bookObject.put("oprice", originalPrice);
+                            bookObject.put("dept", deptSpin.getSelectedItem().toString());
+                            bookObject.put("phone", phone);
+                            bookObject.put("title", lowTitle);
+                            bookObject.put("author", lowAuthor);
+                            bookObject.put("status", "sell");
+                            bookObject.saveInBackground();
 
-                if(phoneEdit.getVisibility() == View.VISIBLE)
-                {
-                    phoneEdit.setText("");
-                }
-            }
+                            Toast.makeText(getActivity(), "Posted!", Toast.LENGTH_LONG).show();
+
+                            titleEdit.setText("");
+                            authorEdit.setText("");
+                            localityEdit.setText("");
+                            descriptionEdit.setText("");
+                            priceEdit.setText("");
+                            originalPriceEdit.setText("");
+
+                            if (phoneEdit.getVisibility() == View.VISIBLE)
+                            {
+                                phoneEdit.setText("");
+                            }
+                        }
         }
 
         else
