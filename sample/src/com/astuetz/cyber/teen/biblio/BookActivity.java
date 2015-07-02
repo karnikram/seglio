@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.karnix.cyberteen.biblio.R;
 
 import java.util.HashMap;
@@ -61,6 +62,9 @@ public class BookActivity extends Activity
 
         call = (CircleButton) findViewById(R.id.bcall);
 
+        RippleView rippleLogin, rippleInfo;
+
+
         if(!book.get("phone").equals(""))
         {
             call.setVisibility(View.VISIBLE);
@@ -95,5 +99,31 @@ public class BookActivity extends Activity
             sold.setVisibility(View.VISIBLE);
         }
 
+
+        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+
+
+        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+                startActivity(new Intent(BookActivity.this, AccountActivity.class));
+            }
+        });
+
+        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+        {
+            @Override
+            public void onComplete(RippleView rippleView)
+            {
+
+                startActivity(new Intent(BookActivity.this, AboutActivity.class));
+            }
+        });
     }
-}
+
+
+    }
+

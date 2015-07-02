@@ -70,9 +70,9 @@ public class AccountActivity extends Activity implements
 
         user.setText(Biblio.userName);
 
-        AdView mAdview = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdview.loadAd(adRequest);
+//        AdView mAdview = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdview.loadAd(adRequest);
 
         new SearchAsyncTask().execute(Biblio.userEmail);
 

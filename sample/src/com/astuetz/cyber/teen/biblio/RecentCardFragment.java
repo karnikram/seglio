@@ -40,7 +40,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 
     private SwipeRefreshLayout refreshBooks;
 
-    private InterstitialAd interstitial;
+//    private InterstitialAd interstitial;
 
     ArrayList<HashMap<String, String>> books = new ArrayList<>();
 
@@ -65,9 +65,9 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         retry = (Button) rootView.findViewById(R.id.retry);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
-        interstitial = new InterstitialAd((getActivity()));
-        interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
-        requestNewInterstitial();
+//        interstitial = new InterstitialAd((getActivity()));
+//        interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
+//        requestNewInterstitial();
 
 
 
@@ -98,12 +98,15 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         if (networkInfo != null && networkInfo.isConnected())
         {
             progressBar.setVisibility(View.VISIBLE);
-            getBooks();
+            updateBooks();
         }
         else
         {
+            Log.w("ConnectionExecute","No internet connection");
             Toast.makeText(getActivity(), "Connect to the Internet!", Toast.LENGTH_LONG).show();
             progressBar.setVisibility(View.GONE);
+            refreshBooks.setRefreshing(false);
+            books.clear();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener()
             {
@@ -188,7 +191,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
     public void onRefresh()
     {
         refreshBooks.setRefreshing(true);
-        updateBooks();
+        checkConnectionExecute();
     }
 
     private void updateBooks()
@@ -212,13 +215,13 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
         super.onActivityCreated(savedInstanceState);
         checkConnectionExecute();
 
-       // closes the previous ad and reloads it again for next view
-        interstitial.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-            }
-        });
+//        closes the previous ad and reloads it again for next view
+//        interstitial.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                requestNewInterstitial();
+//            }
+//        });
         BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
         recentsList.setAdapter(adapter);
         recentsList.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -227,33 +230,34 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
 
-                Biblio.iad++;
-                Log.w("RecentsCount",String.valueOf(Biblio.iad));
+               // Biblio.iad++;
+               // Log.w("RecentsCount",String.valueOf(Biblio.iad));
+//
+//                if(Biblio.iad%3==0)
+//                {
+//                    if(interstitial.isLoaded());
+//                    interstitial.show();
+//                }
 
-                if(Biblio.iad%3==0)
-                {
-                    if(interstitial.isLoaded());
-                    interstitial.show();
-                }
 
-                else {
                     Intent book = new Intent(getActivity(), BookActivity.class);
                     book.putExtra("book", books.get(position));
                     startActivity(book);
                 }
 
-        }
+
 
     });
 
 
  }
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
-                .build();
-
-        interstitial.loadAd(adRequest);
-    }
+//    private void requestNewInterstitial() {
+//        AdRequest adRequest = new AdRequest.Builder()
+//               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
+//                .build();
+//
+//        interstitial.loadAd(adRequest);
+//    }
+//
 
 }

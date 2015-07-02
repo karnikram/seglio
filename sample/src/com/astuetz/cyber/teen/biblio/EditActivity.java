@@ -49,7 +49,7 @@ public class EditActivity extends Activity
 
     TextView ttitle;
 
-    private InterstitialAd interstitial;
+   // private InterstitialAd interstitial;
 
     boolean contactSelected;
 
@@ -68,13 +68,13 @@ public class EditActivity extends Activity
         sold = (CircleButton) findViewById(R.id.bsold);
         edit = (CircleButton) findViewById(R.id.bedit);
 
-        AdView mAdview = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdview.loadAd(adRequest);
+//        AdView mAdview = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdview.loadAd(adRequest);
 
-        interstitial = new InterstitialAd((EditActivity.this));
-        interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
-        requestNewInterstitial();
+//        interstitial = new InterstitialAd((EditActivity.this));
+//        interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
+//        requestNewInterstitial();
 
 
         titleEdit = (EditText) findViewById(R.id.title);
@@ -190,8 +190,8 @@ public class EditActivity extends Activity
                                         sold.setImageResource(R.drawable.sell);
                                         sold.setColor(getResources().getColor(R.color.accentColor));
                                         setResult(RESULT_OK, null);
-                                        if (interstitial.isLoaded())
-                                            interstitial.show();
+//                                        if (interstitial.isLoaded())
+//                                            interstitial.show();
                                         finish();
 
 
@@ -229,8 +229,8 @@ public class EditActivity extends Activity
                                         sold.setImageResource(R.drawable.sold);
                                         sold.setColor(getResources().getColor(R.color.soldColor));
                                         setResult(RESULT_OK, null);
-                                        if (interstitial.isLoaded())
-                                            interstitial.show();
+//                                        if (interstitial.isLoaded())
+//                                            interstitial.show();
                                         finish();
 
                                     }
@@ -343,13 +343,13 @@ public class EditActivity extends Activity
         });
     }
 
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
-                .build();
-
-        interstitial.loadAd(adRequest);
-    }
+//    private void requestNewInterstitial() {
+//        AdRequest adRequest = new AdRequest.Builder()
+//               // .addTestDevice("57B298692E0EE4C277D1A2528A83D15B")
+//                .build();
+//
+//        interstitial.loadAd(adRequest);
+//    }
 
 }
 

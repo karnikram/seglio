@@ -70,9 +70,9 @@ public class MainActivity extends ActionBarActivity
             Toast.makeText(getApplicationContext(), "Hello, " + Biblio.userName + "!", Toast.LENGTH_LONG).show();
         }
 
-        AdView mAdview = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdview.loadAd(adRequest);
+//        AdView mAdview = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdview.loadAd(adRequest);
 
         rippleLogin = (RippleView) findViewById(R.id.rippleUser);
         rippleInfo = (RippleView) findViewById(R.id.rippleInfo);

@@ -148,9 +148,15 @@ public class PostCardFragment extends Fragment
             originalPrice = originalPriceEdit.getText().toString();
             phone = phoneEdit.getText().toString();
 
-            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) || contactSpin.getSelectedItem().toString().equals("Choose contact mode") || !contactedSelected)
+            if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()) || contactSpin.getSelectedItem().toString().equals("Choose contact mode") || deptSpin.getSelectedItem().toString().equals("Select a department"))
             {
-                Toast.makeText(getActivity(), "One or more fields are empty.", Toast.LENGTH_SHORT).show();
+                if(deptSpin.getSelectedItem().toString().equals("Select a department"))
+                Toast.makeText(getActivity(), "Please choose a department", Toast.LENGTH_SHORT).show();
+
+                else if (contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
+                    Toast.makeText(getActivity(), "Please select a contact option", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity(), "One or more fields are empty", Toast.LENGTH_SHORT).show();
             }
             else
             {

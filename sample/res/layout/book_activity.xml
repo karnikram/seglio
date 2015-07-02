@@ -219,14 +219,14 @@
 
                 </LinearLayout>
 
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/adView"
-                    android:layout_width="346dp"
-                    android:layout_height="79dp"
-                    ads:adSize="BANNER"
-                    ads:adUnitId = "@string/banner_ad_unit_id">
+                <!--<com.google.android.gms.ads.AdView-->
+                    <!--android:id="@+id/adView"-->
+                    <!--android:layout_width="346dp"-->
+                    <!--android:layout_height="79dp"-->
+                    <!--ads:adSize="BANNER"-->
+                    <!--ads:adUnitId = "@string/banner_ad_unit_id">-->
 
-                </com.google.android.gms.ads.AdView>
+                <!--</com.google.android.gms.ads.AdView>-->
 
             </LinearLayout>
 
