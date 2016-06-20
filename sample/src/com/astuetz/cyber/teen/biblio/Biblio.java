@@ -15,13 +15,14 @@ import com.parse.Parse;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 
 public class Biblio extends Application
 {
     static String userEmail, userName;
-    static int flag = 0;
-    static int iad = 0;
+    static ArrayList<NavigationItem> nitems = new ArrayList<>();
+    static ArrayList<NavigationItem> litems = new ArrayList<>();
 
 
     @Override
@@ -31,6 +32,13 @@ public class Biblio extends Application
         Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
         FacebookSdk.sdkInitialize(this);
         printHashkey();
+        nitems.add(new NavigationItem(R.drawable.search, "Search"));
+        nitems.add(new NavigationItem(R.drawable.recent,"Recent"));
+        nitems.add(new NavigationItem(R.drawable.npost,"Post"));
+
+        litems.add(new NavigationItem(R.drawable.myposts, "My Posts"));
+        litems.add(new NavigationItem(R.drawable.star,"My Bookmarks"));
+
     }
 
     public void printHashkey()

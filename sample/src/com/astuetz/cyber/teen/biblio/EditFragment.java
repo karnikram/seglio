@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -30,7 +33,7 @@ import java.util.List;
 
 import at.markushi.ui.CircleButton;
 
-public class EditActivity extends Activity
+public class EditFragment extends Fragment
 {
 
     HashMap<String, String> book = new HashMap<String, String>();
@@ -54,46 +57,46 @@ public class EditActivity extends Activity
     boolean contactSelected;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_activity);
 
-        ttitle = (TextView) findViewById(R.id.tool_title);
-        ttitle.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
+        View v = inflater.inflate(R.layout.edit_activity, container, false);
+
+        ttitle = (TextView) getActivity().findViewById(R.id.tool_title);
+        ttitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/TitleFont.otf"));
 
 
-        book = (HashMap<String, String>) getIntent().getSerializableExtra("book");
+        book = (HashMap<String, String>) getArguments().getSerializable("book");
 
-        sold = (CircleButton) findViewById(R.id.bsold);
-        edit = (CircleButton) findViewById(R.id.bedit);
+        sold = (CircleButton) v.findViewById(R.id.bsold);
+        edit = (CircleButton) v.findViewById(R.id.bedit);
 
 //        AdView mAdview = (AdView) findViewById(R.id.adView);
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdview.loadAd(adRequest);
 
-//        interstitial = new InterstitialAd((EditActivity.this));
+//        interstitial = new InterstitialAd((EditFragment.this));
 //        interstitial.setAdUnitId(getResources().getString(R.string.full_ad_unit_id));
 //        requestNewInterstitial();
 
 
-        titleEdit = (EditText) findViewById(R.id.title);
-        authorEdit = (EditText) findViewById(R.id.author);
-        descriptionEdit = (EditText) findViewById(R.id.description);
-        localityEdit = (EditText) findViewById(R.id.locality);
-        priceEdit = (EditText) findViewById(R.id.price);
-        originalPriceEdit = (EditText) findViewById(R.id.original_price);
-        phoneEdit = (EditText) findViewById(R.id.contact_no);
-        deptSpin = (Spinner) findViewById(R.id.dept_spinner);
-        contactSpin = (Spinner) findViewById(R.id.cont_spinner);
-        tablet = (ImageView) findViewById(R.id.tablet);
+        titleEdit = (EditText) v.findViewById(R.id.title);
+        authorEdit = (EditText) v.findViewById(R.id.author);
+        descriptionEdit = (EditText) v.findViewById(R.id.description);
+        localityEdit = (EditText) v.findViewById(R.id.locality);
+        priceEdit = (EditText) v.findViewById(R.id.price);
+        originalPriceEdit = (EditText) v.findViewById(R.id.original_price);
+        phoneEdit = (EditText) v.findViewById(R.id.contact_no);
+        deptSpin = (Spinner) v.findViewById(R.id.dept_spinner);
+        contactSpin = (Spinner) v.findViewById(R.id.cont_spinner);
+        tablet = (ImageView) v.findViewById(R.id.tablet);
 
 
-        ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
+        ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.departments, R.layout.spinner_item);
         deptSpin.setAdapter(deptAdapter);
 
-        ArrayAdapter<CharSequence> contAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
+        ArrayAdapter<CharSequence> contAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.contact, R.layout.spinner_item);
         contactSpin.setAdapter(contAdapter);
 
@@ -186,20 +189,18 @@ public class EditActivity extends Activity
                                     {
                                         book.put("status", "sold");
                                         book.saveInBackground();
-                                        Toast.makeText(getApplicationContext(), "Marked as sold!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getActivity(), "Marked as sold!", Toast.LENGTH_LONG).show();
                                         sold.setImageResource(R.drawable.sell);
                                         sold.setColor(getResources().getColor(R.color.accentColor));
-                                        setResult(RESULT_OK, null);
 //                                        if (interstitial.isLoaded())
 //                                            interstitial.show();
-                                        finish();
-
+                                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AccountFragment()).commit();
 
                                     }
                                 }
                                 else
                                 {
-                                    Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Connect to the internet!", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -225,19 +226,16 @@ public class EditActivity extends Activity
                                     {
                                         book.put("status", "sell");
                                         book.saveInBackground();
-                                        Toast.makeText(getApplicationContext(), "Marked to sell!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Marked to sell!", Toast.LENGTH_SHORT).show();
                                         sold.setImageResource(R.drawable.sold);
                                         sold.setColor(getResources().getColor(R.color.soldColor));
-                                        setResult(RESULT_OK, null);
-//                                        if (interstitial.isLoaded())
-//                                            interstitial.show();
-                                        finish();
+                                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AccountFragment()).commit();
 
                                     }
                                 }
                                 else
                                 {
-                                    Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Connect to the internet!", Toast.LENGTH_LONG).show();
 
                                 }
                             }
@@ -268,23 +266,23 @@ public class EditActivity extends Activity
 
                 if (title.isEmpty() || author.isEmpty() || description.isEmpty() || locality.isEmpty() || price.isEmpty() || originalPrice.isEmpty() || (isPhone && phone.isEmpty()))
                 {
-                    Toast.makeText(getApplicationContext(), "One or more fields are empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "One or more fields are empty!", Toast.LENGTH_SHORT).show();
                 }
 
                 else
                     if (deptSpin.getSelectedItem().toString().equals("Select a department"))
-                        Toast.makeText(getApplicationContext(), "Please choose a department!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please choose a department!", Toast.LENGTH_SHORT).show();
 
                     else
                         if (contactSpin.getSelectedItem().toString().equals("Choose contact mode"))
                         {
-                            Toast.makeText(getApplicationContext(), "Please choose a mode of contact!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Please choose a mode of contact!", Toast.LENGTH_LONG).show();
                         }
 
                         else
                             if ((Integer.parseInt(price.trim()) > Integer.parseInt(originalPrice.trim())))
                             {
-                                Toast.makeText(getApplicationContext(), "The selling price can't be more than the original price.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "The selling price can't be more than the original price.", Toast.LENGTH_SHORT).show();
                             }
 
                             else
@@ -318,15 +316,15 @@ public class EditActivity extends Activity
                                     book.put("status", "sell");
                                     book.saveInBackground();
 
-                                    Toast.makeText(getApplicationContext(), "Changes pushed!", Toast.LENGTH_LONG).show();
-                                    finish();
+                                    Toast.makeText(getActivity(), "Changes pushed!", Toast.LENGTH_LONG).show();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AccountFragment()).commit();
 
 
                                 }
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(), "Connect to the internet!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Connect to the internet!", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -335,28 +333,30 @@ public class EditActivity extends Activity
         });
 
 
-        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
-        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
+//        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+//        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
 
 
-        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
-        {
-            @Override
-            public void onComplete(RippleView rippleView)
-            {
-                startActivity(new Intent(EditActivity.this, AccountActivity.class));
-            }
-        });
+//        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+//        {
+//            @Override
+//            public void onComplete(RippleView rippleView)
+//            {
+//                startActivity(new Intent(EditFragment.this, AccountFragment.class));
+//            }
+//        });
+//
+//        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+//        {
+//            @Override
+//            public void onComplete(RippleView rippleView)
+//            {
+//
+//                startActivity(new Intent(EditFragment.this, AboutActivity.class));
+//            }
+//        });
 
-        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
-        {
-            @Override
-            public void onComplete(RippleView rippleView)
-            {
-
-                startActivity(new Intent(EditActivity.this, AboutActivity.class));
-            }
-        });
+        return v;
     }
 
 //    private void requestNewInterstitial() {

@@ -17,24 +17,24 @@
         android:textColor="@color/accentColor"
         android:textSize="38dp"/>
 
-    <com.andexert.library.RippleView
-        android:id="@+id/rippleUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_margin="5dp"
-        app:rv_color="@color/accentColor"
-        app:rv_type="rectangle"
-        >
+    <!--<com.andexert.library.RippleView-->
+        <!--android:id="@+id/rippleUser"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="left"-->
+        <!--android:layout_margin="5dp"-->
+        <!--app:rv_color="@color/accentColor"-->
+        <!--app:rv_type="rectangle"-->
+        <!-->-->
 
-        <ImageView
-            android:id="@+id/action_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:src="@drawable/account"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/action_login"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:src="@drawable/account"/>-->
 
-    </com.andexert.library.RippleView>
+    <!--</com.andexert.library.RippleView>-->
 
     <com.andexert.library.RippleView
         android:id="@+id/rippleInfo"

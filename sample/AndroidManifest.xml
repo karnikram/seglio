@@ -33,7 +33,6 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,7 +50,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.astuetz.cyber.teen.biblio.AccountActivity">
+        <activity android:name="com.astuetz.cyber.teen.biblio.AccountFragment">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -63,7 +62,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.astuetz.cyber.teen.biblio.EditActivity"
+        <activity android:name="com.astuetz.cyber.teen.biblio.EditFragment"
                   android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>

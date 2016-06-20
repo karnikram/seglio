@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,32 +18,29 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.andexert.library.RippleView;
 import com.karnix.cyberteen.biblio.R;
 
-public class AboutActivity extends Activity
+public class AboutActivity extends Fragment
 {
     TextView title,tc,sp, appname, fb4;
     ImageView fb1,fb2,fb3;
 
-    RippleView rippleLogin;
+//    RippleView rippleLogin;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.about);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.about, container, false);
+        title = (TextView) getActivity().findViewById(R.id.tool_title);
+        title.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/TitleFont.otf"));
 
-        title = (TextView) findViewById(R.id.tool_title);
-        title.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
+        fb1 = (ImageView) v.findViewById(R.id.fb1);
+        fb2 = (ImageView)v.findViewById(R.id.fb2);
+        fb3 = (ImageView) v.findViewById(R.id.fb3);
 
-        fb1 = (ImageView) findViewById(R.id.fb1);
-        fb2 = (ImageView)findViewById(R.id.fb2);
-        fb3 = (ImageView) findViewById(R.id.fb3);
+        fb4 = (TextView) v.findViewById(R.id.fb4);
 
-        fb4 = (TextView) findViewById(R.id.fb4);
-
-        tc = (TextView) findViewById(R.id.tc);
-        sp = (TextView) findViewById(R.id.sp);
-        appname = (TextView) findViewById(R.id.about_2);
-        appname.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/TitleFont.otf"));
+        tc = (TextView) v.findViewById(R.id.tc);
+        sp = (TextView) v.findViewById(R.id.sp);
+        appname = (TextView) v.findViewById(R.id.about_2);
+        appname.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "fonts/TitleFont.otf"));
 
         fb1.setOnClickListener(new View.OnClickListener()
         {
@@ -104,16 +104,16 @@ public class AboutActivity extends Activity
             }
         });
 
-        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
-
-        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
-        {
-            @Override
-            public void onComplete(RippleView rippleView)
-            {
-                startActivity(new Intent(AboutActivity.this, AccountActivity.class));
-            }
-        });
+//        rippleLogin = (RippleView) findViewById(R.id.rippleUser);
+//
+//        rippleLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener()
+//        {
+//            @Override
+//            public void onComplete(RippleView rippleView)
+//            {
+//                startActivity(new Intent(AboutActivity.this, AccountFragment.class));
+//            }
+//        });
 
 
         tc.setOnClickListener(new View.OnClickListener()
@@ -133,12 +133,12 @@ public class AboutActivity extends Activity
             }
         });
 
-
+return  v;
 
     }
     void showTC()
     {
-        new MaterialDialog.Builder(this)
+        new MaterialDialog.Builder(getActivity())
                 .title("Terms & Conditions")
                 .content(R.string.tc)
                 .positiveText("Dismiss")
@@ -148,7 +148,7 @@ public class AboutActivity extends Activity
 
     void showSP()
     {
-        new MaterialDialog.Builder(this)
+        new MaterialDialog.Builder(getActivity())
                 .title("Safety Guidelines")
                 .content(R.string.sp)
                 .contentGravity(GravityEnum.CENTER)

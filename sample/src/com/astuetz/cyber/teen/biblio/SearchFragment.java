@@ -63,7 +63,7 @@ public class SearchFragment extends Fragment
         searchView.setQueryHint("Search by Title");
 
         deptSearch = (Spinner) rootView.findViewById(R.id.dept_search);
-        ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+        ArrayAdapter<CharSequence> deptAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.departments, R.layout.spinner_search);
         deptSearch.setAdapter(deptAdapter);
 
@@ -307,15 +307,15 @@ public class SearchFragment extends Fragment
         {
             super.onPostExecute(s);
 
-            searchResults.setAdapter(new BooksAdapter(getActivity(), booksResults));
-            searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener()
-            {
+            searchResults.setAdapter(new BooksAdapter(getActivity().getApplicationContext(), booksResults));
+            searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                {
-                    Intent book = new Intent(getActivity(), BookActivity.class);
-                    book.putExtra("book", booksResults.get(position));
-                    startActivity(book);
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Bundle args = new Bundle();
+                    args.putSerializable("book", booksResults.get(position));
+                    BookActivity fragment = new BookActivity();
+                    fragment.setArguments(args);
+                    getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left, R.anim.exit_right, R.anim.enter_left, R.anim.exit_right).replace(R.id.main_container, fragment).addToBackStack(null).commit();
                 }
             });
 

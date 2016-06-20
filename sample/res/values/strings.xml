@@ -7,6 +7,9 @@
     <string name="client_key">6LF6Mnm2t2H8DSiLWtPCwbBVHJw8PBR55BXHrmPq</string>
     <string name="facebook_id">1647137865515798</string>
 
+    <string name = "drawer_open">Open</string>
+    <string name = "drawer_close">Close</string>
+
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

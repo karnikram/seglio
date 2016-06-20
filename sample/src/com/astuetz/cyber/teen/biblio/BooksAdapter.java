@@ -17,7 +17,7 @@ public class BooksAdapter extends BaseAdapter
 {
     LayoutInflater inflater;
     Context context;
-    ArrayList<HashMap<String,String>> items = new ArrayList<>();
+    ArrayList<HashMap<String,String>> items;
 
     public BooksAdapter(Context context, ArrayList<HashMap<String, String>> items)
     {

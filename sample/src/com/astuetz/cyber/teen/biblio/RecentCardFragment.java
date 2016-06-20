@@ -164,7 +164,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         bookItem.put("status", status);
 
                         books.add(bookItem);
-                        BooksAdapter adapter = new BooksAdapter(getActivity().getApplicationContext(), books);
+                        BooksAdapter adapter = new BooksAdapter(getActivity(), books);
                         recentsList.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
@@ -236,9 +236,12 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
 //                }
 
 
-                    Intent book = new Intent(getActivity(), BookActivity.class);
-                    book.putExtra("book", books.get(position));
-                    startActivity(book);
+
+                Bundle args = new Bundle();
+                args.putSerializable("book", books.get(position));
+                BookActivity fragment = new BookActivity();
+                fragment.setArguments(args);
+                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_left, R.anim.exit_right,R.anim.enter_left, R.anim.exit_right).replace(R.id.main_container, fragment).addToBackStack(null).commit();
                 }
 
 
