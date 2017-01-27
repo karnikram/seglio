@@ -216,7 +216,27 @@
                         android:textColor="@color/soldColor"
                         />
 
+
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="POSTED ON"
+                    android:textColor="@color/accentColor"
+                    android:textSize="15sp"
+                    android:id="@+id/text_postedOn"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:id="@+id/pdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:text="1st July 2015"
+                    android:textSize="14sp" />
 
                 <!--<com.google.android.gms.ads.AdView-->
                     <!--android:id="@+id/adView"-->
