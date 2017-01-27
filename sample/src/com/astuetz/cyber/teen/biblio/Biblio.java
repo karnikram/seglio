@@ -12,6 +12,7 @@ import android.util.Log;
 import com.facebook.FacebookSdk;
 import com.karnix.cyberteen.biblio.R;
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -29,7 +30,12 @@ public class Biblio extends Application
     public void onCreate()
     {
         super.onCreate();
-        Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
+        Parse.initialize(new Parse.Configuration.Builder(this).applicationId(getResources().getString(R.string.app_id)).clientKey(getResources().getString(R.string.client_key)).server("https://parseapi.back4app.com").build());
+
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        installation.put("GCMSenderId", "644469506430");
+        installation.saveInBackground();
+
         FacebookSdk.sdkInitialize(this);
         printHashkey();
         nitems.add(new NavigationItem(R.drawable.search, "Search"));
@@ -37,7 +43,7 @@ public class Biblio extends Application
         nitems.add(new NavigationItem(R.drawable.npost,"Post"));
 
         litems.add(new NavigationItem(R.drawable.myposts, "My Posts"));
-        litems.add(new NavigationItem(R.drawable.star,"My Bookmarks"));
+        //litems.add(new NavigationItem(R.drawable.star,"My Bookmarks"));
 
     }
 

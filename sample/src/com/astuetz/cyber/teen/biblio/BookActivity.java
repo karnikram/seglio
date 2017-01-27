@@ -21,7 +21,7 @@ import at.markushi.ui.CircleButton;
 
 public class BookActivity extends Fragment {
     HashMap<String, String> book = new HashMap<String, String>();
-    TextView title, author, dept, description, oprice, price, user, locality, sold;
+    TextView title, author, dept, description, oprice, price, user, locality, sold,date;
     CircleButton call, email;
 
 
@@ -59,6 +59,9 @@ public class BookActivity extends Fragment {
 
         locality = (TextView) v.findViewById(R.id.blocality);
         locality.setText(book.get("locality"));
+
+        date = (TextView) v.findViewById(R.id.pdate);
+        date.setText(book.get("pdate"));
 
         sold = (TextView) v.findViewById(R.id.sold);
 

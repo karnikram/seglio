@@ -268,7 +268,14 @@ use this information to provide notices to you which may be of use or interest t
         <item>Architecture</item>
         <item>Computer Applications</item>
         <item>Electronic Media</item>
-        <item>Other</item>
+        <item>Medical &amp; Biology</item>
+        <item>Competitive Exams</item>
+        <item>Finance &amp; Business</item>
+        <item>Commerce</item>
+        <item>School Books</item>
+        <item>Stories and Fictions</item>
+        <item>Non-fiction</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="contact">
@@ -280,7 +287,7 @@ use this information to provide notices to you which may be of use or interest t
     <string name="shout_outs">Shout outs to Krishna for the vectors, Karthiknathan for the app icon and Mira for the app descriptions.</string>
 
     <string name="description">Find your now-idle college textbooks a better place than the back of you dusty closet.
-    With Biblio, generosity and self-interest go hand in hand. \n\n A quick tap at POST and you can fill out the details of the books
+    With Seglio, generosity and self-interest go hand in hand. \n\n A quick tap at POST and you can fill out the details of the books
     you\'re looking to see, one at a time. Tap on the account icon to have a look at all your posts and manage them. Buyers can end the hunt for an elusive textbook with SEARCH. Move over to RECENT to view
     the list of books that have been (recently) added. \n\n Time to bid your old books a cheery farewell and welcome your new ones without crashing your bank.</string>
 
