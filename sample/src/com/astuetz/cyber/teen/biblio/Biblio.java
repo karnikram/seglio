@@ -37,7 +37,7 @@ public class Biblio extends Application
         nitems.add(new NavigationItem(R.drawable.npost,"Post"));
 
         litems.add(new NavigationItem(R.drawable.myposts, "My Posts"));
-        litems.add(new NavigationItem(R.drawable.star,"My Bookmarks"));
+        //litems.add(new NavigationItem(R.drawable.star,"My Bookmarks"));
 
     }
 
