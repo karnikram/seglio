@@ -76,8 +76,6 @@ public class LoginActivity extends Activity implements
             }
         });
 
-        Parse.initialize(this, getResources().getString(R.string.app_id), getResources().getString(R.string.client_key));
-
 
         gloginButton = (Button) findViewById(R.id.google_login);
         gloginButton.setOnClickListener(new View.OnClickListener()
