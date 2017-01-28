@@ -15,9 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Build;
+
 
 import com.andexert.library.RippleView;
 import com.facebook.CallbackManager;
@@ -36,11 +39,14 @@ public class MainActivity extends ActionBarActivity
 
     private TextView title, navigationName, navigationEmail;
     private ListView navigationItems, loginItems;
+    private ImageView aboutImg;
+
 
     private Toolbar toolbar;
 
     CircleButton signOut;
     RippleView rippleInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -181,13 +187,22 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        rippleInfo = (RippleView) findViewById(R.id.rippleInfo);
-        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+
+//        rippleInfo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+//            @Override
+//            public void onComplete(RippleView rippleView) {
+//                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AboutActivity()).addToBackStack(null).setCustomAnimations(R.anim.enter_left,R.anim.exit_right).commit();
+//            }
+//        });
+
+        aboutImg = (ImageView) findViewById(R.id.action_help);
+        aboutImg.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(RippleView rippleView) {
+            public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AboutActivity()).addToBackStack(null).setCustomAnimations(R.anim.enter_left,R.anim.exit_right).commit();
             }
         });
+
     }
 
 
@@ -229,15 +244,14 @@ public class MainActivity extends ActionBarActivity
     }
 }
 
-class NavigationItem
-{
+class NavigationItem {
     int imageId;
     String item;
 
-    public NavigationItem(int imageId, String item)
-    {
+    public NavigationItem(int imageId, String item) {
         this.imageId = imageId;
         this.item = item;
     }
 }
+
 
