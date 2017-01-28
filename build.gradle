@@ -13,7 +13,7 @@ buildscript {
 }
 
 allprojects {
-    version = VERSION_NAME
+    version = "Cookie"
     group = GROUP
 
     repositories {
