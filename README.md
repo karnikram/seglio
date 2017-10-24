@@ -1,6 +1,61 @@
-# Biblio
-https://goo.gl/2pN1YK
+# The SSN App
+<h3 align='center'>Because a dusty textbook is wasted knowledge.</h3>
+<p align="center"><a href='https://goo.gl/2pN1YK'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="125" width="323"/></a></p>
 
-A book exchange portal where students can buy and sell college books. Registered users of the app post the books they no longer need and the students in need of them find them through the app.
-This app already has around 500 users and the number is expected to grow.
-I was the lead developer for this project which involved a team of three.
+<table border="0" cellspacing="5" cellpadding="0">
+  <tr>
+    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/login.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/main.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/examcell.png" height="500px"/></td>
+  </tr>
+  <div></div>
+  <tr>
+    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/social.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/buses.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/dining.png" height="500px"/></td>
+    
+  </tr>
+</table>
+
+### Collaborators
+* [Shankar S.](https://github.com/Cyberteen)
+
+### Third Party Libraries
+* [Butter Knife](https://github.com/JakeWharton/butterknife)
+* [Circle Button](https://github.com/markushi/android-circlebutton)
+* [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+* [Circular Progress Button](https://github.com/dmytrodanylyk/circular-progress-button)
+* [Facebook SDK](https://developers.facebook.com/docs/android/)
+* [Float Label EditText](https://github.com/wrapp-archive/floatlabelededittext)
+* [Material Dialogs](https://github.com/afollestad/material-dialogs)
+* [MaterialDrawer](https://github.com/mikepenz/MaterialDrawer)
+* [Materialize](https://github.com/mikepenz/Materialize)
+* [Parse SDK](https://github.com/parse-community/Parse-SDK-Android)
+* [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
+* [RippleEffect](https://github.com/traex/RippleEffect)
+
+### License
+```
+MIT License
+
+Copyright (c) 2017 Karnik Ram
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
