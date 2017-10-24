@@ -4,15 +4,15 @@
 
 <table border="0" cellspacing="5" cellpadding="0">
   <tr>
-    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/login.png" height="500px"/></td>
-    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/main.png" height="500px"/></td>
-    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/examcell.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/seglio/blob/master/sample/screenshots/login.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/seglio/blob/master/sample/screenshots/main.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/seglio/blob/master/sample/screenshots/posted.png" height="500px"/></td>
   </tr>
   <div></div>
   <tr>
-    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/social.png" height="500px"/></td>
-    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/buses.png" height="500px"/></td>
-    <td><img src="https://github.com/karnikram/the-ssn-app/blob/master/app/screenshots/dining.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/seglio/blob/master/sample/screenshots/search.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/seglio/blob/master/sample/screenshots/post.png" height="500px"/></td>
+    <td><img src="https://github.com/karnikram/seglio/blob/master/sample/screenshots/editpost.png" height="500px"/></td>
     
   </tr>
 </table>
