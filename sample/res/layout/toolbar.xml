@@ -36,15 +36,15 @@
 
     <!--</com.andexert.library.RippleView>-->
 
-    <com.andexert.library.RippleView
-        android:id="@+id/rippleInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="16dp"
-        app:rv_color="@color/accentColor"
-        app:rv_type="rectangle"
-        >
+    <!--<com.andexert.library.RippleView-->
+        <!--android:id="@+id/rippleInfo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--app:rv_color="@color/accentColor"-->
+        <!--app:rv_type="rectangle"-->
+        <!--&gt;-->
 
 
         <ImageView
@@ -53,9 +53,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginRight="10dp"
-            android:src="@drawable/info"/>
+            android:src="@drawable/info"
+            android:clickable="true" />
 
 
-    </com.andexert.library.RippleView>
+    <!--</com.andexert.library.RippleView>-->
 
 </android.support.v7.widget.Toolbar>

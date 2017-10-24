@@ -67,7 +67,7 @@ public class BookActivity extends Fragment {
 
         call = (CircleButton) v.findViewById(R.id.bcall);
 
-        RippleView rippleLogin, rippleInfo;
+
 
 
         if (!book.get("phone").equals("")) {

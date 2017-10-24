@@ -29,7 +29,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -150,6 +153,9 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         String userEmail = book.getString("useremail");
                         String status = book.getString("status");
 
+                        DateFormat formatter = new SimpleDateFormat("EEE, d MMMM yyyy");
+                        Date postedDate = book.getCreatedAt();
+                        String pdate = formatter.format(postedDate);
 
                         bookItem.put("dept", dept);
                         bookItem.put("title", title);
@@ -162,6 +168,7 @@ public class RecentCardFragment extends Fragment implements SwipeRefreshLayout.O
                         bookItem.put("phone", phone);
                         bookItem.put("oprice", op);
                         bookItem.put("status", status);
+                        bookItem.put("pdate",pdate);
 
                         books.add(bookItem);
                         BooksAdapter adapter = new BooksAdapter(getActivity(), books);

@@ -6,12 +6,14 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.google.gms:google-services:3.0.0'
+
     }
 
 }
 
 allprojects {
-    version = VERSION_NAME
+    version = "Cookie"
     group = GROUP
 
     repositories {
