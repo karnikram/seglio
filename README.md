@@ -1,4 +1,4 @@
-# The SSN App
+# Seglio
 <h3 align='center'>Because a dusty textbook is wasted knowledge.</h3>
 <p align="center"><a href='https://goo.gl/2pN1YK'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="125" width="323"/></a></p>
 
